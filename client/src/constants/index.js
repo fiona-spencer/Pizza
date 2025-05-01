@@ -25,48 +25,6 @@ export const navLinks = [
     },
   ];
   
-  const technologies = [
-    {
-      name: "HTML 5",
-    },
-    {
-      name: "CSS 3",
-    },
-    {
-      name: "JavaScript",
-    },
-    {
-      name: "TypeScript",
-    },
-    {
-      name: "React JS",
-    },
-    {
-      name: "Redux Toolkit",
-    },
-    {
-      name: "Tailwind CSS",
-    },
-    {
-      name: "Node JS",
-    },
-    {
-      name: "MongoDB",
-    },
-    {
-      name: "Three JS",
-    },
-    {
-      name: "git",
-    },
-    {
-      name: "figma",
-    },
-    {
-      name: "docker",
-    },
-  ];
-  
   const experiences = [
     {
       title: "React.js Developer",
@@ -182,5 +140,5 @@ export const navLinks = [
     },
   ];
   
-  export { services, technologies, experiences, testimonials, menus };
+  export { services , experiences, testimonials, menus };
   

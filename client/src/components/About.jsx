@@ -3,7 +3,7 @@ import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
-import { services } from "../constants"; // Assuming services no longer include tech/company icons
+import { services } from "../constants"; // Assuming services array contains data like title, etc.
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 
@@ -14,18 +14,17 @@ const ServiceCard = ({ index, title }) => (
       scale: 1.05, // Slightly larger tilt effect
       speed: 450,
     }}
-    className="w-full md:w-[400px] lg:w-[3000px] p-4" // Adjust width and padding
+    className="w-full md:w-[400px] lg:w-[300px] p-4" // Adjust width for responsive layout
   >
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className="w-full border border-gray-300 squared-lg shadow-lg"
+      className="w-full border border-gray-300 rounded-lg shadow-lg" // Fixed class name for border and rounding
     >
-      <div className="bg-white squared-lg p-6 flex flex-col items-center max-h-[250px]">
-        {/* Ensure the title is not empty */}
+      <div className="bg-white rounded-lg p-6 flex flex-col items-center max-h-[250px]">
         <h1 className="text-black text-lg md:text-xl font-semibold mb-4">
           {title}
         </h1>
-        {/* Placeholder for any content, can add map or image */}
+        {/* Placeholder for any content, can add map or image here */}
       </div>
     </motion.div>
   </Tilt>
@@ -52,7 +51,8 @@ const About = () => {
         mollit anim id est laborum
       </motion.p>
 
-      <div className="mt-20 flex flex-wrap gap-10">
+      <div className="mt-20 flex flex-wrap gap-10 justify-center">
+        {/* Mapping through services */}
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}
