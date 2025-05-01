@@ -1,0 +1,8 @@
+Model Information:
+* title:	Pizza Box
+* source:	https://sketchfab.com/3d-models/pizza-box-5715d9cfc61742418202865ed6e6e434
+* author:	Noonckat (https://sketchfab.com/noonckat)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
