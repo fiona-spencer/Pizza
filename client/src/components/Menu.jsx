@@ -157,8 +157,8 @@ const Menu = () => {
       <div>
         {/*-----PIZZA-----*/}
         <motion.div>
-          <p className={styles.sectionSubText}>detroit style</p>
-          <h2 className={styles.sectionHeadText}>Pizza</h2>
+        <p className={`${styles.sectionSubText} md:pt-10`}>detroit style</p>
+        <h2 className={styles.sectionHeadText}>Pizza</h2>
         </motion.div>
         <div className="w-full flex">
           <motion.p

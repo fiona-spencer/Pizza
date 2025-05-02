@@ -63,14 +63,18 @@ const Contact = () => {
   };
 
   return (
-<div className="xl:mt-10 flex flex-col md:flex-row gap-10 overflow-hidden">
+<div>
+<div className="md:pt-10">
+<p className={`${styles.sectionSubText} px-4`}>Get in touch</p>
+<h3 className={`${styles.sectionHeadText} px-4 pb-2`}>Contact</h3>
+</div>
+<div className="xl:mt-10 flex flex-col sm:flex-row overflow-hidden">
+
 <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className="flex-[0.75] max-w-xl border-dashed border-4 border-slate-900 p-8 squared-2xl bg-[#8d262664]"
       >
-        <p className={`${styles.sectionSubText} text-sm sm:text-base`}>Get in touch</p>
-        <h3 className={`${styles.sectionHeadText} text-sm sm:text-3xl`}>Contact.</h3>
-
+     
         {alert.show && (
           <Alert
             color={alert.success ? "success" : "failure"}
@@ -140,6 +144,7 @@ const Contact = () => {
         <PizzaCanvas />
       </motion.div>
     </div>
+</div>
   );
 };
 

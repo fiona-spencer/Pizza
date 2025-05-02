@@ -31,10 +31,13 @@ const App = () => {
 
       {/* Feedback, Contact, and Canvas Section */}
           {/* About Section */}
-      <div className="relative z-0">
+      <div className="relative z-0 bg-[#100f0ff2]">
         <Feedback />
+        <div className="bg-red-400 relative z-0">
+
         <Contact />
         <StarsCanvas />
+        </div>
       </div>
 
       {/* Footer */}

@@ -7,7 +7,7 @@ import { fadeIn, textVariant } from "../utils/motion";
 import ServiceCard from "./ServiceCard";
 
 // Add your image source here
-import aboutImage from '../../public/assets/favicon.svg';
+import aboutImage from '../assets/favicon.svg';
 
 const About = () => {
   return (
@@ -15,7 +15,7 @@ const About = () => {
 
       {/* Image with animation on scroll */}
       <motion.div
-        className="flex justify-center"
+        className="flex justify-center md:pt-10"
         whileInView={{ opacity: 1, scale: 1 }} // Animation when in view
         initial={{ opacity: 0, scale: 0.8 }} // Initial state when not in view
         transition={{ duration: 1, ease: "easeInOut" }} // Transition settings

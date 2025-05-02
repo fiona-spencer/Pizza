@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 html, body {
   overflow-x: hidden;
 }
@@ -202,4 +203,24 @@ html, body {
       -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.5),
       -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #ffffff;
   }
+}
+
+@keyframes scrollX {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%); /* Adjust this to ensure all items scroll off */
+  }
+}
+
+.scroll-x-animate {
+  display: flex;
+  animation: scrollX 30s linear infinite;
+  width: max-content;
+  flex-wrap: nowrap;
+}
+
+.scroll-x-animate:hover {
+  animation-play-state: paused; /* Pauses the animation on hover */
 }
