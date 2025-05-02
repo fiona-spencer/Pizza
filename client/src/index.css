@@ -216,11 +216,18 @@ html, body {
 
 .scroll-x-animate {
   display: flex;
-  animation: scrollX 30s linear infinite;
+  animation: scrollX 60s linear infinite;
   width: max-content;
   flex-wrap: nowrap;
 }
 
 .scroll-x-animate:hover {
   animation-play-state: paused; /* Pauses the animation on hover */
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .scroll-x-animate {
+    animation: scrollX 120s linear infinite;
+  }
 }

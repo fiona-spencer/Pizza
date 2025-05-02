@@ -24,13 +24,13 @@ const About = () => {
         <img
           src={aboutImage} // Your image source here
           alt="About Us"
-          className="max-h-56 w-56 border-white shadow-xl bg-[#fbfbfbe3] rounded-full"
+          className="max-h-56 w-56 sm:max-h-64 sm:w-64 border-white shadow-xl bg-[#fbfbfbe3] rounded-full"
           />
       </motion.div>
 
       {/* About Header */}
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} mt-10 text-center sm:text-left`}>get to know us</p>
+        <p className={`${styles.sectionSubText} mt-10 sm:-mt-20 text-center sm:text-left`}>get to know us</p>
         <h2 className={`${styles.sectionHeadText} text-center sm:text-left`}>About</h2>
       </motion.div>
 
@@ -44,7 +44,7 @@ const About = () => {
 
     
 
-      <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
+      <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}

@@ -1,7 +1,7 @@
 const styles = {
   // Padding values for different breakpoints
   paddingX: "sm:px-16 px-6",  // Horizontal padding
-  paddingY: "sm:py-16 py-6",  // Vertical padding
+  paddingY: "sm:py-16 py-2",  // Vertical padding
   padding: "sm:px-16 px-6 sm:py-16 py-10",  // Combined padding for sections
 
   // Hero Section Styles
