@@ -12,6 +12,23 @@ import mushPizza from '../assets/MenuSection/mushroom.webp'
 import hawPizza from '../assets/MenuSection/haw.webp'
 import marioPizza from '../assets/MenuSection/mario.webp'
 
+// Wings
+import wings from "../assets/MenuSection/wings.webp"
+
+// Sides
+import garlic from "../assets/MenuSection/garlic.jpeg"
+import fries from "../assets/MenuSection/fries.webp"
+import salad from "../assets/MenuSection/salad.webp"
+
+// Instagram Image
+import insta1 from '../assets/InstaSection/insta_1.webp'
+import insta2 from '../assets/InstaSection/insta_2.webp'
+import insta3 from '../assets/InstaSection/insta_3.webp'
+import insta4 from '../assets/InstaSection/insta_4.webp'
+import insta5 from '../assets/InstaSection/insta_5.avif'
+import insta7 from '../assets/InstaSection/insta_7.webp'
+import insta9 from '../assets/InstaSection/insta_9.jpg'
+
 export const navLinks = [
     {
       id: "about",
@@ -119,7 +136,7 @@ const services = [
   ];
   
   
-  const menus = [
+  const pizzas = [
     {
       name: "The Dr.Mario",
       description: "Mozzarella shred blend, signature tomato sauce, house roasted chicken, sautéed garlic & parm spinach, bacon grated to order Grana Padano Chef recommends adding chilli flakes",
@@ -236,6 +253,61 @@ const services = [
       source_code_link: "https://github.com/",
     },
   ];
+
+  const instaImages = [
+    insta1,
+    insta2,
+    insta3,
+    insta4,
+    insta5,
+    insta7,
+    insta9,
+  ];
+
+
+ const sides = [
+    {
+      name: "Garlic Knots",
+      description: "Soft, buttery garlic knots served with marinara.",
+      tags: [{ name: "veg", cost: "$5.49", color: "text-green-600" }],
+      image: garlic,
+    },
+    {
+      name: "Caesar Salad",
+      description: "Crisp romaine, house made croutons, bacon, tossed in our signature caesar dressing, grated to order Grana Padano.",
+      tags: [{ name: "veg", cost: "$6.99", color: "text-green-600" }],
+      image: salad,
+    },
+    {
+      name: "Fresh Cut Fries",
+      description: "House made fresh cut fries served with ketchup.",
+      tags: [{ name: "veg", cost: "$3.99", color: "text-green-600" }],
+      image: fries,
+    },
+  ];
   
-  export { services , testimonials, menus };
+  const wingsImages = [
+    {
+      name: "1 Pound Wings",
+      description:
+        "Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.",
+      image: wings, // replace with actual image path
+      sauces: [
+        { name: "Plain", hotLevel: 0 },
+        { name: "Salt and Peppa", hotLevel: 1 },
+        { name: "Honey Garlic", hotLevel: 1 },
+        { name: "Classic BBQ", hotLevel: 1 },
+        { name: "Smoked BBQ Heat", hotLevel: 2 },
+        { name: "Hot Honey", hotLevel: 2 },
+        { name: "Franks Red Hot Sauce", hotLevel: 3 },
+        { name: "Honey Gochujang", hotLevel: 3 },
+        { name: "Tibetal Currey", hotLevel: 3 },
+        { name: "Suicide", hotLevel: 5 },
+      ],
+    },
+  ];
+  
+  
+  
+  export { services , testimonials, pizzas, instaImages, sides, wingsImages };
   

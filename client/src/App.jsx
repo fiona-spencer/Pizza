@@ -6,6 +6,8 @@ import {
   Contact,
   Feedback,
   Menu,
+  Wings,
+  Sides,
   Map,
   InstaPage,
   Hero,
@@ -45,6 +47,8 @@ const App = () => {
       {/* Menu Section */}
       <div className="bg-red-500">
         <Menu />
+      <Wings/>
+      <Sides/>
       </div>
 
       {/* Feedback, Contact, and Canvas Section */}

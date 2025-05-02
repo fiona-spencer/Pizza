@@ -1,6 +1,6 @@
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
-import { menus } from "../constants";
+import { pizzas } from "../constants";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Modal, Button, Label, Radio, Textarea, Checkbox } from "flowbite-react";
@@ -217,7 +217,7 @@ const Menu = () => {
         </motion.p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-        {menus.map((menu, index) => (
+        {pizzas.map((menu, index) => (
           <Pizza key={`pizza-${index}`} index={index} {...menu} />
         ))}
       </div>
