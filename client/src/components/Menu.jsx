@@ -40,15 +40,15 @@ const [quantity, setQuantity] = useState(1);
         variants={fadeIn("up", "spring", index * 0.5, 0.75)}
         initial="hidden"
         animate="show"
-        className="p-3 sm:p-4 md:p-5 bg-white rounded-md flex flex-col lg:flex-col shadow-xl"
+        className="p-3 pb-1 sm:p-4 md:p-5 bg-white rounded-md flex flex-col lg:flex-col shadow-xl"
       >
-        <h3 className="text-red-600 font-bold text-[18px] sm:text-[20px] md:text-[24px] sm:mb-3 block lg:hidden">
+        <h3 className="text-red-600 font-bold text-[18px] sm:text-[20px] md:text-[24px] sm:mb-3 block lg:hidden ml-2">
           {name}
         </h3>
 
         <div className="flex flex-row-reverse lg:flex-col sm:items-center justify-between">
           {/* Image and Icon */}
-          <div className="relative sm:lg:w-full sm:h-[230px] h-fit right-2 -top-1">
+          <div className="relative sm:lg:w-full sm:h-[230px] h-fit sm:right-0 -top-1">
             <img
               src={image}
               alt={name}
@@ -69,17 +69,17 @@ const [quantity, setQuantity] = useState(1);
           </div>
 
           {/* Text */}
-          <div className="sm:mt-4 lg:mt-4 w-1/2 lg:w-full mx-3 sm:pr-3 lg:pr-0 lg:text-center">
+          <div className="sm:mt-4 lg:mt-4 w-1/2 lg:w-full mx-2 sm:pr-3 lg:pr-0 lg:text-center">
             <h3 className="hidden lg:block text-red-600 font-bold text-[20px] md:text-[24px] mb-2">
               {name}
             </h3>
-            <p className="text-gray-900 pt-3 text-[10px] sm:text-[14px]">
+            <p className="text-gray-900 pt-1 -mr-3 text-[10px] sm:text-[14px]">
               {description}
             </p>
             <div className="-mt-2 sm:mt-3 gap-1 sm:items-center sm:inline flex">
             {tags.map((tag) => (
   <div key={tag.cost}>
-    <p className="text-[18px] sm:text-[20px] text-black font-bold my-5">
+    <p className="text-[18px] sm:text-[20px] text-black font-bold mt-5">
       {tag.cost}
     </p>
     <p className={`text-[12px] sm:text-[14px] sm:p-0 pl-3 pt-0.5 ${tag.color}`}>

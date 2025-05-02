@@ -3,6 +3,8 @@
   import About from "./About";
   import Menu from "./Menu";
   import Feedback from "./Feedback";
+  import Map from "./Map";
+  import InstaPage from "./InstaPage"
   import Contact from "./Contact";
   import CanvasLoader from "./Loader";
   import Footer from "./Footer";
@@ -17,6 +19,8 @@ import PizzaCanvas from "./canvas/Pizza";
     Menu,
     Feedback,
     Contact,
+    Map,
+    InstaPage,
     Footer,
     CanvasLoader,
     StarsCanvas,

@@ -1,6 +1,6 @@
 // About Images
 import BlogImage from '../assets/AboutSection/BlogTo.svg';
-import GlobalImage from '../assets/AboutSection/Global.svg';
+import GlobalImage from '../assets/AboutSection/Global.jpg';
 import TorontoImage from '../assets/AboutSection/TorontoGaurd.svg';
 
 // Menu Images
@@ -11,12 +11,6 @@ import sisterPizza from '../assets/MenuSection/sisters.avif'
 import mushPizza from '../assets/MenuSection/mushroom.webp'
 import hawPizza from '../assets/MenuSection/haw.webp'
 import marioPizza from '../assets/MenuSection/mario.webp'
-
-
-// Icons
-import { LuVegan } from "react-icons/lu";
-import { FaLeaf } from "react-icons/fa6";
-
 
 export const navLinks = [
     {

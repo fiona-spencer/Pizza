@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "flowbite-react";
 import Tilt from "react-parallax-tilt";
 
 const ServiceCard = ({ title, description, imgSrc }) => (
@@ -12,18 +11,15 @@ const ServiceCard = ({ title, description, imgSrc }) => (
   >
     <div
       style={{ backgroundColor: '#211e1f' }}
-      className="w-full bg-white shadow-lg overflow-hidden "
+      className="sm:w-fit bg-white shadow-lg overflow-hidden"
     >
-      {/* Image Section - Placed at the Top */}
       <img
         src={imgSrc || "/images/default.jpg"}
         alt={`Image for ${title}`}
-        className="w-full object-cover "
+        className="w-full object-cover"
       />
-
-      {/* Content Section */}
-      <div className="p-6">
-        <h5 className="text-2xl font-semibold text-white mb-3">{title}</h5>
+      <div className="p-4">
+        <h5 className="text-2xl font-semibold text-white">{title}</h5>
         <p className="text-gray-100 text-base">{description}</p>
       </div>
     </div>

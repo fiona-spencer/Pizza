@@ -47,8 +47,8 @@ const PizzaCanvas = () => {
     />
 
     {/* Lighting Setup */}
-    <ambientLight intensity={10} />
-    <directionalLight position={[0, 5, 6]} intensity={6.5} castShadow />
+    <ambientLight intensity={8} />
+    <directionalLight position={[0, 5, 4]} intensity={3.5} castShadow />
     <pointLight position={[0, 0, 0]} intensity={10} distance={20} />
     <spotLight
       position={[10, 10, 10]}
