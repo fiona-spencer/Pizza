@@ -40,16 +40,16 @@ const Wings = () => {
   }, []);
 
   return (
-    <div className="bg-[#d4828296] p-6 px-20 pb-10">
+    <div className="bg-[#323232] p-6 sm:px-96 px-8 pb-10">
       <motion.div>
-        <p className={`${styles.sectionSubText} md:pt-10`}>flavor explosion</p>
-        <h2 className={styles.sectionHeadText}>Wings</h2>
+        <p className={`${styles.sectionSubText} md:pt-10 text-gray-400`}>flavor explosion</p>
+        <h2 className={styles.sectionHeadText}><div className="text-red-600">Wings</div></h2>
       </motion.div>
 
       <div className="w-full flex">
         <motion.p
           variants={fadeIn("", "", 0.1, 1)}
-          className="text-[17px] max-w-5xl pb-8 pt-4 text-red-900"
+          className="text-[17px] max-w-5xl pb-8 pt-4 text-white"
         >
           {wing.description}
         </motion.p>
@@ -71,8 +71,9 @@ const Wings = () => {
             <IoMdAddCircle className="text-red-500 w-7 h-7" />
           </div>
         </div>
-        <h3 className="text-red-600 font-bold text-xl mb-1">{wing.name}</h3>
-        <p className="text-gray-700 text-center text-sm">
+        <h3 className="text-red-600 font-bold text-2xl mb-1">{wing.name}</h3>
+        <h3 className="text-black font-bold text-xl mb-1">{wing.price}</h3>
+        <p className="text-gray-700 text-center text-[12px]">
           Comes with ranch or blue cheese on request.
         </p>
 

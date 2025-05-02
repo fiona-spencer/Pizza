@@ -28,13 +28,13 @@ const SideItem = ({ index, name, description, tags, image }) => {
         variants={fadeIn("up", "spring", index * 0.5, 0.75)}
         initial="hidden"
         animate="show"
-        className="p-4 bg-white rounded-md flex flex-col shadow-xl"
+        className="p-1 bg-white rounded-md flex flex-col shadow-xl"
       >
         <div className="relative w-full h-40 mb-3">
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover rounded-md"
+            className="w-full h-full object-cover rounded-t-md"
           />
           <div
             onClick={handleOpenModal}
@@ -47,13 +47,14 @@ const SideItem = ({ index, name, description, tags, image }) => {
             )}
           </div>
         </div>
-        <h3 className="text-red-600 font-bold text-lg">{name}</h3>
-        <p className="text-gray-700 text-sm mt-1">{description}</p>
+<div className="px-2 pb-1">
+<h3 className="text-red-600 font-bold text-md">{name}</h3> {/* Smaller font size */}
+        <p className="text-gray-700 text-[11px] mt-1">{description}</p> {/* Smaller font size */}
         <div className="mt-2">
           {tags.map((tag, idx) => (
             <div key={idx}>
-              <p className="font-semibold text-black">{tag.cost}</p>
-              <p className={`text-sm ${tag.color}`}>
+              <p className="font-semibold text-black text-lg">{tag.cost}</p> {/* Smaller font size */}
+              <p className={`text-xs ${tag.color}`}> {/* Smaller font size */}
                 {tag.name === "veg" ? (
                   <>
                     {tag.name} <FaLeaf className="inline-block ml-1 text-green-500" />
@@ -65,6 +66,7 @@ const SideItem = ({ index, name, description, tags, image }) => {
             </div>
           ))}
         </div>
+</div>
       </motion.div>
 
       <Modal show={isModalOpen} onClose={handleCloseModal}>
@@ -113,20 +115,20 @@ const Sides = () => {
   return (
     <div>
       <motion.div>
-        <p className={`${styles.sectionSubText} -mt-10`}>more to love</p>
-        <h2 className={styles.sectionHeadText}>Sides</h2>
+        <p className={`${styles.sectionSubText} -mt-10`}>more to love</p> {/* Smaller font size */}
+        <h2 className={`${styles.sectionHeadText}`}>Sides</h2> {/* Smaller font size */}
       </motion.div>
 
       <div className="w-full flex">
         <motion.p
           variants={fadeIn("", "", 0.1, 1)}
-          className="text-[17px] max-w-5xl pb-8 pt-4 text-red-900"
+          className="text-[15px] max-w-5xl pb-8 pt-4 text-red-900"
         >
           Classic sides to complete your meal – fresh, crispy, and delicious.
-        </motion.p>
+        </motion.p> {/* Smaller font size */}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+      <div className="grid grid-cols-2  lg:grid-cols-3 gap-7">
         {sides.map((side, index) => (
           <SideItem key={`side-${index}`} index={index} {...side} />
         ))}

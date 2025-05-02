@@ -27,10 +27,10 @@ const InstaPage = ({ images }) => {
     <section className="py-10 bg-red-500">
       <div className="pl-10 mb-6">
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} text-red-700`}>Social</p>
+        <p className={`${styles.sectionSubText} text-red-900`}>Social</p>
         <a href="https://www.instagram.com/yourusername" target="_blank" rel="noopener noreferrer">
   <h2 className={`${styles.sectionHeadText}`}>
-    INSTAGRAM
+   Instagram 
   </h2>
 </a>
         </motion.div>

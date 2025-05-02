@@ -48,7 +48,11 @@ const About = () => {
       {/* About Header */}
       <motion.div variants={textVariant()}>
         
-        <h2 className={`${styles.sectionHeadText} mt-2 text-center sm:text-left`}>About</h2>
+        <h2 className={`${styles.sectionHeadText} mt-2 text-center sm:text-left`}>
+          <div className="text-red-800">
+          About
+          </div>
+          </h2>
       </motion.div>
 
       {/* About Text */}

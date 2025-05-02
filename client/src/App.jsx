@@ -47,16 +47,16 @@ const App = () => {
       {/* Menu Section */}
       <div className="bg-red-500">
         <Menu />
+      </div>
       <Wings/>
       <Sides/>
-      </div>
 
       {/* Feedback, Contact, and Canvas Section */}
           {/* About Section */}
       <div className="z-0 relative bg-[#272524ed]">
         <Feedback />
-        <div className="bg-[#da5a5a] relative z-0">
 <InstaPage/>
+        <div className="bg-[#da5a5a] relative z-0">
 <Map/>
         <Contact />
         <StarsCanvas />

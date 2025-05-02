@@ -73,7 +73,7 @@ const [quantity, setQuantity] = useState(1);
             <h3 className="hidden lg:block text-red-600 font-bold text-[20px] md:text-[24px] mb-2">
               {name}
             </h3>
-            <p className="text-gray-900 pt-1 -mr-3 text-[10px] sm:text-[14px]">
+            <p className="text-gray-900 pt-1 -mr-3 text-[11px] sm:text-[14px]">
               {description}
             </p>
             <div className="-mt-2 sm:mt-3 gap-1 sm:items-center sm:inline flex">

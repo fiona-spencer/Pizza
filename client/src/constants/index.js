@@ -44,21 +44,24 @@ export const navLinks = [
     },
   ];
   
-const services = [
-    {
-      title: "Location",
-      description: "Explore where we’re based and what makes our location special.",
-      imgSrc: BlogImage, // Update path as needed
-    },
+  const services = [
     {
       title: "Toronto Life",
-      description: "Discover the culture, lifestyle, and community in Toronto.",
-      imgSrc: GlobalImage,
+      description: "I almost died in a fire. It inspired me to pursue my dream of making pizza for a living",
+      imgSrc: BlogImage,
+      link: "https://torontolife.com/memoir/fire-dream-job-hooray-for-pizza-day/", // Replace with actual URL
     },
     {
       title: "Global News",
-      description: "Stay updated with our latest features in the news and media.",
+      description: "Man opens restaurant on anniversary of arson fire in Toronto that upended his life",
+      imgSrc: GlobalImage,
+      link: "https://globalnews.ca/news/10343161/toronto-man-arson-fire-pizza-restaurant-opening-6-years/",
+    },
+    {
+      title: "Toronto Gaurdian",
+      description: "Homegrown Business: Sasha Warunkiewicz of Hooray for Pizza Day",
       imgSrc: TorontoImage,
+      link: "https://torontoguardian.com/2024/08/toronto-business-hooray-for-pizza-day/",
     },
   ];
   
@@ -269,19 +272,19 @@ const services = [
     {
       name: "Garlic Knots",
       description: "Soft, buttery garlic knots served with marinara.",
-      tags: [{ name: "veg", cost: "$5.49", color: "text-green-600" }],
+      tags: [{ name: "veg", cost: "CA 6", color: "text-green-600" }],
       image: garlic,
     },
     {
       name: "Caesar Salad",
       description: "Crisp romaine, house made croutons, bacon, tossed in our signature caesar dressing, grated to order Grana Padano.",
-      tags: [{ name: "veg", cost: "$6.99", color: "text-green-600" }],
+      tags: [{ name: "veg", cost: "CA 12", color: "text-green-600" }],
       image: salad,
     },
     {
       name: "Fresh Cut Fries",
       description: "House made fresh cut fries served with ketchup.",
-      tags: [{ name: "veg", cost: "$3.99", color: "text-green-600" }],
+      tags: [{ name: "veg", cost: "CA 8", color: "text-green-600" }],
       image: fries,
     },
   ];
@@ -292,6 +295,7 @@ const services = [
       description:
         "Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.",
       image: wings, // replace with actual image path
+      price: "CA 15",
       sauces: [
         { name: "Plain", hotLevel: 0 },
         { name: "Salt and Peppa", hotLevel: 1 },

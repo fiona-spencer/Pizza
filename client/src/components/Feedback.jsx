@@ -64,7 +64,7 @@ const Feedback = () => {
       <div className={`${styles.padding} flex flex-col justify-center `}>
         <motion.div variants={textVariant()}>
         <p className={`${styles.sectionSubText} text-gray-400`}>most recent</p>
-        <h2 className={styles.sectionHeadText}>REVIEWS</h2>
+        <h2 className={styles.sectionHeadText}>Reviews</h2>
         </motion.div>
       </div>
 
