@@ -171,7 +171,7 @@ const Menu = () => {
             aliquip ex ea commodo consequat.
           </motion.p>
         </div>
-        <div className="mt-20 flex flex-wrap gap-7">
+<div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-7">
           {menus.map((menu, index) => (
             <Pizza key={`project-${index}`} index={index} {...menu} />
           ))}

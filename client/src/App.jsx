@@ -21,8 +21,8 @@ const App = () => {
         <Hero />
       </div>
 
-      {/* About Section */}
-      <About />
+  
+          <About />
 
       {/* Menu Section */}
       <div className="bg-red-500">
@@ -30,6 +30,7 @@ const App = () => {
       </div>
 
       {/* Feedback, Contact, and Canvas Section */}
+          {/* About Section */}
       <div className="relative z-0">
         <Feedback />
         <Contact />

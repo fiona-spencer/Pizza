@@ -1,58 +1,50 @@
 import React from "react";
-import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
-
 import { styles } from "../styles";
-import { services } from "../constants"; // Assuming services array contains data like title, etc.
+import { services } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
+import ServiceCard from "./ServiceCard";
 
-const ServiceCard = ({ index, title }) => (
-  <Tilt
-    options={{
-      max: 45,
-      scale: 1.05, // Slightly larger tilt effect
-      speed: 450,
-    }}
-    className="w-full md:w-[400px] lg:w-[300px] p-4" // Adjust width for responsive layout
-  >
-    <motion.div
-      variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className="w-full border border-gray-300 rounded-lg shadow-lg" // Fixed class name for border and rounding
-    >
-      <div className="bg-white rounded-lg p-6 flex flex-col items-center max-h-[250px]">
-        <h1 className="text-black text-lg md:text-xl font-semibold mb-4">
-          {title}
-        </h1>
-        {/* Placeholder for any content, can add map or image here */}
-      </div>
-    </motion.div>
-  </Tilt>
-);
+// Add your image source here
+import aboutImage from '../../public/assets/favicon.svg';
 
 const About = () => {
   return (
     <>
+
+      {/* Image with animation on scroll */}
+      <motion.div
+        className="flex justify-center"
+        whileInView={{ opacity: 1, scale: 1 }} // Animation when in view
+        initial={{ opacity: 0, scale: 0.8 }} // Initial state when not in view
+        transition={{ duration: 1, ease: "easeInOut" }} // Transition settings
+        viewport={{ once: true, amount: 0.5 }} // Start the animation when 50% of the element is in view
+      >
+        <img
+          src={aboutImage} // Your image source here
+          alt="About Us"
+          className="max-h-56 w-56 border-white shadow-xl bg-[#fbfbfbe3] rounded-full"
+          />
+      </motion.div>
+
+      {/* About Header */}
       <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>get to know us</p>
-        <h2 className={styles.sectionHeadText}>About</h2>
+        <p className={`${styles.sectionSubText} mt-10 text-center sm:text-left`}>get to know us</p>
+        <h2 className={`${styles.sectionHeadText} text-center sm:text-left`}>About</h2>
       </motion.div>
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
-        className="mt-4 text-black text-[17px] max-w-5xl leading-[30px]"
+        className="mt-4 text-black text-base sm:text-lg max-w-4xl leading-relaxed mx-auto sm:mx-0"
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum
+        tempor incididunt ut labore et dolore magna aliqua...
       </motion.p>
 
-      <div className="mt-20 flex flex-wrap gap-10 justify-center">
-        {/* Mapping through services */}
+    
+
+      <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}

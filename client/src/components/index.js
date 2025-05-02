@@ -1,7 +1,6 @@
   import Hero from "./Hero";
   import Navbar from "./Navbar";
   import About from "./About";
-  // import Experience from "./Experience";
   import Menu from "./Menu";
   import Feedback from "./Feedback";
   import Contact from "./Contact";
@@ -15,7 +14,6 @@ import PizzaCanvas from "./canvas/Pizza";
     Hero,
     Navbar,
     About,
-    // Experience,
     Menu,
     Feedback,
     Contact,

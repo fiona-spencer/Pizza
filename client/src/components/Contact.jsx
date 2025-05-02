@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import { Alert } from "flowbite-react";
+import { IoIosSend } from "react-icons/io";
 
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
@@ -9,22 +11,14 @@ import PizzaCanvas from "./canvas/Pizza";
 
 const Contact = () => {
   const formRef = useRef();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
+  const [alert, setAlert] = useState({ show: false, success: false, message: "" });
 
-    setForm({
-      ...form,
-      [name]: value,
-    });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = (e) => {
@@ -44,36 +38,47 @@ const Contact = () => {
         },
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       )
-      .then(
-        () => {
-          setLoading(false);
-          alert("Thank you. I will get back to you as soon as possible.");
+      .then(() => {
+        setLoading(false);
+        setForm({ name: "", email: "", message: "" });
+        setAlert({
+          show: true,
+          success: true,
+          message: "Message sent successfully!",
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+        setAlert({
+          show: true,
+          success: false,
+          message: "Something went wrong. Please try again.",
+        });
+      });
 
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
-
-          alert("Ahh, something went wrong. Please try again.");
-        }
-      );
+    setTimeout(() => {
+      setAlert({ show: false, success: false, message: "" });
+    }, 5000);
   };
 
   return (
-    <div
-      className={`xl:mt-10 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}
-    >
-      <motion.div
+<div className="xl:mt-10 flex flex-col md:flex-row gap-10 overflow-hidden">
+<motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] border-dashed border-4 border-slate-600 p-8 squared-2xl"
+        className="flex-[0.75] max-w-xl border-dashed border-4 border-slate-900 p-8 squared-2xl bg-[#8d262664]"
       >
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
+        <p className={`${styles.sectionSubText} text-sm sm:text-base`}>Get in touch</p>
+        <h3 className={`${styles.sectionHeadText} text-sm sm:text-3xl`}>Contact.</h3>
+
+        {alert.show && (
+          <Alert
+            color={alert.success ? "success" : "failure"}
+            className="mb-4"
+          >
+            <span className="font-medium">{alert.message}</span>
+          </Alert>
+        )}
 
         <form
           ref={formRef}
@@ -81,46 +86,50 @@ const Contact = () => {
           className="mt-2 flex flex-col gap-7"
         >
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Name</span>
+            <span className="text-white font-medium mb-4 text-sm sm:text-base">Your Name</span>
             <input
               type="text"
               name="name"
               value={form.name}
               onChange={handleChange}
               placeholder="What's your name?"
-              className="bg-slate-800 py-4 px-6 placeholder:text-secondary text-white squared-lg outline-none border-none font-medium"
+              className="bg-slate-800 py-4 px-6 placeholder:text-secondary text-white text-sm sm:text-base rounded-lg outline-none border-none font-medium"
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your email</span>
+            <span className="text-white font-medium mb-4 text-sm sm:text-base">Your email</span>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
-              placeholder="What's your web address?"
-              className="bg-slate-800 py-4 px-6 placeholder:text-secondary text-white squared-lg outline-none border-none font-medium"
+              placeholder="What's your email?"
+              className="bg-slate-800 py-4 px-6 placeholder:text-secondary text-white text-sm sm:text-base rounded-lg outline-none border-none font-medium"
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Message</span>
+            <span className="text-white font-medium mb-4 text-sm sm:text-base">Your Message</span>
             <textarea
               rows={7}
               name="message"
               value={form.message}
               onChange={handleChange}
-              placeholder="What you want to say?"
-              className="bg-slate-800 py-4 px-6 placeholder:text-secondary text-white squared-lg outline-none border-none font-medium"
+              placeholder="What do you want to say?"
+              className="bg-slate-800 py-4 px-6 placeholder:text-secondary text-white text-sm sm:text-base rounded-lg outline-none border-none font-medium"
             />
           </label>
 
-          <button
-            href="https://google.com"
-            type="submit"
-            className="bg-slate-800 py-3 px-8 squared-xl outline-none w-fit text-white font-bold shadow-md shadow-primary"
-          >
-            {loading ? "Sending..." : "Send"}
-          </button>
+          <div className="flex justify-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="bg-slate-800 hover:bg-slate-700 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary transition-all duration-200 flex items-center"
+            >
+              {loading ? "Sending..." : "Send"}
+              <IoIosSend className="h-5 w-5 ml-3" />
+            </motion.button>
+          </div>
         </form>
       </motion.div>
 

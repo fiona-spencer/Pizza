@@ -1,3 +1,8 @@
+import BlogImage from '../assets/AboutSection/BlogTo.svg';
+import GlobalImage from '../assets/AboutSection/Global.svg';
+import TorontoImage from '../assets/AboutSection/TorontoGaurd.svg';
+
+
 export const navLinks = [
     {
       id: "about",
@@ -13,62 +18,21 @@ export const navLinks = [
     },
   ];
   
-  const services = [
+const services = [
     {
       title: "Location",
+      description: "Explore where we’re based and what makes our location special.",
+      imgSrc: BlogImage, // Update path as needed
     },
     {
       title: "Toronto Life",
+      description: "Discover the culture, lifestyle, and community in Toronto.",
+      imgSrc: GlobalImage,
     },
     {
       title: "Global News",
-    },
-  ];
-  
-  const experiences = [
-    {
-      title: "React.js Developer",
-      company_name: "Starbucks",
-      date: "March 2020 - April 2021",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "React Native Developer",
-      company_name: "Tesla",
-      date: "Jan 2021 - Feb 2022",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "Web Developer",
-      company_name: "Shopify",
-      date: "Jan 2022 - Jan 2023",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "Full stack Developer",
-      company_name: "Meta",
-      date: "Jan 2023 - Present",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
+      description: "Stay updated with our latest features in the news and media.",
+      imgSrc: TorontoImage,
     },
   ];
   
@@ -140,5 +104,5 @@ export const navLinks = [
     },
   ];
   
-  export { services , experiences, testimonials, menus };
+  export { services , testimonials, menus };
   
