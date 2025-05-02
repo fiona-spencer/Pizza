@@ -231,3 +231,7 @@ html, body {
     animation: scrollX 120s linear infinite;
   }
 }
+
+.backdrop {
+  background-color: rgba(224, 37, 37, 0.8); /* light background instead of dark */
+}

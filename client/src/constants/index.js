@@ -5,6 +5,18 @@ import TorontoImage from '../assets/AboutSection/TorontoGaurd.svg';
 
 // Menu Images
 import { heropizza } from '../assets';
+import margPizza from '../assets/MenuSection/marg.webp'
+import pepPizza from '../assets/MenuSection/pepperoni.webp'
+import sisterPizza from '../assets/MenuSection/sisters.avif'
+import mushPizza from '../assets/MenuSection/mushroom.webp'
+import hawPizza from '../assets/MenuSection/haw.webp'
+import marioPizza from '../assets/MenuSection/mario.webp'
+
+
+// Icons
+import { LuVegan } from "react-icons/lu";
+import { FaLeaf } from "react-icons/fa6";
+
 
 export const navLinks = [
     {
@@ -119,15 +131,15 @@ const services = [
       description: "Mozzarella shred blend, signature tomato sauce, house roasted chicken, sautéed garlic & parm spinach, bacon grated to order Grana Padano Chef recommends adding chilli flakes",
       tags: [
         {
-          cost: "CA $21.00",
+          cost: "CA 21.00",
           color: "text-secondary",
         },
         {
-          name: "vegetarian",
+          name: "",
           color: "green-text-gradient",
         },
       ],
-      image: heropizza,
+      image: marioPizza,
       source_code_link:
         "https://www.doordash.com/store/hooray-for-pizza-day-toronto-27973800/?utm_campaign=gpa",
     },
@@ -136,12 +148,12 @@ const services = [
       description: "Caramelized onion base, roasty mushrooms, rosemary & herb infused oil, fresh parsley garnish (VEGAN)",
       tags: [
         {
-          cost: "CA $21.00",
+          cost: "CA 21.00",
           color: "text-secondary",
         },
         {
-          name: "vegetarian",
-          color: "green-text-gradient",
+          name: "vega",
+          color: "blue-text-gradient",
         },
       ],
       image: heropizza,
@@ -154,46 +166,46 @@ const services = [
         "Mozzarella shred blend, signature tomato sauce, grated-to-order grana padano, fresh basil garnish.",
         tags: [
           {
-            cost: "CA $21.00",
+            cost: "CA 21.00",
             color: "text-secondary",
           },
           {
-            name: "vegetarian",
+            name: "veg",
             color: "green-text-gradient",
           },
         ],
-        image: heropizza,
+        image: margPizza,
       source_code_link:
         "https://www.doordash.com/store/hooray-for-pizza-day-toronto-27973800/?utm_campaign=gpa",
     },
     {
       name: "The Power Pepperoni",
       description:
-        "Mozzarella shred blend, double cup & char pepperoni, signature tomato sauce, grated-to-order grana padano, fresh oregano garnish. Add homemade hot honey for an additional charge.",
+        "Mozzarella shred blend, double cup & char pepperoni, signature tomato sauce, grated-to-order grana padano, fresh oregano garnish.",
         tags: [
           {
-            cost: "CA $25.00",
+            cost: "CA 25.00",
             color: "text-secondary",
           },
         ],
-        image: heropizza,
+        image: pepPizza,
       source_code_link: "https://github.com/",
     },
     {
       name: "The Sanderson Sister",
       description:
-        "Mozzarella shred blend, housemade trio of sauces (marinara, vodka, pesto cream), grated-to-order grana padano. Add char and cup pepperoni for an additional charge.",
+        "Mozzarella shred blend, housemade trio of sauces (marinara, vodka, pesto cream), grated-to-order grana padano.",
         tags: [
           {
-            cost: "CA $24.00",
+            cost: "CA 24.00",
             color: "text-secondary",
           },
           {
-            name: "vegetarian",
+            name: "veg",
             color: "green-text-gradient",
           },
         ],
-        image: heropizza,
+        image: sisterPizza,
       source_code_link: "https://github.com/",
     },
     {
@@ -201,15 +213,15 @@ const services = [
       description: "Mozzarella shred blend, mushroom & rosemary infused cream sauce, roasty mushrooms, lemon zest, grated-to-order grana padano, fresh chive garnish.",
       tags: [
         {
-          cost: "CA $25.00",
+          cost: "CA 25.00",
           color: "text-secondary",
         },
         {
-          name: "vegetarian",
+          name: "veg",
           color: "green-text-gradient",
         },
       ],
-      image: heropizza,
+      image: mushPizza,
       source_code_link: "https://github.com/",
     },
     {
@@ -218,15 +230,15 @@ const services = [
       "Mozzarella shred blend, signature tomato sauce, 8-hour roast confit pork shoulder, thinly shaved onion, housemade pineapple honey chili glaze, grated-to-order grana padano, fresh cilantro garnish.",
       tags: [
         {
-          cost: "CA $24.00",
+          cost: "CA 24.00",
           color: "text-secondary",
         },
         {
-          name: "vegetarian",
+          name: "",
           color: "green-text-gradient",
         },
       ],
-      image: heropizza,
+      image: hawPizza,
       source_code_link: "https://github.com/",
     },
   ];

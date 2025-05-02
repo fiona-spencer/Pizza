@@ -1,247 +1,228 @@
-import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
-import github from '../assets/logo.svg'
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { menus } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
-import { useState, useEffect } from "react";
-
-function useMediaQuery(query) {
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    setMatches(media.matches);
-
-    const listener = () => setMatches(media.matches);
-    media.addEventListener("change", listener);
-
-    return () => media.removeEventListener("change", listener);
-  }, [query]);
-
-  return matches;
-}
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Modal, Button, Label, Radio, Textarea, Checkbox } from "flowbite-react";
+import { IoMdAddCircle, IoMdCheckmarkCircle } from "react-icons/io";
+import { fadeIn } from "../utils/motion";
+import { FaLeaf } from "react-icons/fa";  // Import FaLeaf icon
+import { LuVegan } from "react-icons/lu";
 
 
-const Pizza = ({ index, name, description, tags, image, source_code_link }) => {
-  return (
-    <motion.div
-      variants={fadeIn("up", "spring", index * 0.5, 0.75)} // Using fadeIn variant
-      initial="hidden"
-      animate="show"
-    >
-      <Tilt
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className="bg-white p-5 squared-2xl sm:w-[360px] w-full"
-      >
-        <div className="relative w-full h-[230px]">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover squared-2xl"
-          />
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <div
-              onClick={() => window.open(source_code_link, "_blank")}
-              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
-            >
-              <img
-                src={github}
-                alt="github"
-                className="w-1/2 h-1/2 object-contain"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="mt-5">
-          <h3 className="text-red-600 font-bold text-[24px]">{name}</h3>
-          <p className="mt-2 text-gray-900 text-[14px]">{description}</p>
-        </div>
-        <div className="mt-4 gap-2 items-center">
-          {tags.map((tag) => (
-            <div key={tag.cost}>
-              <p className={`text-[24px] ${tag.color}`}>{tag.cost}</p>
-              <p className={`text-[14px] ${tag.color}`}>{tag.name}</p>
-            </div>
-          ))}
-        </div>
-      </Tilt>
-    </motion.div>
-  );
-};
+const Pizza = ({ index, name, description, tags, image }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [selectedAddon, setSelectedAddon] = useState("");
+  const [note, setNote] = useState("");
+  const [selectedAddons, setSelectedAddons] = useState([]);
+const [quantity, setQuantity] = useState(1);
 
 
-const Wings = ({ index, name, description, tags, image, source_code_link }) => {
-  return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
-      <Tilt
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className="bg-white p-5 squared-2xl sm:w-[360px] w-full"
-      >
-        <div className="relative w-full h-[230px]">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover squared-2xl"
-          />
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <div
-              onClick={() => window.open(source_code_link, "_blank")}
-              className="black-gradient w-10 h-10 squared-full flex justify-center items-center cursor-pointer"
-            >
-              <img
-                src={github}
-                alt="github"
-                className="w-1/2 h-1/2 object-contain"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="mt-5">
-          <h3 className="text-red-600 font-bold text-[24px]">{name}</h3>
-          <p className="mt-2 text-secondary text-[14px]">{description}</p>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-              #{tag.name}
-            </p>
-          ))}
-        </div>
-      </Tilt>
-    </motion.div>
-  );
-};
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
-const Sides = ({ index, name, description, tags, image, source_code_link }) => {
-  return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
-      <Tilt
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className="bg-white p-5 squared-2xl sm:w-[360px] w-full"
-      >
-        <div className="relative w-full h-[230px]">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover squared-2xl"
-          />
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <div
-              onClick={() => window.open(source_code_link, "_blank")}
-              className="black-gradient w-10 h-10 squared-full flex justify-center items-center cursor-pointer"
-            >
-              <img
-                src={github}
-                alt="github"
-                className="w-1/2 h-1/2 object-contain"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="mt-5">
-          <h3 className="text-red-600 font-bold text-[24px]">{name}</h3>
-          <p className="mt-2 text-secondary text-[14px]">{description}</p>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-              #{tag.name}
-            </p>
-          ))}
-        </div>
-      </Tilt>
-    </motion.div>
-  );
-};
-
-const Menu = () => {
-  // Log the menus data
-  console.log("Menus Data: ", menus);
+  const handleAddToCart = () => {
+    console.log("Added to cart:", {
+      name,
+      selectedAddons,
+      quantity,
+      note,
+    });
+    setIsAdded(true);
+    setIsModalOpen(false);
+  };
+  
 
   return (
     <>
-      <div>
-        {/*-----PIZZA-----*/}
-        <motion.div>
-          <p className={`${styles.sectionSubText} md:pt-10`}>detroit style</p>
-          <h2 className={styles.sectionHeadText}>Pizza</h2>
-        </motion.div>
-        <div className="w-full flex">
-          <motion.p
-            variants={fadeIn("", "", 0.1, 1)}
-            className="white-red-900 text-[17px] max-w-5xl leading-[30px]"
-          >
-            Our famous 48-hour fermented dough is always baked fresh to order. All pies are 8x10.
-          </motion.p>
+      <motion.div
+        variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+        initial="hidden"
+        animate="show"
+        className="p-3 sm:p-4 md:p-5 bg-white rounded-md flex flex-col lg:flex-col shadow-xl"
+      >
+        <h3 className="text-red-600 font-bold text-[18px] sm:text-[20px] md:text-[24px] sm:mb-3 block lg:hidden">
+          {name}
+        </h3>
+
+        <div className="flex flex-row-reverse lg:flex-col sm:items-center justify-between">
+          {/* Image and Icon */}
+          <div className="relative sm:lg:w-full sm:h-[230px] h-fit right-2 -top-1">
+            <img
+              src={image}
+              alt={name}
+              className="h-32 w-32 sm:w-full sm:h-full object-cover rounded-md"
+            />
+            <div className="absolute top-2 right-2">
+              <div
+                onClick={handleOpenModal}
+                className="black-gradient w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center cursor-pointer"
+              >
+                {isAdded ? (
+                  <IoMdCheckmarkCircle className="text-green-500 w-8 h-8" />
+                ) : (
+                  <IoMdAddCircle className="text-red-500 w-8 h-8" />
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Text */}
+          <div className="sm:mt-4 lg:mt-4 w-1/2 lg:w-full mx-3 sm:pr-3 lg:pr-0 lg:text-center">
+            <h3 className="hidden lg:block text-red-600 font-bold text-[20px] md:text-[24px] mb-2">
+              {name}
+            </h3>
+            <p className="text-gray-900 pt-3 text-[10px] sm:text-[14px]">
+              {description}
+            </p>
+            <div className="-mt-2 sm:mt-3 gap-1 sm:items-center sm:inline flex">
+            {tags.map((tag) => (
+  <div key={tag.cost}>
+    <p className="text-[18px] sm:text-[20px] text-black font-bold my-5">
+      {tag.cost}
+    </p>
+    <p className={`text-[12px] sm:text-[14px] sm:p-0 pl-3 pt-0.5 ${tag.color}`}>
+      {/* Conditional Rendering for 'veg' and 'vega' */}
+      {tag.name === "veg" ? (
+        <>
+          {tag.name} <FaLeaf className="inline-block text-green-500 ml-1" />
+        </>
+      ) : tag.name === "vega" ? (
+        <>
+          {tag.name} <LuVegan className="inline-block text-blue-500 ml-1" /> {/* Change color or icon */}
+        </>
+      ) : (
+        tag.name
+      )}
+    </p>
+  </div>
+))}
+
+            </div>
+          </div>
         </div>
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-7">
-          {menus.map((menu, index) => {
-            // Log each menu item data
-            console.log(`Rendering Pizza Item ${index}: `, menu);
-            return <Pizza key={`pizza-${index}`} index={index} {...menu} />;
-          })}
+      </motion.div>
+
+      {/* Modal */}
+      <Modal
+  show={isModalOpen}
+  onClose={handleCloseModal}
+  className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur"
+>
+  <div className="bg-red-500 w-full shadow-lg rounded-none">
+    <Modal.Header className="text-xl font-semibold text-white bg-red-600 rounded-none border-b border-red-700">
+      Add-ons for {name}
+    </Modal.Header>
+    <Modal.Body className="bg-[#e87272] text-white rounded-none">
+      <div className="space-y-6">
+
+        {/* Add-on Checkboxes */}
+        <fieldset>
+          <legend className="text-base font-medium mb-2">Choose add-ons:</legend>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {["Extra Cheese", "Pepperoni", "Mushrooms"].map((option, idx) => (
+              <Label key={idx} className="inline-flex items-center gap-2 text-sm">
+               <input
+  type="checkbox"
+  value={option}
+  checked={selectedAddons.includes(option)}
+  onChange={(e) => {
+    const checked = e.target.checked;
+    const value = e.target.value;
+    setSelectedAddons((prev) =>
+      checked ? [...prev, value] : prev.filter((item) => item !== value)
+    );
+  }}
+  className="w-5 h-5 text-red-600 bg-white border-white rounded-sm checked:bg-red-600 checked:border-white focus:ring-white focus:ring-2 appearance-none relative"
+  style={{
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
+    appearance: 'none',
+  }}
+/>
+
+                {option}
+              </Label>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* Quantity Selector */}
+        <div>
+          <Label htmlFor="quantity" className="block text-sm font-medium mb-1">
+            Quantity:
+          </Label>
+          <select
+            id="quantity"
+            className="w-fit bg-red-600 border border-white text-white font-bold rounded-none py-2 px-3 shadow-sm focus:ring-white focus:border-white text-md"
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+          >
+            {[1, 2, 3, 4, 5].map((q) => (
+              <option key={q} value={q}>
+                {q}
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/*-----WINGS-----*/}
-        <motion.div variants={textVariant()}>
-          <p className={styles.sectionSubText}>sides</p>
-          <h2 className={styles.sectionHeadText}>Wings, Fries, and a</h2>
-        </motion.div>
-        <div className="w-full flex">
-          <motion.p
-            variants={fadeIn("", "", 0.1, 1)}
-            className="mt-3 white-red-900 text-[17px] max-w-5xl leading-[30px]"
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </motion.p>
-        </div>
-        <div className="mt-20 flex flex-wrap gap-7">
-          {menus.map((menu, index) => {
-            // Log each wing item data
-            console.log(`Rendering Wings Item ${index}: `, menu);
-            return <Wings key={`project-${index}`} index={index} {...menu} />;
-          })}
-        </div>
-        
-        {/*-----SIDES-----*/}
-        <motion.div variants={textVariant()}>
-          <p className={styles.sectionSubText}>Amazing</p>
-          <h2 className={styles.sectionHeadText}>Sides</h2>
-        </motion.div>
-        <div className="w-full flex">
-          <motion.p
-            variants={fadeIn("", "", 0.1, 1)}
-            className="mt-3 white-red-900 text-[17px] max-w-5xl leading-[30px]"
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </motion.p>
-        </div>
-        <div className="mt-20 flex flex-wrap gap-7">
-          {menus.map((menu, index) => {
-            // Log each side item data
-            console.log(`Rendering Side Item ${index}: `, menu);
-            return <Sides key={`project-${index}`} index={index} {...menu} />;
-          })}
+        {/* Allergy Note */}
+        <div>
+          <Label htmlFor={`allergy-note-${index}`} className="block text-sm font-medium mb-1">
+            Allergies or special notes:
+          </Label>
+          <Textarea
+            id={`allergy-note-${index}`}
+            placeholder="Write here..."
+            className="w-full  text-black border border-white p-2 text-sm rounded-none focus:ring-black focus:border-black"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            rows={3}
+            color='light'
+          />
         </div>
       </div>
+    </Modal.Body>
+    <Modal.Footer className="flex justify-end gap-2 bg-red-600 rounded-none border-t border-red-700">
+      <Button color='white' outline pill onClick={handleAddToCart} className="bg-white text-red-600 hover:bg-gray-100">
+        Add to Cart
+      </Button>
+      <Button color="red" pill onClick={handleCloseModal} className="bg-red-700 hover:bg-red-800 text-white">
+        Cancel
+      </Button>
+    </Modal.Footer>
+  </div>
+</Modal>
+
+
+
     </>
   );
 };
 
-
+const Menu = () => {
+  return (
+    <div>
+      <motion.div>
+        <p className={`${styles.sectionSubText} md:pt-10`}>detroit style</p>
+        <h2 className={styles.sectionHeadText}>Pizza</h2>
+      </motion.div>
+      <div className="w-full flex">
+        <motion.p
+          variants={fadeIn("", "", 0.1, 1)}
+          className="text-[17px] max-w-5xl pb-8 pt-4 text-red-900"
+        >
+          Our famous 48-hour fermented dough is always baked fresh to order. All pies are 8x10.
+        </motion.p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {menus.map((menu, index) => (
+          <Pizza key={`pizza-${index}`} index={index} {...menu} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default SectionWrapper(Menu, "menu");
