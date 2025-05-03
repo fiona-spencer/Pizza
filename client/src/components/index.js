@@ -12,7 +12,7 @@ import CanvasLoader from "./Loader";
 import Footer from "./Footer";
 import StarsCanvas from "./canvas/Stars";
 import PizzaCanvas from "./canvas/Pizza";
-import OrderPage from "./OrderPage";
+import OrderPage from "../pages/OrderPage";
 
 export {
   Hero,
