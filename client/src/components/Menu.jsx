@@ -205,7 +205,7 @@ const Menu = () => {
   return (
     <div>
       <motion.div>
-        <p className={`${styles.sectionSubText} md:pt-10`}>detroit style</p>
+        <p className={`${styles.sectionSubText} md:pt-12 -mt-9`}>detroit style</p>
         <h2 className={styles.sectionHeadText}>Pizza</h2>
       </motion.div>
       <div className="w-full flex">

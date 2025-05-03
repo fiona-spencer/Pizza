@@ -40,13 +40,13 @@ const Wings = () => {
   }, []);
 
   return (
-    <div className="bg-[#323232] p-6 sm:px-96 px-8 pb-10">
+    <div className="bg-[#323232] p-6 sm:px-96 px-8 pb-10 flex flex-col lg:items-center lg:justify-center">
       <motion.div>
         <p className={`${styles.sectionSubText} md:pt-10 text-gray-400`}>flavor explosion</p>
         <h2 className={styles.sectionHeadText}><div className="text-red-600">Wings</div></h2>
       </motion.div>
 
-      <div className="w-full flex">
+      <div className="w-full flex ">
         <motion.p
           variants={fadeIn("", "", 0.1, 1)}
           className="text-[17px] max-w-5xl pb-8 pt-4 text-white"
@@ -59,7 +59,7 @@ const Wings = () => {
         variants={fadeIn("up", "spring", 0.5, 0.75)}
         initial="hidden"
         animate="show"
-        className="p-5 bg-slate-50 rounded-md shadow-xl flex flex-col items-center"
+        className="p-5 bg-slate-50 rounded-md shadow-xl flex flex-col items-center max-w-4xl"
       >
         <div className="relative w-full h-48 sm:h-60 mb-3">
           <img

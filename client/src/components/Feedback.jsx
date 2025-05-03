@@ -4,7 +4,7 @@ import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 import { testimonials } from "../constants";
 import { Avatar } from "flowbite-react";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 const FeedbackCard = ({ index, testimonial, name, designation, company, image }) => (
   <motion.div
@@ -35,40 +35,32 @@ const FeedbackCard = ({ index, testimonial, name, designation, company, image })
 );
 
 const Feedback = () => {
-  const [scrollX, setScrollX] = useState(0);
   const reviewsRef = useRef(null);
 
   const handleTouchStart = (e) => {
-    const touchStart = e.touches[0].clientX;
-    reviewsRef.current.touchStart = touchStart;
+    reviewsRef.current.touchStart = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e) => {
     const touchMove = e.touches[0].clientX;
     const touchStart = reviewsRef.current.touchStart;
-
-    // Calculate the difference between the start and move positions
     const diff = touchStart - touchMove;
 
-    // Adjust the scrollX value based on the movement
-    setScrollX((prevScrollX) => prevScrollX + diff);
-    reviewsRef.current.scrollLeft = reviewsRef.current.scrollLeft + diff;
-
-    // Update the start position for the next move event
-    reviewsRef.current.touchStart = touchMove;
+    reviewsRef.current.scrollLeft += diff; // Direct scroll
+    reviewsRef.current.touchStart = touchMove; // Update touch reference
   };
 
   return (
     <div className="bg-white-100 -mt-20">
       {/* Header */}
-      <div className={`${styles.padding} flex flex-col justify-center `}>
+      <div className={`${styles.padding} flex flex-col justify-center`}>
         <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} text-gray-400`}>most recent</p>
-        <h2 className={styles.sectionHeadText}>Reviews</h2>
+          <p className={`${styles.sectionSubText} text-gray-400`}>most recent</p>
+          <h2 className={styles.sectionHeadText}>Reviews</h2>
         </motion.div>
       </div>
 
-      {/* Scrollable feedback cards */}
+      {/* Scrollable Feedback Cards */}
       <div className="relative px-6 sm:px-10 -mt-6 overflow-hidden">
         {/* Left Blur */}
         <div className="absolute top-0 left-0 h-40 w-12 sm:w-24 bg-gradient-to-r from-red-300 via-white/20 to-transparent z-10 pointer-events-none" />
@@ -76,10 +68,10 @@ const Feedback = () => {
         {/* Right Blur */}
         <div className="absolute top-0 right-0 h-40 w-12 sm:w-24 bg-gradient-to-l from-red-300 via-white/20 to-transparent z-10 pointer-events-none" />
 
-        {/* Scrolling Content */}
+        {/* Scrollable Container */}
         <div
           ref={reviewsRef}
-          className="scroll-x-animate flex gap-6 overflow-x-auto whitespace-nowrap"
+          className="scroll-x-animate flex gap-6 overflow-x-auto whitespace-nowrap scroll-smooth"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
         >

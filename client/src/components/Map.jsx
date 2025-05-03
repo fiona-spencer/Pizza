@@ -16,8 +16,8 @@ const Map = () => {
 
       {/* Foreground Content */}
       <div className="relative z-10 text-center">
-        <p className={`${styles.sectionSubText} text-gray-50`}>find us on</p>
-        <h2 className={`${styles.sectionHeadText}`}>GOOGLE MAPS</h2>
+        <p className={`${styles.sectionSubText} text-black`}>find us on</p>
+        <h2 className={`${styles.sectionHeadText}`}>Google Map</h2>
       </div>
 
       <div className="relative z-10 sm:flex sm:grid-flow-col mx-auto sm:px-48 sm:gap-9 items-center">

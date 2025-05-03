@@ -64,7 +64,7 @@ const Contact = () => {
 
   return (
 <div>
-<div className="md:pt-10">
+<div className="md:pt-10 -mt-9">
 <p className={`${styles.sectionSubText} px-4`}>Get in touch</p>
 <h3 className={`${styles.sectionHeadText} px-4 pb-2`}>Contact</h3>
 </div>
