@@ -3,6 +3,28 @@ import bcryptjs from 'bcryptjs';
 import Owner from '../models/owner.model.js'; // Correcting to use 'Owner' model
 import { errorHandler } from '../utils/error.js';
 
+//  SIGNIN - customer
+import jwt from 'jsonwebtoken';
+import { errorHandler } from '../utils/error.js';
+
+// POST /api/auth/signin
+export const signInWithEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || !email.includes('@')) {
+      return next(errorHandler(400, 'A valid email is required.'));
+    }
+
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ token });
+  } catch (err) {
+    next(errorHandler(500, 'Sign-in failed.'));
+  }
+};
+
+
 // SIGNUP
 
 export const signup = async (req, res, next) => {
@@ -27,7 +49,7 @@ export const signup = async (req, res, next) => {
     }
 }
 
-// SIGNIN
+// SIGNIN - Owner
 
 export const signin = async (req, res, next) => {
     const { email, password } = req.body;

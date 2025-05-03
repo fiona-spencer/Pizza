@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import authRoutes from './routes/auth.route.js'; // Ensure the correct path
 import ownerRoutes from './routes/owner.route.js'; // Ensure the correct path
+import orderRoutes from './routes/order.route.js'; // Ensure the correct path
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 // Register Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/owner', ownerRoutes);
+app.use('/api/order', orderRoutes);
 
 // Test Route
 app.get('/api/test', (req, res) => {
