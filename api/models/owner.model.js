@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema(
+const ownerSchema = new mongoose.Schema(
     {
         email: {
             type: String,
@@ -23,6 +23,6 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-const Owner = mongoose.model('Owner', userSchema);
+const Owner = mongoose.model('Owner', ownerSchema);
 
 export default Owner;

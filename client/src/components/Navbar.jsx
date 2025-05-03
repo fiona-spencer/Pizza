@@ -6,12 +6,21 @@ import letterlogo from "../../src/assets/logo.svg";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import ShoppingCartIcon from "./ShoppingCartIcon";
 
+// A mock function to simulate getting the cart items from a global state or cookie/session
+const getCartItems = () => {
+  // This should return an array or object with all cart items (e.g., [ { id: 1, quantity: 3 }, { id: 2, quantity: 2 } ])
+  return [
+    { id: 1, quantity: 3 }, // Example of pizza item in cart
+    { id: 2, quantity: 2 }, // Example of wings item in cart
+  ];
+};
+
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const cartCount = 3; // Example dynamic count
-  const navigate = useNavigate(); // <-- Add this line
+  const [cartItems, setCartItems] = useState(getCartItems()); // Get initial cart items
+  const navigate = useNavigate();
 
   // Update the navbar height dynamically
   useEffect(() => {
@@ -30,12 +39,17 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Function to calculate the total quantity in the cart
+  const getCartTotalQuantity = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const cartCount = getCartTotalQuantity(); // Get the total quantity in the cart
+
   const handleScroll = (id) => {
     const element = document.getElementById(id);
-
     if (element) {
       const targetPosition = element.offsetTop - navbarHeight;
-
       window.scrollTo({
         top: targetPosition,
         behavior: "smooth",

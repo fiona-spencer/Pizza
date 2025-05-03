@@ -4,8 +4,6 @@ import Owner from '../models/owner.model.js'; // Correcting to use 'Owner' model
 import { errorHandler } from '../utils/error.js';
 
 //  SIGNIN - customer
-import jwt from 'jsonwebtoken';
-import { errorHandler } from '../utils/error.js';
 
 // POST /api/auth/signin
 export const signInWithEmail = async (req, res, next) => {

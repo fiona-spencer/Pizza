@@ -43,7 +43,6 @@ const Pizza = mongoose.model('Pizza', pizzaSchema);
 
 
 // Wings Schema
-import mongoose from 'mongoose';
 
 const wingSchema = new mongoose.Schema({
   name: {
