@@ -1,133 +1,100 @@
+import User from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
-import Owner from '../models/owner.model.js'; // Correcting to use 'Owner' model
-import { errorHandler } from '../utils/error.js';
+import { errorHandler } from '../utils/error.js';  // ✅ Import error utility
 
-//  SIGNIN - customer
+// GOOGLE
+export const google = async (req, res, next) => {
+  const { email, name, googlePhotoUrl } = req.body;
 
-// POST /api/auth/signin
-export const signInWithEmail = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    if (!email || !name) return next(errorHandler(400, "Missing Google account info"));
 
-    if (!email || !email.includes('@')) {
-      return next(errorHandler(400, 'A valid email is required.'));
+    let user = await User.findOne({ email });
+
+    if (user) {
+      const token = jwt.sign(
+        { id: user._id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+
+      const { password, ...rest } = user._doc;
+      res.status(200)
+        .cookie('access_token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production'
+        })
+        .json(rest);
+    } else {
+      const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+
+      const newUser = new User({
+        name,
+        email,
+        password: hashedPassword,
+        profilePicture: googlePhotoUrl,
+        role: 'owner'
+      });
+
+      await newUser.save();
+
+      const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+      const { password, ...rest } = newUser._doc;
+      res.status(200)
+        .cookie('access_token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production'
+        })
+        .json(rest);
     }
-
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(200).json({ token });
   } catch (err) {
-    next(errorHandler(500, 'Sign-in failed.'));
+    next(errorHandler(500, "Google sign-in failed"));
   }
 };
 
+// REGISTER
+export const register = async (req, res, next) => {
+  const { name, email, password } = req.body;
 
-// SIGNUP
+  if (!name || !email || !password)
+    return next(errorHandler(400, "Name, email, and password are required"));
 
-export const signup = async (req, res, next) => {
-    const { email, password } = req.body;
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return next(errorHandler(409, "Email already registered"));
 
-    if (!email || !password || email === '' || password === '') {
-        return next(errorHandler(400, "All fields are required"));
-    }
-
-    const hashedPassword = bcryptjs.hashSync(password, 10);
-
-    const newOwner = new Owner({
-        email,
-        password: hashedPassword,
-    });
-
-    try {
-        await newOwner.save();
-        res.status(201).json({ message: 'Signup successful' }); // Correct response
-    } catch (error) {
-        next(error);
-    }
-}
-
-// SIGNIN - Owner
-
-export const signin = async (req, res, next) => {
-    const { email, password } = req.body;
-
-    if (!email || !password || email === '' || password === '') {
-        return next(errorHandler(400, 'All fields are required'));
-    }
-
-    try {
-        const validOwner = await Owner.findOne({ email });
-        if (!validOwner) {
-            return next(errorHandler(404, 'User not found'));
-        }
-        const validPassword = bcryptjs.compareSync(password, validOwner.password);
-        if (!validPassword) {
-            return next(errorHandler(400, 'Invalid password'));
-        }
-        const token = jwt.sign(
-            { id: validOwner._id, isAdmin: validOwner.isAdmin }, // Correct the JWT payload
-            process.env.JWT_SECRET
-        );
-
-        const { password: pass, ...rest } = validOwner._doc;
-        
-        res
-            .status(200)
-            .cookie('access_token', token, {
-                httpOnly: true,
-            })
-            .json(rest);
-    } catch (error) {
-        next(error);
-    }
+    const hashed = bcryptjs.hashSync(password, 10);
+    const newUser = new User({ name, email, password: hashed });
+    await newUser.save();
+    res.status(201).json("User registered");
+  } catch (err) {
+    next(errorHandler(500, "Registration failed"));
+  }
 };
 
-// GOOGLE
+// LOGIN
+export const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) return next(errorHandler(400, "Email and password are required"));
 
-export const google = async (req, res, next) => {
-    const { email, name, googlePhotoUrl } = req.body;
-    try {
-        const owner = await Owner.findOne({ email });
-        if (owner) {
-            const token = jwt.sign(
-                { 
-                    id: owner._id,
-                    isAdmin: owner.isAdmin,
-                },
-                process.env.JWT_SECRET
-            );
-            const { password, ...rest } = owner._doc;
-            res
-                .status(200)
-                .cookie('access_token', token, {
-                    httpOnly: true,
-                })
-                .json(rest);
-        } else {
-            const generatedPassword = 
-                Math.random().toString(36).slice(-8) +
-                Math.random().toString(36).slice(-8);
-            const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
-            const newOwner = new Owner({  // Correcting to use 'Owner' model
-                email,
-                password: hashedPassword,
-                profilePicture: googlePhotoUrl,
-            });
-            await newOwner.save();
-            const token = jwt.sign(
-                { id: newOwner._id, isAdmin: newOwner.isAdmin },
-                process.env.JWT_SECRET
-            );
-            const { password, ...rest } = newOwner._doc;
-            res
-                .status(200)
-                .cookie('access_token', token, {
-                    httpOnly: true,
-                })
-                .json(rest);
-        }
-    } catch (error) {
-        next(error);
-    }
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return next(errorHandler(404, "User not found"));
+
+    const isCorrect = bcryptjs.compareSync(password, user.password);
+    if (!isCorrect) return next(errorHandler(400, "Wrong password"));
+
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const { password: pw, ...rest } = user._doc;
+
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production'
+    }).status(200).json(rest);
+  } catch (err) {
+    next(errorHandler(500, "Login failed"));
+  }
 };

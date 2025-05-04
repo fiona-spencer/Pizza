@@ -3,10 +3,14 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import authRoutes from './routes/auth.route.js'; // Ensure the correct path
-import ownerRoutes from './routes/owner.route.js'; // Ensure the correct path
-import orderRoutes from './routes/order.route.js'; // Ensure the correct path
-import customerRoutes from './routes/customer.route.js'; // Ensure the correct path
+
+// ROUTES
+import authRoutes from './routes/auth.route.js'
+import userRoutes from './routes/user.route.js';
+import restaurantRoutes from './routes/resturant.route.js';
+import menuRoutes from './routes/menu.route.js';
+import cartRoutes from './routes/cart.route.js';
+import orderRoutes from './routes/order.route.js';
 
 dotenv.config();
 
@@ -28,9 +32,11 @@ app.use(cookieParser());
 
 // Register Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/owner', ownerRoutes);
-app.use('/api/order', orderRoutes);
-app.use('/api/customer', customerRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/restaurants', restaurantRoutes);
+app.use('/api/menu', menuRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Test Route
 app.get('/api/test', (req, res) => {

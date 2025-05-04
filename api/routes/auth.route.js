@@ -1,10 +1,10 @@
 import express from 'express';
-import { google, signin, signInWithEmail } from '../controllers/auth.controller.js';
+import { register, login, google } from '../controllers/auth.controller.js';
 
 const router = express.Router();
 
-router.post('/signin', signin);  // Sign in route
-router.post('/google', google);  // Google sign-in route
-router.post('/emailSignIn', signInWithEmail);  // Google sign-in route
+router.post('/register', register);
+router.post('/login', login);
+router.post('/google', google);
 
 export default router;

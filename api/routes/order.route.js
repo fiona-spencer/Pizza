@@ -1,18 +1,17 @@
 import express from 'express';
 import {
   createOrder,
-  getAllOrders,
-  getOrdersByEmail,
-  updateOrder,
-  deleteOrder,
+  getOrders,
+  getOrderById,
+  updateOrderStatus,
 } from '../controllers/order.controller.js';
+import { verifyUser } from '../utils/verifyOwner.js';
 
 const router = express.Router();
 
-router.post('/createOrder', createOrder);       // Create order
-router.get('/getOrders', getAllOrders);          // Get all orders
-router.get('/getOrder/:email', getOrdersByEmail);  // Get orders by email
-router.put('/update/:id', updateOrder);                // Update order
-router.delete('/delete/:id', deleteOrder);             // Delete order
+router.post('/', verifyUser, createOrder);
+router.get('/', verifyUser, getOrders);
+router.get('/:id', verifyUser, getOrderById);
+router.put('/:id/status', verifyUser, updateOrderStatus);
 
 export default router;

@@ -9,7 +9,7 @@ const PizzaModal = ({ isOpen, pizza, onClose, onAddToCart }) => {
   const handleAddToCart = () => {
     // Pass the form data to the parent component
     onAddToCart({
-      orderType: "pizza", // You can modify this if you have other types (wings, sides, etc.)
+      orderType: "pizza", // Modify if you have other types
       pizza,
       quantity,
       selectedAddons,
