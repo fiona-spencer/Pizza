@@ -4,17 +4,17 @@ import { FaLeaf } from "react-icons/fa"; // Import FaLeaf icon
 import { LuVegan } from "react-icons/lu";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/motion";
-import PizzaModal from "./PizzaModal"; // Import the new PizzaModal component
+import ItemModal from "./ItemModal";
 
-const Pizza = ({ index, name, description, tags, image }) => {
+const Pizza = ({ index, name, description, tags, image, category }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleAddToCart = (pizzaDetails) => {
-    console.log("Added to cart:", pizzaDetails);
+  const handleAddToCart = (itemDetails) => {
+    console.log("Added to cart:", itemDetails);
     setIsAdded(true);
   };
 
@@ -86,10 +86,11 @@ const Pizza = ({ index, name, description, tags, image }) => {
         </div>
       </motion.div>
 
-      {/* PizzaModal Component */}
-      <PizzaModal
+      {/* ItemModal Component */}
+      <ItemModal
         isOpen={isModalOpen}
-        pizza={{ name, description, image, tags }}
+        category={category}  // Pass category as a prop
+        item={{ name, description, image, tags }}  // Pass item details
         onClose={handleCloseModal}
         onAddToCart={handleAddToCart}
       />

@@ -1,76 +1,61 @@
+// orderSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
+// Define the initial state for orders
 const initialState = {
-  orders: [],
-  currentOrder: null,
-  loading: false,
-  error: null,
+  orders: [],        // Array to hold orders
+  currentOrder: null, // Current order being created/updated
+  loading: false,     // Whether an order operation is in progress
+  error: null,        // Any error message
 };
 
 const orderSlice = createSlice({
-  name: 'order',
-  initialState,
+  name: 'order',        // Slice name
+  initialState,         // Initial state
   reducers: {
+    // Action to start creating an order
     createOrderStart: (state) => {
       state.loading = true;
       state.error = null;
     },
+    // Action to handle successful order creation
     createOrderSuccess: (state, action) => {
+      state.orders.push(action.payload); // Add new order to the list
+      state.currentOrder = action.payload;
       state.loading = false;
-      state.orders.push(action.payload); // Add the newly created order to the orders array
-      state.error = null;
     },
+    // Action to handle failed order creation
     createOrderFailure: (state, action) => {
+      state.error = action.payload; // Store error message
       state.loading = false;
-      state.error = action.payload;
     },
-    updateOrderStart: (state) => {
-      state.loading = true;
-      state.error = null;
+    // Action to get all orders
+    getOrdersSuccess: (state, action) => {
+      state.orders = action.payload;
     },
-    updateOrderSuccess: (state, action) => {
-      state.loading = false;
-      const updatedOrder = action.payload;
-      const index = state.orders.findIndex((order) => order._id === updatedOrder._id);
-      if (index >= 0) {
-        state.orders[index] = updatedOrder; // Update the order in the array
+    // Action to get an individual order
+    getOrderSuccess: (state, action) => {
+      state.currentOrder = action.payload;
+    },
+    // Action to update the status of an order (e.g., delivered)
+    updateOrderStatus: (state, action) => {
+      const orderIndex = state.orders.findIndex(order => order.id === action.payload.id);
+      if (orderIndex !== -1) {
+        state.orders[orderIndex].status = action.payload.status;
       }
-      state.error = null;
-    },
-    updateOrderFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    deleteOrderStart: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    deleteOrderSuccess: (state, action) => {
-      state.loading = false;
-      state.orders = state.orders.filter((order) => order._id !== action.payload); // Remove the deleted order
-      state.error = null;
-    },
-    deleteOrderFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setCurrentOrder: (state, action) => {
-      state.currentOrder = action.payload; // Set the current order
     },
   },
 });
 
-export const {
-  createOrderStart,
-  createOrderSuccess,
+// Export actions
+export const { 
+  createOrderStart, 
+  createOrderSuccess, 
   createOrderFailure,
-  updateOrderStart,
-  updateOrderSuccess,
-  updateOrderFailure,
-  deleteOrderStart,
-  deleteOrderSuccess,
-  deleteOrderFailure,
-  setCurrentOrder,
+  getOrdersSuccess, 
+  getOrderSuccess, 
+  updateOrderStatus 
 } = orderSlice.actions;
 
+// Export the reducer to be used in the store
 export default orderSlice.reducer;

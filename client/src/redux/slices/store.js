@@ -1,40 +1,33 @@
+// store.js
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // This is for localStorage
-import customerReducer from './customer/customerSlice'
-import orderReducer from './order/orderSlice';
+import storage from 'redux-persist/lib/storage';  // This is for localStorage
+import userReducer from '../slices/user/userSilce'; // Import the user slice
+import orderReducer from '../slices/order/orderSlice'; // Import the order slice
 
-// Combine only the customer and order reducers
-const rootReducer = combineReducers({
-  order: orderReducer, // Order state
-  customer: customerReducer, // Customer state
-});
-
-// Persist configuration
+// Define persist config
 const persistConfig = {
-  key: 'root',
-  storage,
-  version: 1, // Version number (helps when changing structure of persisted state)
-  blacklist: [], // You can blacklist reducers from being persisted
-  whitelist: ['order', 'customer'], // Whitelist order and customer to persist them
+  key: 'root',  // The key to store the persisted state in localStorage
+  storage,      // Use localStorage as the storage method
+  whitelist: ['user'],  // Only persist the user slice (you can add other slices here if needed)
 };
 
-// Persist the combined reducer
+// Combine reducers
+const rootReducer = combineReducers({
+  user: userReducer,    // Add the user slice to the rootReducer
+  order: orderReducer,  // Add the order slice to the rootReducer
+});
+
+// Persist the combined reducers
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Configure the store
 const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: ['persist/PERSIST'], // Ignore persist actions for serializable check
-      },
-    }),
+  reducer: persistedReducer,  // Use the persisted reducer for the store
+  devTools: process.env.NODE_ENV !== 'production', // Enable Redux DevTools in development
 });
 
-// Create the persistor to manage persistence
-export const persistor = persistStore(store);
+// Create a persistor to persist the store
+const persistor = persistStore(store);
 
-// Export the store
-export { store };
+export { store, persistor };

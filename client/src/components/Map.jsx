@@ -20,9 +20,9 @@ const Map = () => {
         <h2 className={`${styles.sectionHeadText}`}>Google Map</h2>
       </div>
 
-      <div className="relative z-10 sm:flex sm:grid-flow-col mx-auto sm:px-48 sm:gap-9 items-center">
+      <div className="relative z-10 sm:flex sm:grid-flow-col mx-auto lg:px-10 sm:gap-9 items-center">
         {/* Info Section */}
-        <div className="my-6 max-w-3xl mx-auto text-center bg-[#6b202097] p-4 sm:p-10 border-2 border-white rounded sm:flex-1 text-sm sm:text-base">
+        <div className="my-6 lg:max-w-3xl mx-auto text-center bg-[#6b202097] p-4 sm:p-10 border-2 border-white rounded sm:flex-1 text-sm sm:text-base">
           <p className="font-semibold">Address:</p>
           <p className="mb-4">
             <a

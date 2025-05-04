@@ -2,8 +2,8 @@ import React from 'react';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import About from '../components/About';
-import Menu from '../components/Menu';
-import Wings from '../components/Wings';
+import Pizza from '../components/Pizza';
+import Wings from '../components/Modal/Wings';
 import Sides from '../components/Sides';
 import Feedback from '../components/Feedback';
 import Map from '../components/Map';
@@ -16,7 +16,7 @@ import aboutBg from '../assets/aboutbg.jpg'
 
 const HomePage = () => {
   return (
-    <div className="bg-red-300">
+    <div className="bg-red-300 z-0">
       {/* Navbar and Hero Section */}
       <div className="bg-white bg-cover bg-no-repeat bg-center">
         <Navbar />
@@ -33,23 +33,23 @@ const HomePage = () => {
             filter: 'blur(1px)', // Adjust the blur effect (8px is an example)
           }}
         />
-        <div className="relative z-10">
+        <div className="relative">
           <About />
         </div>
       </div>
 
       {/* Menu Section */}
-      <div className="bg-red-500">
-        <Menu />
+      <div className="bg-red-500 z-0">
+        <Pizza />
       </div>
       <Wings />
       <Sides />
 
       {/* Feedback, Contact, and Canvas Section */}
-      <div className="z-0 relative bg-[#272524ed]">
+      <div className="  bg-[#272524ed]">
         <Feedback />
         <InstaPage />
-        <div className="bg-[#da5a5a] relative z-0">
+        <div className="bg-[#da5a5a]">
           <Map />
           <Contact />
           <StarsCanvas />

@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}> {/* Provide a loading prop */}
         <BrowserRouter> {/* Wrap the app in BrowserRouter */}
           <App />
         </BrowserRouter>

@@ -43,7 +43,7 @@ const Hero = () => {
       </div>
 
       {/* Animated Arrow */}
-      <a href="#about" className="absolute bottom-10 flex flex-col items-center z-10">
+      <a href="#about" className="absolute bottom-10 flex flex-col items-center z-0">
   <motion.div
     animate={{ y: [0, 24, 0] }}
     transition={{

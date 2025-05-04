@@ -72,7 +72,7 @@ const Contact = () => {
 
 <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] max-w-xl border-dashed border-4 border-slate-900 p-8 squared-2xl bg-[#8d262664]"
+        className="flex-[0.75] md:max-w-xl lg:max-w-4xl  border-dashed border-4 border-slate-900 p-8 squared-2xl bg-[#8d262664]"
       >
      
         {alert.show && (
@@ -128,7 +128,7 @@ const Contact = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="bg-slate-800 hover:bg-slate-700 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary transition-all duration-200 flex items-center"
+              className="bg-slate-800 z-10 hover:bg-slate-700 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary transition-all duration-200 flex items-center"
             >
               {loading ? "Sending..." : "Send"}
               <IoIosSend className="h-5 w-5 ml-3" />
@@ -139,7 +139,7 @@ const Contact = () => {
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]"
+        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px] lg:pl-40 z-0"
       >
         <PizzaCanvas />
       </motion.div>

@@ -142,7 +142,9 @@ export const navLinks = [
   const pizzas = [
     {
       name: "The Dr.Mario",
-      description: "Mozzarella shred blend, signature tomato sauce, house roasted chicken, sautéed garlic & parm spinach, bacon grated to order Grana Padano Chef recommends adding chilli flakes",
+      category: "pizza",
+      description:
+        "Mozzarella shred blend, signature tomato sauce, house roasted chicken, sautéed garlic & parm spinach, bacon grated to order Grana Padano Chef recommends adding chilli flakes",
       tags: [
         {
           cost: "CA 21.00",
@@ -159,7 +161,9 @@ export const navLinks = [
     },
     {
       name: "The Captain Planet",
-      description: "Caramelized onion base, roasty mushrooms, rosemary & herb infused oil, fresh parsley garnish (VEGAN)",
+      category: "pizza",
+      description:
+        "Caramelized onion base, roasty mushrooms, rosemary & herb infused oil, fresh parsley garnish (VEGAN)",
       tags: [
         {
           cost: "CA 21.00",
@@ -176,55 +180,60 @@ export const navLinks = [
     },
     {
       name: "The Margherita",
+      category: "pizza",
       description:
         "Mozzarella shred blend, signature tomato sauce, grated-to-order grana padano, fresh basil garnish.",
-        tags: [
-          {
-            cost: "CA 21.00",
-            color: "text-secondary",
-          },
-          {
-            name: "veg",
-            color: "green-text-gradient",
-          },
-        ],
-        image: margPizza,
+      tags: [
+        {
+          cost: "CA 21.00",
+          color: "text-secondary",
+        },
+        {
+          name: "veg",
+          color: "green-text-gradient",
+        },
+      ],
+      image: margPizza,
       source_code_link:
         "https://www.doordash.com/store/hooray-for-pizza-day-toronto-27973800/?utm_campaign=gpa",
     },
     {
       name: "The Power Pepperoni",
+      category: "pizza",
       description:
         "Mozzarella shred blend, double cup & char pepperoni, signature tomato sauce, grated-to-order grana padano, fresh oregano garnish.",
-        tags: [
-          {
-            cost: "CA 25.00",
-            color: "text-secondary",
-          },
-        ],
-        image: pepPizza,
+      tags: [
+        {
+          cost: "CA 25.00",
+          color: "text-secondary",
+        },
+      ],
+      image: pepPizza,
       source_code_link: "https://github.com/",
     },
     {
       name: "The Sanderson Sister",
+      category: "pizza",
       description:
         "Mozzarella shred blend, housemade trio of sauces (marinara, vodka, pesto cream), grated-to-order grana padano.",
-        tags: [
-          {
-            cost: "CA 24.00",
-            color: "text-secondary",
-          },
-          {
-            name: "veg",
-            color: "green-text-gradient",
-          },
-        ],
-        image: sisterPizza,
+      tags: [
+        {
+          cost: "CA 24.00",
+          color: "text-secondary",
+        },
+        {
+          name: "veg",
+          color: "green-text-gradient",
+        },
+      ],
+      image: sisterPizza,
       source_code_link: "https://github.com/",
     },
     {
       name: "The Mushaboom",
-      description: "Mozzarella shred blend, mushroom & rosemary infused cream sauce, roasty mushrooms, lemon zest, grated-to-order grana padano, fresh chive garnish.",
+      category: "pizza",
+      description:
+        "Mozzarella shred blend, mushroom & rosemary infused cream sauce, roasty mushrooms, lemon zest, grated-to-order grana padano, fresh chive garnish.",
       tags: [
         {
           cost: "CA 25.00",
@@ -240,8 +249,9 @@ export const navLinks = [
     },
     {
       name: "The Hawaiian",
+      category: "pizza",
       description:
-      "Mozzarella shred blend, signature tomato sauce, 8-hour roast confit pork shoulder, thinly shaved onion, housemade pineapple honey chili glaze, grated-to-order grana padano, fresh cilantro garnish.",
+        "Mozzarella shred blend, signature tomato sauce, 8-hour roast confit pork shoulder, thinly shaved onion, housemade pineapple honey chili glaze, grated-to-order grana padano, fresh cilantro garnish.",
       tags: [
         {
           cost: "CA 24.00",
@@ -256,6 +266,7 @@ export const navLinks = [
       source_code_link: "https://github.com/",
     },
   ];
+  
 
   const instaImages = [
     insta1,
@@ -271,18 +282,21 @@ export const navLinks = [
  const sides = [
     {
       name: "Garlic Knots",
+      category: 'knots',
       description: "Soft, buttery garlic knots served with marinara.",
       tags: [{ name: "veg", cost: "CA 6", color: "text-green-600" }],
       image: garlic,
     },
     {
       name: "Caesar Salad",
+      category: 'salad',
       description: "Crisp romaine, house made croutons, bacon, tossed in our signature caesar dressing, grated to order Grana Padano.",
       tags: [{ name: "veg", cost: "CA 12", color: "text-green-600" }],
       image: salad,
     },
     {
       name: "Fresh Cut Fries",
+      category: fries,
       description: "House made fresh cut fries served with ketchup.",
       tags: [{ name: "veg", cost: "CA 8", color: "text-green-600" }],
       image: fries,
@@ -292,6 +306,7 @@ export const navLinks = [
   const wingsImages = [
     {
       name: "1 Pound Wings",
+      category: "wing",
       description:
         "Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.",
       image: wings, // replace with actual image path
@@ -311,7 +326,52 @@ export const navLinks = [
     },
   ];
   
+  const addOns = {
+    pizza: {
+      dippingSauces: [
+        { name: "House Made Ranch", price: 2.5 },
+        { name: "Signature Tomato Sauce", price: 2.5 },
+        { name: "House Made Mushroom Sauce", price: 2.5 },
+        { name: "House Made Hot Honey", price: 2.5 },
+        { name: "Creamy Garlic", price: 2.5 },
+        { name: "House Made Blue Cheese", price: 2.5 },
+        { name: "Honey Gochujang", price: 2.5 },
+        { name: "Chipotle Mayo", price: 2.5 }
+      ],
+      additionalToppings: [
+        { name: "Pepperoni", price: 2.5 }
+      ]
+    },
+    wing: {
+      veggieDip: [
+        { name: "House Made Ranch", price: 0 },
+        { name: "House Made Blue Cheese", price: 0 },
+        { name: "Extra Ranch", price: 2.5 },
+        { name: "Extra Blue Cheese", price: 2.5 }
+      ],
+      wingSauce: [
+        { name: "Salt and Peppa", price: 0 },
+        { name: "Honey Garlic", price: 0 },
+        { name: "Classic BBQ", price: 0 },
+        { name: "Smoked BBQ Heat", price: 0 },
+        { name: "Hot Honey", price: 0 },
+        { name: "Franks Red Hot Sauce", price: 0 },
+        { name: "Honey Gochujang", price: 0 },
+        { name: "Tibetan Curry", price: 0 },
+        { name: "Suicide", price: 0 },
+        { name: "Extra Sauce", price: 2.5 }
+      ]
+    },
+    salad: {
+      extras: [
+        { name: "Extra Salad Dressing", price: 2.5 },
+        { name: "Grilled Chicken Breast", price: 5.0 }
+      ]
+    }
+  };
   
   
-  export { services , testimonials, pizzas, instaImages, sides, wingsImages };
+  
+  
+  export { services , testimonials, pizzas, instaImages, sides, wingsImages, addOns };
   
