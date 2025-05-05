@@ -40,7 +40,7 @@ export const google = async (req, res, next) => {
       email,
       password: hashedPassword,
       profilePicture: googlePhotoUrl,
-      role: 'owner', // Default role for Google sign-up
+      role: 'customer', // Default role is now 'customer'
     });
 
     await newUser.save();
@@ -60,6 +60,7 @@ export const google = async (req, res, next) => {
     next(errorHandler(500, 'Google sign-in failed'));
   }
 };
+
 
 // REGISTER
 export const register = async (req, res, next) => {

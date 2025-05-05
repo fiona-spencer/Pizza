@@ -11,24 +11,23 @@ export default function Cart({ items, setItems, activeSection, setActiveSection 
     return total + itemTotal;
   }, 0);
 
-  // Handle deleting an item
-  const handleDeleteItem = async (itemId) => {
-    try {
-      const response = await fetch(`/api/menu/${itemId}`, {
-        method: 'DELETE',
-      });
+ // Handle deleting an item
+const handleDeleteItem = async (itemId) => {
+  try {
+    const response = await fetch(`/api/menu/${itemId}`, {
+      method: 'DELETE',
+    });
 
-      if (response.ok) {
-        // Remove the item from state to update UI
-        const updatedItems = items.filter(item => item._id !== itemId);
-        setItems(updatedItems); // ✅ this updates the UI
-      } else {
-        console.error('Failed to delete item');
-      }
-    } catch (error) {
-      console.error('Error deleting item:', error);
+    if (response.ok) {
+      window.location.reload(); // ✅ Force full page reload
+    } else {
+      console.error('Failed to delete item');
     }
-  };
+  } catch (error) {
+    console.error('Error deleting item:', error);
+  }
+};
+
 
   return (
     <div className="mb-6">
