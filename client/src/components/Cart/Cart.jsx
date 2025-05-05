@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaTrash } from 'react-icons/fa'; // Import trash icon
+import { FaTrash } from 'react-icons/fa';
 
-export default function Cart({ items, activeSection, setActiveSection }) {
+export default function Cart({ items, setItems, activeSection, setActiveSection }) {
   // Calculate total price
   const totalPrice = items.reduce((total, item) => {
     let itemTotal = item.price;
@@ -19,11 +19,9 @@ export default function Cart({ items, activeSection, setActiveSection }) {
       });
 
       if (response.ok) {
-        // Filter out the deleted item from the items list
+        // Remove the item from state to update UI
         const updatedItems = items.filter(item => item._id !== itemId);
-        setActiveSection(0); // Optional: You can reset the active section or handle differently
-        // Update the items list after deletion
-        // You may need a state hook to update the cart in the parent component
+        setItems(updatedItems); // ✅ this updates the UI
       } else {
         console.error('Failed to delete item');
       }
@@ -58,7 +56,6 @@ export default function Cart({ items, activeSection, setActiveSection }) {
                           </ul>
                         )}
                       </div>
-                      {/* Trash Icon */}
                       <button
                         onClick={() => handleDeleteItem(item._id)}
                         className="text-red-500 hover:text-red-700"
@@ -69,7 +66,6 @@ export default function Cart({ items, activeSection, setActiveSection }) {
                   </li>
                 ))}
               </ul>
-              {/* Total Price */}
               <div className="mt-6 flex justify-between font-semibold text-red-700">
                 <span>Total:</span>
                 <span>${totalPrice.toFixed(2)}</span>
