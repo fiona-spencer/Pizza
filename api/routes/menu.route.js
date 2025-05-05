@@ -5,13 +5,11 @@ import {
   updateMenuItem,
   deleteMenuItem,
 } from '../controllers/menu.controller.js';
-import { verifyUser } from '../utils/verifyOwner.js';
-
 const router = express.Router();
 
-router.get('/:resturandId/menu', getMenu);
-router.post('/:resturandId/menu', verifyUser, addMenuItem);
-router.put('/:menuId', verifyUser, updateMenuItem);
-router.delete('/:menuId', verifyUser, deleteMenuItem);
+router.get('/getItems', getMenu);
+router.post('/addItem', addMenuItem);
+router.put('/:menuId', updateMenuItem);
+router.delete('/:menuId', deleteMenuItem);
 
 export default router;

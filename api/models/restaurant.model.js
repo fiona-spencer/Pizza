@@ -1,25 +1,26 @@
 
 import mongoose from "mongoose";
 
-const ResturantSchema = new mongoose.Schema({
+const RestaurantSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     address: {
-        type: String
+        type: String,
     },
     phone: {
-        type: String
+        type: String,
     },
     email: {
-        type: String
+        type: String,
     },
     ownerId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+        default: 'owner'
     }
 }, { timestamps: true });
 
-export default mongoose.model('Resturant', ResturantSchema);
+export default mongoose.model('Restaurant', RestaurantSchema);

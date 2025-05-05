@@ -1,58 +1,114 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "flowbite-react";
 
-const AddItem = ({ item, addOns, quantity, onSuccess, onError }) => {
+const AddItem = ({ item, addOns, quantity, notes, onSuccess, onError }) => {
   const [status, setStatus] = useState("idle");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    try {
-      // Simulate adding item to cart
-      const cartItem = { ...item, addOns, quantity };
-      console.log("Add to cart:", cartItem);
+    const addToCart = async () => {
+      setLoading(true);
 
-      setStatus("success");
-      onSuccess?.(); // Notify parent if needed
+      try {
+        const res = await fetch("/api/restaurant/getRest", { method: "GET" });
 
-      // Dismiss success alert after 3 seconds and reload the window
-      const successTimeout = setTimeout(() => {
-        setStatus("idle"); // Reset status to idle
-        window.location.reload(); // Reload the page after success
-      }, 3000);
+        if (!res.ok) throw new Error("Failed to fetch restaurant");
 
-      return () => clearTimeout(successTimeout); // Cleanup timeout if component unmounts
-    } catch (err) {
-      setStatus("error");
-      onError?.();
+        const data = await res.json();
 
-      // Dismiss error alert after 5 seconds
-      const errorTimeout = setTimeout(() => {
-        setStatus("idle"); // Reset status to idle
-      }, 5000);
+        if (!Array.isArray(data) || data.length === 0) {
+          throw new Error("No restaurants found");
+        }
 
-      return () => clearTimeout(errorTimeout); // Cleanup timeout if component unmounts
-    }
-  }, [item, addOns, quantity, onSuccess, onError]);
+        const restaurant = data.find(r => r.name === "Hooray for Pizza Day") || data[0];
+        const restaurantId = restaurant._id;
+        console.log("Restaurant ID:", restaurantId);
 
-  // Custom class for success and error status
-  const alertClass = status === "success" ? "bg-transparent" : "bg-red-600"; // Set green for success and red for error
+        if (!restaurantId) throw new Error("Restaurant ID not found");
 
-  return status !== "idle" ? (
-    <div
-      className={`fixed top-[110px] sm:pt-24 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4 transition-opacity duration-1000 opacity-100 ${alertClass}`}
-      style={{
-        animation: status === "success" ? "fadeIn 1s ease, fadeOut 1s ease 3s" : "fadeIn 1s ease, fadeOut 1s ease 5s",
-      }}
-    >
-      <Alert
-        color={status === "success" ? "success" : "failure"}
-        className="text-white border-none rounded-lg"
+        const validQuantity = Number(quantity);
+        const itemQuantity = isNaN(validQuantity) || validQuantity <= 0 ? 1 : validQuantity;
+
+        const cartItem = {
+          restaurantId,
+          name: item.name,
+          price: Number(item.price),  // Use price from item here
+          quantity: itemQuantity,
+          addOns: addOns.map(addOn => ({
+            name: addOn.name,
+            price: Number(addOn.price),
+          })),
+          notes: notes || "",
+          category: item.category || "pizza",
+        };
+
+        console.log("Cart Item Payload:", cartItem);
+
+        const response = await fetch(`/api/menu/addItem`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cartItem),
+        });
+
+        const responseData = await response.json();
+        console.log("API Response:", responseData);
+
+        if (!response.ok) {
+          throw new Error(`Failed to add menu item: ${responseData.message || 'Unknown error'}`);
+        }
+
+        setStatus("success");
+        onSuccess?.();
+
+        // Only reset status after a short delay
+        const successTimeout = setTimeout(() => {
+          setStatus("idle");
+        }, 3000);
+
+        return () => clearTimeout(successTimeout);
+      } catch (err) {
+        console.error("Error adding item:", err);
+        setStatus("error");
+        onError?.();
+
+        const errorTimeout = setTimeout(() => {
+          setStatus("idle");
+        }, 5000);
+
+        return () => clearTimeout(errorTimeout);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    addToCart();
+  }, [item, addOns, quantity, notes, onSuccess, onError]);
+
+  const alertClass = status === "success" ? "bg-transparent" : "bg-red-600";
+
+  return (
+    status !== "idle" && (
+      <div
+        className={`fixed top-20 sm:pt-24 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4 transition-opacity duration-1000 opacity-100 ${alertClass}`}
+        style={{
+          animation:
+            status === "success"
+              ? "fadeIn 1s ease, fadeOut 1s ease 3s"
+              : "fadeIn 1s ease, fadeOut 1s ease 5s",
+        }}
       >
-        {status === "success"
-          ? "✅ Successfully added to cart!"
-          : "❌ Failed to add to cart. Please try again."}
-      </Alert>
-    </div>
-  ) : null;
+        <Alert
+          color={status === "success" ? "success" : "failure"}
+          className="text-white border-none rounded-lg"
+        >
+          {status === "success"
+            ? "✅ Successfully added to cart!"
+            : "❌ Failed to add to cart. Please try again."}
+        </Alert>
+      </div>
+    )
+  );
 };
+
 
 export default AddItem;

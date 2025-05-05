@@ -1,15 +1,15 @@
 import { IoMdAddCircle, IoMdCheckmarkCircle } from "react-icons/io";
 import { useState } from "react";
-import { FaLeaf } from "react-icons/fa"; // Import FaLeaf icon
+import { FaLeaf } from "react-icons/fa";
 import { LuVegan } from "react-icons/lu";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/motion";
 import ItemModal from "./ItemModal";
 
-const Pizza = ({ index, name, description, tags, image, category }) => {
+const PizzaItem = ({ index, name, description, tags, image, category = 'pizza' }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  
+
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
@@ -17,6 +17,9 @@ const Pizza = ({ index, name, description, tags, image, category }) => {
     console.log("Added to cart:", itemDetails);
     setIsAdded(true);
   };
+
+  // Safely extract price from tags
+  const price = tags?.[0]?.price ? parseFloat(tags[0].price).toFixed(2) : "N/A";
 
   return (
     <>
@@ -60,13 +63,22 @@ const Pizza = ({ index, name, description, tags, image, category }) => {
             <p className="text-gray-900 pt-1 -mr-3 text-[11px] sm:text-[14px]">
               {description}
             </p>
-            <div className="-mt-2 sm:mt-3 gap-1 sm:items-center sm:inline flex">
-              {tags.map((tag) => (
-                <div key={tag.cost}>
-                  <p className="text-[18px] sm:text-[20px] text-black font-bold mt-5">
-                    {tag.cost}
-                  </p>
-                  <p className={`text-[12px] sm:text-[14px] sm:p-0 pl-3 pt-0.5 ${tag.color}`}>
+
+         <div className="flex lg:inline items-center lg:justify-center lg:items-end sm:gap-4">
+             {/* Price */}
+             <p className="text-[18px] sm:text-[20px] text-black font-bold sm:mt-5 mt-2">
+              CA {price}
+            </p>
+
+            {/* Tags */}
+            <div className="sm:mt-3 gap-1 sm:items-center sm:inline flex mt-1">
+              {tags
+                .filter((tag) => tag.name)
+                .map((tag, i) => (
+                  <p
+                    key={i}
+                    className={`text-[12px] sm:text-[14px] sm:p-0 pl-3 pt-0.5 ${tag.color}`}
+                  >
                     {tag.name === "veg" ? (
                       <>
                         {tag.name} <FaLeaf className="inline-block text-green-500 ml-1" />
@@ -79,18 +91,18 @@ const Pizza = ({ index, name, description, tags, image, category }) => {
                       tag.name
                     )}
                   </p>
-                </div>
-              ))}
+                ))}
             </div>
+         </div>
           </div>
         </div>
       </motion.div>
 
-      {/* ItemModal Component */}
       <ItemModal
         isOpen={isModalOpen}
-        category={category}  // Pass category as a prop
-        item={{ name, description, image, tags }}  // Pass item details
+        category={category}
+        item={{name, description, image, tags, price, category }}
+        price={price}
         onClose={handleCloseModal}
         onAddToCart={handleAddToCart}
       />
@@ -98,4 +110,4 @@ const Pizza = ({ index, name, description, tags, image, category }) => {
   );
 };
 
-export default Pizza;
+export default PizzaItem;

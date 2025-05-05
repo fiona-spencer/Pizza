@@ -19,20 +19,54 @@ export const getMenu = async (req, res, next) => {
 // ADD MENU ITEM
 export const addMenuItem = async (req, res, next) => {
   try {
-    const { name, price } = req.body;
-    if (!name || !price) return next(errorHandler(400, "Name and price are required"));
+    // Destructure fields from the request body
+    const { name, price, addOns, notes, category, quantity } = req.body;
 
+    // Validate required fields
+    if (!name || price === undefined) {
+      return next(errorHandler(400, "Name and price are required"));
+    }
+
+    const restaurantId = req.params.restaurantId; // Get restaurantId from params
+
+    // Validate and sanitize addOns, ensuring they are correctly formatted
+    const formattedAddOns = Array.isArray(addOns)
+      ? addOns.map(addOn => ({
+          name: addOn.name,
+          price: Number(addOn.price), // Ensure addOn price is a number
+        }))
+      : [];
+
+    // Validate quantity: ensure it is a number and handle edge cases like undefined, null, or non-numeric values
+    let itemQuantity = Number(quantity); // Convert quantity to a number
+    if (isNaN(itemQuantity) || itemQuantity <= 0) {
+      itemQuantity = 1;  // Set to default value if quantity is invalid
+    }
+
+    // Construct the new menu item object, including the quantity field
     const newItem = new MenuItem({
-      ...req.body,
-      restaurantId: req.params.restaurantId
+      restaurantId,
+      name,
+      price: Number(price),  // Ensure price is a number
+      addOns: formattedAddOns,
+      category: category || "pizza", // Default to "pizza" if category is not provided
+      notes: notes || "",  // Default to an empty string if notes are not provided
+      quantity: itemQuantity,  // Add quantity to the new item
     });
 
+    // Save the new item to the database
     await newItem.save();
+
+    // Respond with the newly created menu item
     res.status(201).json(newItem);
   } catch (err) {
+    console.error("Error adding menu item:", err);
     next(errorHandler(500, "Failed to add menu item"));
   }
 };
+
+
+
 
 // UPDATE MENU ITEM
 export const updateMenuItem = async (req, res, next) => {

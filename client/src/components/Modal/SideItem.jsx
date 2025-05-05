@@ -5,11 +5,16 @@ import { FaLeaf } from "react-icons/fa";
 import { fadeIn } from "../../utils/motion";
 import ItemModal from "./ItemModal";  // Import the ItemModal
 
-const SideItem = ({ index, name, description, tags, image, category = "sides" }) => {
+const SideItem = ({ index, name, description, tags, image, category = "side" }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-  const handleOpenModal = () => setIsModalOpen(true);
+  // Function to open the modal and log the category
+  const handleOpenModal = () => {
+    console.log("Category clicked:", category);  // Log the category when the side item is clicked
+    setIsModalOpen(true);
+  };
+
   const handleCloseModal = () => setIsModalOpen(false);
   const handleAddToCart = (item) => {
     console.log("Added item:", item);
@@ -32,7 +37,7 @@ const SideItem = ({ index, name, description, tags, image, category = "sides" })
             className="w-full h-full object-cover rounded-t-md"
           />
           <div
-            onClick={handleOpenModal}
+            onClick={handleOpenModal} // Trigger handleOpenModal when clicked
             className="absolute top-2 right-2 bg-white rounded-full p-1 cursor-pointer"
           >
             {isAdded ? (
@@ -44,11 +49,12 @@ const SideItem = ({ index, name, description, tags, image, category = "sides" })
         </div>
         <div className="px-2 pb-1">
           <h3 className="text-red-600 font-bold text-sm">{name}</h3>
-          <p className="text-gray-700 text-xs mt-1">{description}</p>
-          <div className="mt-2">
+          <p className="text-gray-700 text-xs mt-1 text-[12px] md:text-[15px] lg:text-lg">{description}</p>
+          <div className="mt-2 flex flex-col items-center">
             {tags.map((tag, idx) => (
-              <div key={idx}>
-                <p className="font-semibold text-black text-base">{tag.cost}</p>
+              <div key={idx} className="text-center mb-2">
+                {/* Displaying price inside the tag */}
+                <p className="font-semibold text-black text-base">CA {tag.price}</p>
                 <p className={`text-xs ${tag.color}`}>
                   {tag.name === "veg" ? (
                     <>
@@ -64,11 +70,11 @@ const SideItem = ({ index, name, description, tags, image, category = "sides" })
         </div>
       </motion.div>
 
-      {/* Pass category dynamically */}
+      {/* Pass category, price, and item props to the ItemModal */}
       <ItemModal
         isOpen={isModalOpen}
-        category={category}  // Passing the category prop to ItemModal
-        item={{ name, description, tags, image }} // Passing the item details
+        category={category}  // Pass the category prop
+        item={{ name, description, tags, image }} // Price is now part of the tags
         onClose={handleCloseModal}
         onAddToCart={handleAddToCart}
       />

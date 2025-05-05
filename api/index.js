@@ -7,14 +7,13 @@ import path from 'path';
 // ROUTES
 import authRoutes from './routes/auth.route.js'
 import userRoutes from './routes/user.route.js';
-import restaurantRoutes from './routes/resturant.route.js';
+import restaurantRoutes from './routes/restaurant.route.js';
 import menuRoutes from './routes/menu.route.js';
 import cartRoutes from './routes/cart.route.js';
 import orderRoutes from './routes/order.route.js';
 
 dotenv.config();
 
-const app = express();
 
 mongoose
   .connect(process.env.MONGO)
@@ -27,16 +26,19 @@ mongoose
 
 const __dirname = path.resolve();
 
+const app = express();
 app.use(express.json({ limit: '10mb' }));
+app.use(express.json());  // Ensures that the request body is parsed as JSON
 app.use(cookieParser());
+
 
 // Register Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/restaurants', restaurantRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/restaurant', restaurantRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/cart', cartRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/api/order', orderRoutes);
 
 // Test Route
 app.get('/api/test', (req, res) => {

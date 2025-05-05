@@ -59,7 +59,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full fixed top-0 z-20 bg-gray-50 shadow-xl flex">
-      <div className="max-w-7xl sm:mx-auto flex justify-between items-center md:py-5 py-2 md:px-8 sm:mt-3 mt-1">
+      <div className="max-w-7xl sm:mx-auto flex justify-between items-center lg:py-5 py-2 lg:px-8 md:mt-3 mt-1">
         {/* Logo */}
         <div className="flex-1 flex justify-start">
           <Link
@@ -72,17 +72,17 @@ const Navbar = () => {
             <img
               src={letterlogo}
               alt="Pizza Day Logo"
-              className="w-auto md:h-24 h-12 sm:-my-4 opacity-90 mx-10"
+              className="w-auto md:h-24 lg:h-24 h-12 md:-my-4 opacity-90 mx-10"
             />
           </Link>
         </div>
 
         {/* Shopping Cart and Hamburger */}
-        <div className="flex flex-row items-center gap-2 absolute sm:top-2 top-3 right-4 z-30">
+        <div className="flex flex-row items-center gap-2 absolute md:-top-1 lg:top-3 top-3 right-4 z-30">
           {/* Shopping Cart */}
           <div
             className="relative pt-2 sm:p-8 sm:pt-8 rounded-full cursor-pointer"
-            onClick={() => navigate("/order")}
+            onClick={() => navigate("/cart")}
           >
             <ShoppingCartIcon count={cartCount} />
           </div>
@@ -102,7 +102,7 @@ const Navbar = () => {
 
         {/* Navbar Items for Larger Screens */}
         <div className="hidden md:flex flex-grow justify-center -mt-4">
-          <ul className="list-none flex flex-row gap-10 sm:gap-14 sm:ml-60">
+          <ul className="list-none flex flex-row gap-10  md:mr-14 md:gap-7 lg:gap-14 lg:ml-6">
             {navLinks.map((navItem) => (
               <li
                 key={navItem.id}

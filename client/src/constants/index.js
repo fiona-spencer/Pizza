@@ -147,7 +147,7 @@ export const navLinks = [
         "Mozzarella shred blend, signature tomato sauce, house roasted chicken, sautéed garlic & parm spinach, bacon grated to order Grana Padano Chef recommends adding chilli flakes",
       tags: [
         {
-          cost: "CA 21.00",
+          price: "21.00",
           color: "text-secondary",
         },
         {
@@ -166,7 +166,7 @@ export const navLinks = [
         "Caramelized onion base, roasty mushrooms, rosemary & herb infused oil, fresh parsley garnish (VEGAN)",
       tags: [
         {
-          cost: "CA 21.00",
+          price: "21.00",
           color: "text-secondary",
         },
         {
@@ -185,7 +185,7 @@ export const navLinks = [
         "Mozzarella shred blend, signature tomato sauce, grated-to-order grana padano, fresh basil garnish.",
       tags: [
         {
-          cost: "CA 21.00",
+          price: "21.00",
           color: "text-secondary",
         },
         {
@@ -204,7 +204,7 @@ export const navLinks = [
         "Mozzarella shred blend, double cup & char pepperoni, signature tomato sauce, grated-to-order grana padano, fresh oregano garnish.",
       tags: [
         {
-          cost: "CA 25.00",
+          price: "25.00",
           color: "text-secondary",
         },
       ],
@@ -218,7 +218,7 @@ export const navLinks = [
         "Mozzarella shred blend, housemade trio of sauces (marinara, vodka, pesto cream), grated-to-order grana padano.",
       tags: [
         {
-          cost: "CA 24.00",
+          price: "24.00",
           color: "text-secondary",
         },
         {
@@ -236,7 +236,7 @@ export const navLinks = [
         "Mozzarella shred blend, mushroom & rosemary infused cream sauce, roasty mushrooms, lemon zest, grated-to-order grana padano, fresh chive garnish.",
       tags: [
         {
-          cost: "CA 25.00",
+          price: "25.00",
           color: "text-secondary",
         },
         {
@@ -254,7 +254,7 @@ export const navLinks = [
         "Mozzarella shred blend, signature tomato sauce, 8-hour roast confit pork shoulder, thinly shaved onion, housemade pineapple honey chili glaze, grated-to-order grana padano, fresh cilantro garnish.",
       tags: [
         {
-          cost: "CA 24.00",
+          price: "24.00",
           color: "text-secondary",
         },
         {
@@ -284,21 +284,21 @@ export const navLinks = [
       name: "Garlic Knots",
       category: 'knots',
       description: "Soft, buttery garlic knots served with marinara.",
-      tags: [{ name: "veg", cost: "CA 6", color: "text-green-600" }],
+      tags: [{ name: "veg", price: 6, color: "text-green-600" }],
       image: garlic,
     },
     {
       name: "Caesar Salad",
       category: 'salad',
       description: "Crisp romaine, house made croutons, bacon, tossed in our signature caesar dressing, grated to order Grana Padano.",
-      tags: [{ name: "veg", cost: "CA 12", color: "text-green-600" }],
+      tags: [{ name: "veg", price: 12, color: "text-green-600" }],
       image: salad,
     },
     {
       name: "Fresh Cut Fries",
-      category: fries,
+      category: 'fries',
       description: "House made fresh cut fries served with ketchup.",
-      tags: [{ name: "veg", cost: "CA 8", color: "text-green-600" }],
+      tags: [{ name: "veg", price: 8, color: "text-green-600" }],
       image: fries,
     },
   ];
@@ -310,7 +310,7 @@ export const navLinks = [
       description:
         "Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.",
       image: wings, // replace with actual image path
-      price: "CA 15",
+      price: "15",
       sauces: [
         { name: "Plain", hotLevel: 0 },
         { name: "Salt and Peppa", hotLevel: 1 },

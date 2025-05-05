@@ -44,7 +44,10 @@ const Wings = () => {
   }, []);
 
   const handleOpenModal = () => {
-    setSelectedItem(wing);  // Set the selected wing item
+    setSelectedItem({
+      ...wing,   // Spread the existing wing item properties
+      category: "wing", // Add the category explicitly as 'wing'
+    });
     setIsModalOpen(true);
   };
 
@@ -97,9 +100,9 @@ const Wings = () => {
         <h3 className="text-red-600 font-bold text-2xl mb-1">{wing.name}</h3>
         
         {/* Render the price without the dollar sign or hide if the price is 0 */}
-        <h3 className="text-black font-bold text-xl mb-1">{renderPrice(wing.price)}</h3>
+        <h3 className="text-black font-bold text-xl mb-1">CA {renderPrice(wing.price)}</h3>
 
-        <p className="text-gray-700 text-center text-[12px]">
+        <p className="text-gray-700 text-center text-[12px] sm:text-lg">
           Comes with ranch or blue cheese on request.
         </p>
 
@@ -130,7 +133,7 @@ const Wings = () => {
       {selectedItem && (
         <ItemModal
           isOpen={isModalOpen}
-          category={selectedItem.category}  // Pass the category from the item
+          category={selectedItem.category}  // Now this will always be 'wing'
           item={selectedItem} // Pass the entire item
           onClose={handleCloseModal}
           onAddToCart={(item) => {

@@ -5,13 +5,12 @@ import {
   getOrderById,
   updateOrderStatus,
 } from '../controllers/order.controller.js';
-import { verifyUser } from '../utils/verifyOwner.js';
-
+import { verifyToken } from '../utils/verifyUser.js';
 const router = express.Router();
 
-router.post('/', verifyUser, createOrder);
-router.get('/', verifyUser, getOrders);
-router.get('/:id', verifyUser, getOrderById);
-router.put('/:id/status', verifyUser, updateOrderStatus);
+router.post('/', verifyToken, createOrder);
+router.get('/', verifyToken, getOrders);
+router.get('/:id', verifyToken, getOrderById);
+router.put('/:id/status', verifyToken, updateOrderStatus);
 
 export default router;

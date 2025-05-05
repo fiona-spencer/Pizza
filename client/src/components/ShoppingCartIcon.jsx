@@ -1,5 +1,4 @@
 import React from "react";
-import { ShoppingBagIcon } from "lucide-react";
 import { HiShoppingCart } from "react-icons/hi";
 
 const ShoppingCartIcon = ({ count = 0 }) => {
