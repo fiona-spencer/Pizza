@@ -10,13 +10,13 @@ const Sides = () => {
     <div className="-mt-10">
       <motion.div>
         <p className={`${styles.sectionSubText}  text-xs`}>more to love</p> {/* Smaller font size */}
-        <h2 className={`${styles.sectionHeadText} mt-10 text-xl`}>Sides</h2> {/* Smaller font size */}
+        <h2 className={`${styles.sectionHeadText} mt-2`}>Sides</h2> {/* Smaller font size */}
       </motion.div>
 
       <div className="w-full flex">
         <motion.p
           variants={fadeIn("", "", 0.1, 1)}
-          className="text-[17px] lg:text-xl max-w-5xl pb-8 pt-5 text-red-900"
+          className="text-[17px] lg:text-xl max-w-5xl pb-8 pt-2 text-red-900"
         >
           Classic sides to complete your meal – fresh, crispy, and delicious.
         </motion.p> {/* Smaller font size */}

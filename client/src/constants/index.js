@@ -67,75 +67,53 @@ export const navLinks = [
   
   const testimonials = [
     {
-      testimonial: "This is a testimonial text.",
-      name: "Person A",
-      designation: "Position A",
-      company: "Company A",
-      image: "https://randomuser.me/api/portraits/men/1.jpg", // Example image
+      testimonial: "Can’t say enough great things about Hooray For Pizza Day! I’ve tried most of the pizzas and each is superb.",
+      name: "Marek Warunkiewicz",
+      designation: "Local Guide",
+      image: "https://lh3.googleusercontent.com/a/ACg8ocKeqUk6sVpBuqS3NWhgdJFP3E7vQqv-0pJ7aJaalv8tuAXOfA=w72-h72-p-rp-mo-ba3-br100", // Example image
     },
     {
-      testimonial: "Another testimonial text.",
-      name: "Person B",
-      designation: "Position B",
-      company: "Company B",
-      image: "https://randomuser.me/api/portraits/women/2.jpg", // Example image
+      testimonial: `Wow. What a pleasant surprise to discover that "grabbing a bite" after class meant discovering chef Adam's delectable pizza!!`,
+      name: "France Raymond",
+      designation: "Google Review",
+      image: "https://lh3.googleusercontent.com/a/ACg8ocLCqi8JYlF0o_4CvWBJOwPE3FX8wVTHiulFj9y-baF0sEh6pg=w72-h72-p-rp-mo-br100", // Example image
     },
     {
-      testimonial: "I had a wonderful experience, highly recommend!",
-      name: "Person C",
-      designation: "Position C",
-      company: "Company C",
-      image: "https://randomuser.me/api/portraits/men/3.jpg", // Example image
+      testimonial: "Amazing pizza. Flavourful, fresh ingredients. Cooked to perfection, and the crust is crispy and delicious. Also a great size for a personal pizza...",
+      name: "Sam Polito",
+      designation: "Local Guide Level 3",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjXhMJkrrGfoJL25Gazs36TYOTAd1sQbzC_Jz1x3K0jyEc-BD2s=w72-h72-p-rp-mo-br100", // Example image
     },
     {
-      testimonial: "Amazing service, will definitely come back!",
-      name: "Person D",
-      designation: "Position D",
-      company: "Company D",
-      image: "https://randomuser.me/api/portraits/women/4.jpg", // Example image
+      testimonial: "The pizzas are absolutely phenomenal! Try the mozzarella sticks, too! I give this place the highest marks possible!",
+      name: "Jennifer Spencer",
+      designation: "Google Review",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjUBznJIIfD8Rv-2EeMCsNHca3KMxfWoYzjRK7gjTKr2D4-B68s=w72-h72-p-rp-mo-br100", // Example image
     },
     {
-      testimonial: "Great quality, I couldn't be happier with my experience.",
-      name: "Person E",
-      designation: "Position E",
-      company: "Company E",
-      image: "https://randomuser.me/api/portraits/men/5.jpg", // Example image
+      testimonial: "Can’t say enough great things about Hooray For Pizza Day! I’ve tried most of the pizzas and each is superb.",
+      name: "Marek Warunkiewicz",
+      designation: "Local Guide",
+      image: "https://lh3.googleusercontent.com/a/ACg8ocKeqUk6sVpBuqS3NWhgdJFP3E7vQqv-0pJ7aJaalv8tuAXOfA=w72-h72-p-rp-mo-ba3-br100", // Example image
     },
     {
-      testimonial: "Fantastic customer service and products!",
-      name: "Person F",
-      designation: "Position F",
-      company: "Company F",
-      image: "https://randomuser.me/api/portraits/women/6.jpg", // Example image
+      testimonial: `Wow. What a pleasant surprise to discover that "grabbing a bite" after class meant discovering chef Adam's delectable pizza!!`,
+      name: "France Raymond",
+      designation: "Google Review",
+      image: "https://lh3.googleusercontent.com/a/ACg8ocLCqi8JYlF0o_4CvWBJOwPE3FX8wVTHiulFj9y-baF0sEh6pg=w72-h72-p-rp-mo-br100", // Example image
     },
     {
-      testimonial: "Best purchase decision I've made. Highly recommend.",
-      name: "Person G",
-      designation: "Position G",
-      company: "Company G",
-      image: "https://randomuser.me/api/portraits/men/7.jpg", // Example image
+      testimonial: "Amazing pizza. Flavourful, fresh ingredients. Cooked to perfection, and the crust is crispy and delicious. Also a great size for a personal pizza...",
+      name: "Sam Polito",
+      designation: "Local Guide Level 3",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjXhMJkrrGfoJL25Gazs36TYOTAd1sQbzC_Jz1x3K0jyEc-BD2s=w72-h72-p-rp-mo-br100", // Example image
     },
     {
-      testimonial: "Top-notch service and quality. Will be back for sure.",
-      name: "Person H",
-      designation: "Position H",
-      company: "Company H",
-      image: "https://randomuser.me/api/portraits/women/8.jpg", // Example image
-    },
-    {
-      testimonial: "Professional and efficient service. Highly satisfied.",
-      name: "Person I",
-      designation: "Position I",
-      company: "Company I",
-      image: "https://randomuser.me/api/portraits/men/9.jpg", // Example image
-    },
-    {
-      testimonial: "A seamless experience from start to finish. 10/10.",
-      name: "Person J",
-      designation: "Position J",
-      company: "Company J",
-      image: "https://randomuser.me/api/portraits/women/10.jpg", // Example image
-    },
+      testimonial: "The pizzas are absolutely phenomenal! Try the mozzarella sticks, too! I give this place the highest marks possible!",
+      name: "Jennifer Spencer",
+      designation: "Google Review",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjUBznJIIfD8Rv-2EeMCsNHca3KMxfWoYzjRK7gjTKr2D4-B68s=w72-h72-p-rp-mo-br100", // Example image
+    }
   ];
   
   
@@ -291,7 +269,7 @@ export const navLinks = [
       name: "Caesar Salad",
       category: 'salad',
       description: "Crisp romaine, house made croutons, bacon, tossed in our signature caesar dressing, grated to order Grana Padano.",
-      tags: [{ name: "veg", price: 12, color: "text-green-600" }],
+      tags: [{ name: "", price: 12, color: "text-green-600" }],
       image: salad,
     },
     {
@@ -313,15 +291,15 @@ export const navLinks = [
       price: "15",
       sauces: [
         { name: "Plain", hotLevel: 0 },
-        { name: "Salt and Peppa", hotLevel: 1 },
-        { name: "Honey Garlic", hotLevel: 1 },
+        { name: "Salt and Peppa", hotLevel: 0 },
+        { name: "Honey Garlic", hotLevel: 0 },
         { name: "Classic BBQ", hotLevel: 1 },
-        { name: "Smoked BBQ Heat", hotLevel: 2 },
-        { name: "Hot Honey", hotLevel: 2 },
-        { name: "Franks Red Hot Sauce", hotLevel: 3 },
-        { name: "Honey Gochujang", hotLevel: 3 },
-        { name: "Tibetal Currey", hotLevel: 3 },
-        { name: "Suicide", hotLevel: 5 },
+        { name: "Smoked BBQ Heat", hotLevel: 1 },
+        { name: "Hot Honey", hotLevel: 1 },
+        { name: "Franks Red Hot Sauce", hotLevel: 2 },
+        { name: "Honey Gochujang", hotLevel: 2 },
+        { name: "Tibetal Currey", hotLevel: 2 },
+        { name: "Suicide", hotLevel: 3 },
       ],
     },
   ];

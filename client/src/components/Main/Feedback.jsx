@@ -7,31 +7,32 @@ import { Avatar } from "flowbite-react";
 import { useRef } from "react";
 
 const FeedbackCard = ({ index, testimonial, name, designation, company, image }) => (
-  <motion.div
-    variants={fadeIn("", "spring", index * 0.5, 0.75)}
-    className="bg-red-500 p-4 sm:p-6 md:p-6 w-full text-sm sm:text-base h-40"
-  >
-    <p className="text-white font-black text-3xl">"</p>
+<motion.div
+  variants={fadeIn("", "spring", index * 0.5, 0.75)}
+  className="bg-red-500 min-w-[12rem] max-w-[20rem] p-3 flex flex-col justify-between text-white"
+>
+  <p className="text-xl font-black leading-none mb-2">“</p>
 
-    <div className="mt-1">
-      <p className="text-white tracking-wide text-sm">{testimonial}</p>
+  {/* This paragraph will wrap long text instead of truncating */}
+  <p className="text-sm leading-snug break-words whitespace-normal mb-4">
+    {testimonial}
+  </p>
 
-      <div className="mt-4 flex items-center gap-3">
-        <Avatar
-          img={image}
-          rounded
-          alt={`Photo of ${name}`}
-          className="w-10 h-10 sm:w-12 sm:h-12"
-        />
-        <div className="flex flex-col">
-          <p className="text-white font-medium text-sm">{name}</p>
-          <p className="text-white text-xs">
-            {designation} at {company}
-          </p>
-        </div>
-      </div>
+  <div className="flex items-center gap-2 mt-auto">
+    <Avatar
+      img={image}
+      rounded
+      alt={`Photo of ${name}`}
+      className="w-10 h-8"
+    />
+    <div className="text-xs leading-tight">
+      <p className="font-semibold">{name}</p>
+      <p className="text-[0.6rem] opacity-80">{designation}</p>
     </div>
-  </motion.div>
+  </div>
+</motion.div>
+
+
 );
 
 const Feedback = () => {
@@ -63,10 +64,10 @@ const Feedback = () => {
       {/* Scrollable Feedback Cards */}
       <div className="relative px-6 sm:px-10 -mt-6 overflow-hidden">
         {/* Left Blur */}
-        <div className="absolute top-0 left-0 h-40 w-12 sm:w-24 bg-gradient-to-r from-red-300 via-white/20 to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 left-0 h-48 w-12 sm:w-24 bg-gradient-to-r from-[#272524ca] via-red/80 to-transparent z-10 pointer-events-none" />
 
         {/* Right Blur */}
-        <div className="absolute top-0 right-0 h-40 w-12 sm:w-24 bg-gradient-to-l from-red-300 via-white/20 to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 right-0 h-48 w-12 sm:w-24 bg-gradient-to-l from-[#272524ca] via-red/80 to-transparent z-10 pointer-events-none" />
 
         {/* Scrollable Container */}
         <div
