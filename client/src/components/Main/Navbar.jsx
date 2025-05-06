@@ -3,23 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { navLinks } from "../../constants";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import ShoppingCartIcon from "../Modal/ShoppingCartIcon";
-import letterlogo from '../../assets/logo.svg'
+import letterlogo from '../../assets/logo.svg';
+import { useSelector } from "react-redux"; // Import useSelector to access Redux state
 
-// A mock function to simulate getting the cart items from a global state or cookie/session
-const getCartItems = () => {
-  // This should return an array or object with all cart items (e.g., [ { id: 1, quantity: 3 }, { id: 2, quantity: 2 } ])
-  return [
-    { id: 1, quantity: 3 }, // Example of pizza item in cart
-    { id: 2, quantity: 2 }, // Example of wings item in cart
-  ];
-};
-
+// Navbar Component
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const [cartItems, setCartItems] = useState(getCartItems()); // Get initial cart items
   const navigate = useNavigate();
+
+  // Get cart items from Redux store using useSelector
+  const cartItems = useSelector((state) => state.cart.items); // Access the cart items from the Redux store
 
   // Update the navbar height dynamically
   useEffect(() => {
@@ -38,7 +33,7 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Function to calculate the total quantity in the cart
+  // Function to calculate the total quantity in the cart from Redux state
   const getCartTotalQuantity = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };

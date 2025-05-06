@@ -1,48 +1,38 @@
-// userSlice.js
+// src/slices/user/userSilce.js
 import { createSlice } from '@reduxjs/toolkit';
 
 // Define the initial state for user
 const initialState = {
-  user: null,             // User details (name, email, etc.)
-  isAuthenticated: false, // Authentication status
-  loading: false,         // Whether an action is in progress
-  error: null,            // Any error messages
+  currentUser: null,   // Store the user data here
+  isAuthenticated: false, 
+  loading: false,
+  error: null,
 };
 
 const userSlice = createSlice({
-  name: 'user',           // Slice name
-  initialState,           // Initial state
+  name: 'user',
+  initialState,
   reducers: {
-    // Action to start login
-    loginStart: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    // Action to handle login success
     loginSuccess: (state, action) => {
-      state.user = action.payload;  // Store user info
+      state.currentUser = action.payload;  // Store the user info
       state.isAuthenticated = true;
       state.loading = false;
     },
-    // Action to handle login failure
     loginFailure: (state, action) => {
-      state.error = action.payload;  // Store error message
+      state.error = action.payload;
       state.loading = false;
     },
-    // Action to handle user logout
     logout: (state) => {
-      state.user = null;
+      state.currentUser = null;
       state.isAuthenticated = false;
     },
-    // Action to update user info (e.g., profile)
     updateUser: (state, action) => {
-      state.user = { ...state.user, ...action.payload };
+      state.currentUser = { ...state.currentUser, ...action.payload };
     },
   },
 });
 
 // Export actions
-export const { loginStart, loginSuccess, loginFailure, logout, updateUser } = userSlice.actions;
+export const { loginSuccess, loginFailure, logout, updateUser } = userSlice.actions;
 
-// Export the reducer to be used in the store
 export default userSlice.reducer;

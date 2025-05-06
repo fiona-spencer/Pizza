@@ -1,7 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteCartItem } from '../../redux/slices/cart/cartSlice'; // Import the delete action
 import { FaTrash } from 'react-icons/fa';
 
-export default function Cart({ items, setItems, activeSection, setActiveSection }) {
+export default function Cart({ items, activeSection, setActiveSection }) {
+  const dispatch = useDispatch(); // Initialize the dispatch hook
+
   // Calculate total price
   const totalPrice = items.reduce((total, item) => {
     let itemTotal = item.price;
@@ -11,23 +15,11 @@ export default function Cart({ items, setItems, activeSection, setActiveSection 
     return total + itemTotal;
   }, 0);
 
- // Handle deleting an item
-const handleDeleteItem = async (itemId) => {
-  try {
-    const response = await fetch(`/api/menu/${itemId}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      window.location.reload(); // ✅ Force full page reload
-    } else {
-      console.error('Failed to delete item');
-    }
-  } catch (error) {
-    console.error('Error deleting item:', error);
-  }
-};
-
+  // Handle deleting an item using Redux
+  const handleDeleteItem = (index) => {
+    // Dispatch the deleteCartItem action with the item's index
+    dispatch(deleteCartItem(index));
+  };
 
   return (
     <div className="mb-6">
@@ -38,7 +30,7 @@ const handleDeleteItem = async (itemId) => {
           ) : (
             <div>
               <ul className="space-y-2 md:space-y-6">
-                {items.map((item) => (
+                {items.map((item, index) => (
                   <li key={item._id} className="border-2 border-red-200 p-5 rounded-lg shadow-md bg-white">
                     <div className="flex justify-between items-center">
                       <div>
@@ -47,8 +39,8 @@ const handleDeleteItem = async (itemId) => {
                         {item.addOns?.length > 0 && (
                           <ul className="mt-3 text-sm text-red-500 pl-4 list-disc">
                             <li className="font-semibold">Add-Ons:</li>
-                            {item.addOns.map((addOn, index) => (
-                              <li key={index}>
+                            {item.addOns.map((addOn, addOnIndex) => (
+                              <li key={addOnIndex}>
                                 {addOn.name} (+${addOn.price.toFixed(2)})
                               </li>
                             ))}
@@ -56,7 +48,7 @@ const handleDeleteItem = async (itemId) => {
                         )}
                       </div>
                       <button
-                        onClick={() => handleDeleteItem(item._id)}
+                        onClick={() => handleDeleteItem(index)} // Pass the index of the item to delete
                         className="text-red-500 hover:text-red-700"
                       >
                         <FaTrash className="w-6 h-6" />

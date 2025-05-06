@@ -1,55 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cart from '../components/Cart/Cart';
 import Payment from '../components/Cart/Payment';
 import AccountInfo from '../components/Cart/AccountInfo';
 import { Button } from 'flowbite-react';
 import { RiArrowGoBackLine } from "react-icons/ri";
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart } from '../redux/slices/cart/cartSlice';
+import { FaCircleArrowRight } from "react-icons/fa6";
 
 export default function CartPage() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [step, setStep] = useState(0); // Tracks completed step (0: Order, 1: Account, 2: Payment)
-  const [activeSection, setActiveSection] = useState(null);
-  const [isAccountInfoComplete, setIsAccountInfoComplete] = useState(false); // Tracks if account info is complete
+  const [step, setStep] = useState(0); // 0: Cart, 1: Account, 2: Payment
+  const [activeSection, setActiveSection] = useState(0);
+  const [isAccountInfoComplete, setIsAccountInfoComplete] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+
+  const items = useSelector(state => state.cart.items);
+  const error = items.length === 0 ? 'No items in the cart' : null;
+  const dispatch = useDispatch();
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
   useEffect(() => {
-    const fetchMenuItems = async () => {
-      try {
-        const res = await fetch('/api/menu/getItems');
-        if (!res.ok) throw new Error('Failed to fetch menu items');
-        const data = await res.json();
-        if (data.length === 0) {
-          setError('No items in the cart');
-        } else {
-          setItems(data);
-        }
-      } catch (err) {
-        setError('No items in the cart');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMenuItems();
-  }, []);
-
-  const handleProceed = () => {
-    alert('Proceeding to Payment');
-  };
+    // If the account info is already complete, set formData
+    if (isAccountInfoComplete) {
+      setFormData({
+        name: 'John Doe', // Example: These should be the saved values
+        email: 'johndoe@example.com',
+        phone: '+1 234 567 890'
+      });
+    }
+  }, [isAccountInfoComplete]);
 
   return (
     <div className="min-h-screen bg-white relative">
       <div className="absolute top-4 right-4 z-10">
         <Link to="/" className="text-red-600 hover:text-red-800">
-          <RiArrowGoBackLine size={30} className='hover:text-white'/>
+          <RiArrowGoBackLine size={30} className='hover:text-white' />
         </Link>
       </div>
 
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-6 text-red-600 text-center">🍕 Your Cart</h1>
 
-        {loading && <div className="p-4 text-red-600">Loading...</div>}
         {error && <div className="p-4 text-red-600">{error}</div>}
 
         {items.length > 0 && (
@@ -63,21 +62,36 @@ export default function CartPage() {
               >
                 Your Order
               </Button>
+
               {activeSection === 0 && (
                 <>
                   <Cart
                     items={items}
-                    setItems={setItems}
-                    activeSection={activeSection}
                     setActiveSection={setActiveSection}
+                    activeSection={activeSection}
                   />
-                  <div className="mt-4 text-right">
-                    <Button color="red" onClick={() => {
-                      setActiveSection(null);
-                      setStep(1); // Proceed to next step
-                    }}>
-                      Next
-                    </Button>
+
+                  <div className="-mt-4 text-center flex">
+                    <button
+                      className='text-white bg-[#060606ae] text-xs py-1 px-2 font-semibold rounded-md'
+                      onClick={handleClearCart}
+                    >
+                      Clear Cart
+                    </button>
+                  </div>
+
+                  <div className="text-right flex justify-end">
+                    <button
+                      size='sm'
+                      className="text-red-600 outline-dashed flex justify-center items-center gap-2 rounded-md px-2 py-1"
+                      onClick={() => {
+                        setStep(1);
+                        setActiveSection(1);
+                      }}
+                    >
+                      <span>Next</span>
+                      <FaCircleArrowRight className="ml-2 h-4 w-4" />
+                    </button>
                   </div>
                 </>
               )}
@@ -93,28 +107,28 @@ export default function CartPage() {
                 >
                   Account Info
                 </Button>
+
                 {activeSection === 1 && (
                   <>
                     <AccountInfo
                       activeSection={activeSection}
                       setActiveSection={setActiveSection}
-                      setIsAccountInfoComplete={setIsAccountInfoComplete} // Pass down the function
+                      setIsAccountInfoComplete={setIsAccountInfoComplete}
+                      formData={formData}
+                      setFormData={setFormData} // Passing the formData and setter
                     />
-                    <div className="mt-4 text-right">
-                      <Button
-                        color="red"
+                    <div className="mt-4 text-right flex justify-end">
+                      <button
+                        size='sm'
+                        className="text-red-600 outline-dashed flex justify-center items-center gap-2 rounded-md px-2 py-1"
                         onClick={() => {
-                          if (isAccountInfoComplete) {
-                            setActiveSection(null);
-                            setStep(2); // Proceed to Payment
-                          } else {
-                            alert('Please complete your account info to proceed');
-                          }
+                          setStep(2);
+                          setActiveSection(2);
                         }}
-                        disabled={!isAccountInfoComplete} // Disable the button if account info is not complete
                       >
-                        Next
-                      </Button>
+                        <span>Next</span>
+                        <FaCircleArrowRight className="ml-2 h-4 w-4" />
+                      </button>
                     </div>
                   </>
                 )}
@@ -131,12 +145,11 @@ export default function CartPage() {
                 >
                   Payment
                 </Button>
+
                 {activeSection === 2 && (
-                  <Payment
-                    activeSection={activeSection}
-                    setActiveSection={setActiveSection}
-                    handleProceed={handleProceed}
-                  />
+                  <div>
+                    <Payment />
+                  </div>
                 )}
               </div>
             )}

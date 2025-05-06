@@ -1,88 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "flowbite-react";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "../../redux/slices/cart/cartSlice";
 
 const AddItem = ({ item, addOns, quantity, notes, onSuccess, onError }) => {
   const [status, setStatus] = useState("idle");
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const addToCart = async () => {
-      setLoading(true);
+    try {
+      const validQuantity = Number(quantity);
+      const itemQuantity = isNaN(validQuantity) || validQuantity <= 0 ? 1 : validQuantity;
 
-      try {
-        const res = await fetch("/api/restaurant/getRest", { method: "GET" });
+      const cartItem = {
+        restaurantId: item.restaurantId || "temp-id", // Optional: provide a placeholder or source
+        name: item.name,
+        price: Number(item.price),
+        quantity: itemQuantity,
+        addOns: addOns.map(addOn => ({
+          name: addOn.name,
+          price: Number(addOn.price),
+        })),
+        notes: notes || "",
+        category: item.category || "pizza",
+      };
 
-        if (!res.ok) throw new Error("Failed to fetch restaurant");
+      dispatch(addCartItem(cartItem));
+      setStatus("success");
+      onSuccess?.();
 
-        const data = await res.json();
+      const successTimeout = setTimeout(() => {
+        setStatus("idle");
+      }, 3000);
 
-        if (!Array.isArray(data) || data.length === 0) {
-          throw new Error("No restaurants found");
-        }
+      return () => clearTimeout(successTimeout);
+    } catch (err) {
+      console.error("Error adding item to Redux cart:", err);
+      setStatus("error");
+      onError?.();
 
-        const restaurant = data.find(r => r.name === "Hooray for Pizza Day") || data[0];
-        const restaurantId = restaurant._id;
-        console.log("Restaurant ID:", restaurantId);
+      const errorTimeout = setTimeout(() => {
+        setStatus("idle");
+      }, 5000);
 
-        if (!restaurantId) throw new Error("Restaurant ID not found");
-
-        const validQuantity = Number(quantity);
-        const itemQuantity = isNaN(validQuantity) || validQuantity <= 0 ? 1 : validQuantity;
-
-        const cartItem = {
-          restaurantId,
-          name: item.name,
-          price: Number(item.price),  // Use price from item here
-          quantity: itemQuantity,
-          addOns: addOns.map(addOn => ({
-            name: addOn.name,
-            price: Number(addOn.price),
-          })),
-          notes: notes || "",
-          category: item.category || "pizza",
-        };
-
-        console.log("Cart Item Payload:", cartItem);
-
-        const response = await fetch(`/api/menu/addItem`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(cartItem),
-        });
-
-        const responseData = await response.json();
-        console.log("API Response:", responseData);
-
-        if (!response.ok) {
-          throw new Error(`Failed to add menu item: ${responseData.message || 'Unknown error'}`);
-        }
-
-        setStatus("success");
-        onSuccess?.();
-
-        // Only reset status after a short delay
-        const successTimeout = setTimeout(() => {
-          setStatus("idle");
-        }, 3000);
-
-        return () => clearTimeout(successTimeout);
-      } catch (err) {
-        console.error("Error adding item:", err);
-        setStatus("error");
-        onError?.();
-
-        const errorTimeout = setTimeout(() => {
-          setStatus("idle");
-        }, 5000);
-
-        return () => clearTimeout(errorTimeout);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    addToCart();
-  }, [item, addOns, quantity, notes, onSuccess, onError]);
+      return () => clearTimeout(errorTimeout);
+    }
+  }, [item, addOns, quantity, notes, onSuccess, onError, dispatch]);
 
   const alertClass = status === "success" ? "bg-transparent" : "bg-red-600";
 
@@ -109,6 +72,5 @@ const AddItem = ({ item, addOns, quantity, notes, onSuccess, onError }) => {
     )
   );
 };
-
 
 export default AddItem;

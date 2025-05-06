@@ -3,9 +3,11 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import Stripe from 'stripe';
 
 // ROUTES
-import authRoutes from './routes/auth.route.js'
+import authRoutes from './routes/auth.route.js';
 import userRoutes from './routes/user.route.js';
 import restaurantRoutes from './routes/restaurant.route.js';
 import menuRoutes from './routes/menu.route.js';
@@ -13,26 +15,28 @@ import cartRoutes from './routes/cart.route.js';
 import orderRoutes from './routes/order.route.js';
 
 dotenv.config();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2022-08-01',
+});
 
+// __dirname workaround for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-mongoose
-  .connect(process.env.MONGO)
-  .then(() => {
-    console.log('MongoDB connected');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-const __dirname = path.resolve();
-
+// Initialize App
 const app = express();
+
+// Middlewares
 app.use(express.json({ limit: '10mb' }));
-app.use(express.json());  // Ensures that the request body is parsed as JSON
 app.use(cookieParser());
 
+// MongoDB Connection
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error(err));
 
-// Register Routes
+// REST API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/restaurant', restaurantRoutes);
@@ -40,11 +44,30 @@ app.use('/api/menu', menuRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/order', orderRoutes);
 
-// Test Route
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'API is working' });
+// Stripe Routes
+app.get('/api/config', (req, res) => {
+  res.send({
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  });
 });
 
+app.post('/api/create-payment-intent', async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      currency: 'cad',
+      amount: 1999, // replace with dynamic amount if needed
+      automatic_payment_methods: { enabled: true },
+    });
+
+    res.send({ clientSecret: paymentIntent.client_secret });
+  } catch (e) {
+    res.status(400).send({
+      error: { message: e.message },
+    });
+  }
+});
+
+// Static File Serving (Frontend)
 app.use(express.static(path.join(__dirname, '/client/dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
@@ -61,6 +84,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+// Start Server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

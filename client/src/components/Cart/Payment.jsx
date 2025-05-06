@@ -1,62 +1,28 @@
-import React, { useState } from 'react';
-import { Button, Label, TextInput } from 'flowbite-react';
+import React from 'react';
+import { useSelector } from 'react-redux'; // Import useSelector to access Redux store
+import PaymentInfo from '../../stripe/PaymentInfo'; // Import the PaymentInfo component
 
-export default function Payment({ activeSection, setActiveSection, handleProceed }) {
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiration, setExpiration] = useState('');
-  const [cvv, setCvv] = useState('');
+export default function Payment() {
+  // Access the currentUser from the Redux store
+  const { currentUser } = useSelector((state) => state.user);
+
+  // Check if currentUser exists and is authenticated
+  if (!currentUser || !currentUser.name || !currentUser.email) {
+    // If account info is not complete, return a message or redirect to account info page
+    return (
+      <div className="w-full max-w-md mx-auto bg-red-100 p-6 rounded-md shadow-md mt-4 text-center">
+        <h2 className="text-lg font-semibold text-red-700">
+          Complete account information before proceeding to payment.
+        </h2>
+        {/* Optionally, you could add a button to navigate back to the account info page */}
+      </div>
+    );
+  }
 
   return (
-    <div className="mb-6">
-      {activeSection === 2 && (
-        <div className="mt-4 space-y-4 w-full">
-          {/* Card Number Field */}
-          <div>
-            <Label htmlFor="cardNumber" value="Credit Card Number" />
-            <TextInput
-              id="cardNumber"
-              type="text"
-              placeholder="1234 5678 9876 5432"
-              value={cardNumber}
-              onChange={(e) => setCardNumber(e.target.value)}
-              className="border-2 border-red-500 focus:ring-2 focus:ring-red-500 p-3 w-full"
-            />
-          </div>
-
-          {/* Expiration Date Field */}
-          <div>
-            <Label htmlFor="expiration" value="Expiration Date" />
-            <TextInput
-              id="expiration"
-              type="text"
-              placeholder="MM/YY"
-              value={expiration}
-              onChange={(e) => setExpiration(e.target.value)}
-              className="border-2 border-red-500 focus:ring-2 focus:ring-red-500 p-3 w-full"
-            />
-          </div>
-
-          {/* CVV Field */}
-          <div>
-            <Label htmlFor="cvv" value="CVV" />
-            <TextInput
-              id="cvv"
-              type="password"
-              placeholder="***"
-              value={cvv}
-              onChange={(e) => setCvv(e.target.value)}
-              className="border-2 border-red-500 focus:ring-2 focus:ring-red-500 p-3 w-full"
-            />
-          </div>
-
-          {/* Proceed Button */}
-          <div className="mt-8 flex justify-center">
-            <Button color="failure" size="lg" onClick={handleProceed}>
-              Proceed to Payment
-            </Button>
-          </div>
-        </div>
-      )}
-    </div>
+    <>
+      {/* If account info is complete, show the PaymentInfo component */}
+      <PaymentInfo />
+    </>
   );
 }

@@ -34,10 +34,11 @@ export default function OAuth({ handleOAuthSuccess }) {
       {error && <Alert color="failure">{error}</Alert>}
       <Button
         type="button"
-        className="bg-white border-2 font-bold border-red-400 text-red-500 px-6 rounded-lg 
+        className="bg-gray-600 border-2 font-bold  text-white px-6 rounded-lg 
               hover:bg-[#d64545f0] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out"
         onClick={handleGoogleClick}
-        color=""
+        color="dark"
+        size='xs'
         disabled={loading}
       >
         {loading ? (
@@ -45,7 +46,10 @@ export default function OAuth({ handleOAuthSuccess }) {
         ) : (
           <>
             <AiFillGoogleCircle className="w-6 h-6 mr-2" />
+            <div className="mt-1">
+
             Continue with Google
+            </div>
           </>
         )}
       </Button>
