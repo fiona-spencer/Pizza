@@ -28,6 +28,12 @@ const Wings = () => {
     peek: { before: 1, after: 1 },  // Allow a peek of the adjacent slides
   });
 
+  const renderPrice = (price) => {
+    const parsed = parseFloat(price);
+    return isNaN(parsed) ? null : parsed.toFixed(2);
+  };
+  
+
   // Auto-scroll function
   const autoScroll = () => {
     if (instanceRef.current) {
@@ -53,14 +59,12 @@ const Wings = () => {
 
   const handleCloseModal = () => setIsModalOpen(false);
 
-  // Helper function to render price
-  const renderPrice = (price) => {
-    if (!price || price === "" || price === "0" || price === 0) {
-      return "Hidden";  // You can replace "Hidden" with any other text or just return nothing if you prefer
-    }
-    // If price exists and has value, we return it as is, without the dollar sign
-    return price.replace(/[^0-9.]/g, ''); // This will remove any non-numeric characters including $
-  };
+  {renderPrice(wing.price) && (
+  <h3 className="text-black font-bold text-xl mb-1">
+    CA ${renderPrice(wing.price)}
+  </h3>
+)}
+
 
   return (
     <div className="bg-[#323232] p-6 px-8 pb-10 flex flex-col lg:items-center lg:justify-center">

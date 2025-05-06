@@ -12,6 +12,10 @@ const AddItem = ({ item, addOns, quantity, notes, onSuccess, onError }) => {
       const validQuantity = Number(quantity);
       const itemQuantity = isNaN(validQuantity) || validQuantity <= 0 ? 1 : validQuantity;
 
+      // Log the price here
+      console.log("Price in AddItem:", item.price);
+      console.log("category:", item.category);
+
       const cartItem = {
         restaurantId: item.restaurantId || "temp-id", // Optional: provide a placeholder or source
         name: item.name,

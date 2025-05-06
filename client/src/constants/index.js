@@ -187,7 +187,6 @@ export const navLinks = [
         },
       ],
       image: pepPizza,
-      source_code_link: "https://github.com/",
     },
     {
       name: "The Sanderson Sister",
@@ -205,7 +204,6 @@ export const navLinks = [
         },
       ],
       image: sisterPizza,
-      source_code_link: "https://github.com/",
     },
     {
       name: "The Mushaboom",
@@ -223,7 +221,6 @@ export const navLinks = [
         },
       ],
       image: mushPizza,
-      source_code_link: "https://github.com/",
     },
     {
       name: "The Hawaiian",
@@ -241,7 +238,6 @@ export const navLinks = [
         },
       ],
       image: hawPizza,
-      source_code_link: "https://github.com/",
     },
   ];
   
@@ -288,7 +284,7 @@ export const navLinks = [
       description:
         "Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.",
       image: wings, // replace with actual image path
-      price: "15",
+      price: 15,
       sauces: [
         { name: "Plain", hotLevel: 0 },
         { name: "Salt and Peppa", hotLevel: 0 },

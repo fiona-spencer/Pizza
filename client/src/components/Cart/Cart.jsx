@@ -9,9 +9,20 @@ export default function Cart({ items, activeSection, setActiveSection }) {
   // Calculate total price
   const totalPrice = items.reduce((total, item) => {
     let itemTotal = item.price;
-    if (item.addOns?.length > 0) {
-      itemTotal += item.addOns.reduce((addOnTotal, addOn) => addOnTotal + addOn.price, 0);
+    
+    // Ensure item price is valid
+    if (isNaN(itemTotal)) {
+      itemTotal = 0;
     }
+    
+    // Add price from addOns if available
+    if (item.addOns?.length > 0) {
+      itemTotal += item.addOns.reduce((addOnTotal, addOn) => {
+        const addOnPrice = addOn.price;
+        return addOnTotal + (isNaN(addOnPrice) ? 0 : addOnPrice);
+      }, 0);
+    }
+    
     return total + itemTotal;
   }, 0);
 
@@ -35,13 +46,15 @@ export default function Cart({ items, activeSection, setActiveSection }) {
                     <div className="flex justify-between items-center">
                       <div>
                         <h2 className="text-lg lg:text-xl font-semibold text-red-700">{item.name}</h2>
-                        <p className="text-red-500 font-medium">Price: ${item.price.toFixed(2)}</p>
+                        <p className="text-red-500 font-medium">
+                          Price: ${isNaN(item.price) ? '0.00' : item.price.toFixed(2)}
+                        </p>
                         {item.addOns?.length > 0 && (
                           <ul className="mt-3 text-sm text-red-500 pl-4 list-disc">
                             <li className="font-semibold">Add-Ons:</li>
                             {item.addOns.map((addOn, addOnIndex) => (
                               <li key={addOnIndex}>
-                                {addOn.name} (+${addOn.price.toFixed(2)})
+                                {addOn.name} (+${isNaN(addOn.price) ? '0.00' : addOn.price.toFixed(2)})
                               </li>
                             ))}
                           </ul>
@@ -59,7 +72,7 @@ export default function Cart({ items, activeSection, setActiveSection }) {
               </ul>
               <div className="mt-6 flex justify-between font-semibold text-red-700">
                 <span>Total:</span>
-                <span>${totalPrice.toFixed(2)}</span>
+                <span>${isNaN(totalPrice) ? '0.00' : totalPrice.toFixed(2)}</span>
               </div>
             </div>
           )}

@@ -14,15 +14,22 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
 
   // Extract the price based on the category
   let price = null;
+
   if (category === 'knots' || category === 'fries' || category === 'salad') {
-    price = item?.tags?.[0]?.price;  // Correctly reference price inside tags array
+    // Assuming the price for these items is in tags array, fallback to a default price if not found
+    price = (item?.tags?.[0]?.price || item?.price || 0).toFixed(2);
+  } else if (category === 'wing') {
+    price = (item?.price).toFixed(2);
   } else if (category === 'pizza' && item?.tags) {
-    // For pizza, extract price from tags (assuming one tag with price exists)
-    const priceTag = item?.tags?.find(tag => tag.price);
+    const priceTag = item.tags.find(tag => tag.price);
     if (priceTag) {
-      price = priceTag.price.replace("CA ", "");  // Remove the "CA " prefix
+      price = priceTag.price
     }
+  } else if (item?.price !== undefined) {
+    price = item.price.toFixed(2); // Ensure price is a number and properly formatted
   }
+
+  // Log the price to the console
 
   // If price is still null or NaN, set a default value (optional)
   if (!price || isNaN(price)) {
@@ -51,8 +58,13 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
 
   const handleAddToCart = () => {
     // Pass price along with other details
-    setAlertProps({ item, addOns: selectedAddOns, quantity, notes, price });
-    setShowAlert(true);
+    setAlertProps({
+      item: { ...item, price, category }, // merge price and category directly into item
+      addOns: selectedAddOns,
+      quantity,
+      notes,
+    });
+        setShowAlert(true);
   };
 
   const renderAddOnOptions = () => {
@@ -124,7 +136,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
 
         {renderAddOnOptions()}
 
-        <div className="sm:mt-4 flex items-center justify-left gap-3">
+        <div className="sm:mt-4 flex items-center justify-left gap-3 mt-2">
           <label htmlFor="quantity" className="text-sm text-gray-700">
             Quantity:
           </label>
@@ -132,8 +144,8 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
             id="quantity"
             value={quantity}
             onChange={handleQuantityChange}
-            className="bg-white text-red-500 border-red-600 border-2 font-semibold rounded-md py-1 px-3 text-sm"
-          >
+            className="bg-white text-red-500 border-red-600 border-2 font-semibold rounded-md py-1 px-3 text-xs mt-2 w-20"
+            >
             {[1, 2, 3, 4, 5].map((qty) => (
               <option key={qty} value={qty}>
                 {qty}
@@ -143,7 +155,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
         </div>
 
         {/* Optional Notes Section */}
-        <div className="mt-4">
+        <div className="mt-1">
           <label htmlFor="notes" className="block text-sm  text-gray-700">
             Optional Notes:
           </label>
@@ -169,7 +181,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
         {/* Conditionally render AddItem */}
         {showAlert && alertProps && (
           <AddItem
-            {...alertProps}
+            {...alertProps}  // This includes 'price' automatically because it's part of alertProps
             onSuccess={() => {
               // Close the modal after a successful action
               setTimeout(() => {
@@ -187,6 +199,5 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
     </div>
   );
 };
-
 
 export default ItemModal;

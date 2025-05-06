@@ -11,13 +11,11 @@ const SideItem = ({ index, name, description, tags, image, category = "side" }) 
 
   // Function to open the modal and log the category
   const handleOpenModal = () => {
-    console.log("Category clicked:", category);  // Log the category when the side item is clicked
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => setIsModalOpen(false);
   const handleAddToCart = (item) => {
-    console.log("Added item:", item);
     setIsAdded(true);
     setIsModalOpen(false);
   };
@@ -51,21 +49,23 @@ const SideItem = ({ index, name, description, tags, image, category = "side" }) 
           <h3 className="text-red-600 font-bold text-sm">{name}</h3>
           <p className="text-gray-700 text-xs mt-1 text-[12px] md:text-[15px] lg:text-lg">{description}</p>
           <div className="mt-2 flex flex-col items-center">
-            {tags.map((tag, idx) => (
-              <div key={idx} className="text-center mb-2">
-                {/* Displaying price inside the tag */}
-                <p className="font-semibold text-black text-base">CA {tag.price}</p>
-                <p className={`text-xs ${tag.color}`}>
-                  {tag.name === "veg" ? (
-                    <>
-                      {tag.name} <FaLeaf className="inline-block ml-1 text-green-500" />
-                    </>
-                  ) : (
-                    tag.name
-                  )}
-                </p>
-              </div>
-            ))}
+            {tags.map((tag, idx) => {
+              return (
+                <div key={idx} className="text-center mb-2">
+                  {/* Displaying price inside the tag */}
+                  <p className="font-semibold text-black text-base">CA {tag.price}</p>
+                  <p className={`text-xs ${tag.color}`}>
+                    {tag.name === "veg" ? (
+                      <>
+                        {tag.name} <FaLeaf className="inline-block ml-1 text-green-500" />
+                      </>
+                    ) : (
+                      tag.name
+                    )}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </motion.div>
