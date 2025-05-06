@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
-import { styles } from "../styles";
-import { services } from "../constants";
-import { SectionWrapper } from "../hoc";
-import { fadeIn, textVariant } from "../utils/motion";
+import { styles } from "../../styles";
+import { services } from "../../constants";
+import { SectionWrapper } from "../../hoc";
+import { fadeIn, textVariant } from "../../utils/motion";
 import ServiceCard from "./ServiceCard";
-import aboutImage from "../assets/favicon.svg";
+import aboutImage from "../../assets/favicon.svg";
 
 const About = () => {
   const [isMobile, setIsMobile] = useState(false);

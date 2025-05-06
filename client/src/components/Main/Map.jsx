@@ -1,6 +1,6 @@
 import React from "react";
-import { styles } from "../styles";
-import pizzaIconBg from "../assets/pizza_icon.svg";
+import { styles } from "../../styles";
+import pizzaIconBg from "../../assets/pizza_icon.svg";
 
 const Map = () => {
   return (

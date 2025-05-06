@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { instaImages } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
-import { styles } from "../styles";
+import { instaImages } from "../../constants";
+import { fadeIn, textVariant } from "../../utils/motion";
+import { styles } from "../../styles";
 const InstaPage = ({ images }) => {
   const galleryRef = useRef(null);
   const [scrollX, setScrollX] = useState(0);

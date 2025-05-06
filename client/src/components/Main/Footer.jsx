@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { BsInstagram } from "react-icons/bs";
-import Logo from '../assets/logo.svg';
 import { SiUber, SiDoordash } from "react-icons/si";
-import BgImage from '../assets/hero-background.avif';
+import BgImage from '../../assets/hero-background.avif';
+import Logo from '../../assets/logo.svg'
 
 export default function FooterCom() {
   return (

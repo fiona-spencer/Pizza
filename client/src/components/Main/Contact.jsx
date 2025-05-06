@@ -4,10 +4,10 @@ import emailjs from "@emailjs/browser";
 import { Alert } from "flowbite-react";
 import { IoIosSend } from "react-icons/io";
 
-import { styles } from "../styles";
-import { SectionWrapper } from "../hoc";
-import { slideIn } from "../utils/motion";
-import PizzaCanvas from "./canvas/Pizza";
+import { styles } from "../../styles";
+import { SectionWrapper } from "../../hoc";
+import { slideIn } from "../../utils/motion";
+import PizzaCanvas from "../canvas/Pizza";
 
 const Contact = () => {
   const formRef = useRef();

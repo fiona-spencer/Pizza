@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
-import CanvasLoader from "../Loader";
+import CanvasLoader from "../Main/Loader";
 
 // Pizza Component that loads the GLTF model
 const Pizza = () => {

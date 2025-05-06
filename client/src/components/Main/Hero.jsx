@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import arrowImage from "../assets/arrowImage.png";
-import heroBg from "../assets/hero-pizza.webp";
+import arrowImage from "../../assets/arrowImage.png";
+import heroBg from "../../assets/hero-pizza.webp";
 import { IoPizzaOutline } from "react-icons/io5";
 import { TbTruckDelivery } from "react-icons/tb";
 

@@ -1,15 +1,17 @@
 import React from 'react';
-import Hero from '../components/Hero';
-import Navbar from '../components/Navbar';
-import About from '../components/About';
-import Pizza from '../components/Pizza';
+
+
+import Hero from '../components/Main/Hero';
+import Navbar from '../components/Main/Navbar';
+import About from '../components/Main/About';
+import Pizza from '../components/Main/Pizza';
 import Wings from '../components/Modal/Wings';
-import Sides from '../components/Sides';
-import Feedback from '../components/Feedback';
-import Map from '../components/Map';
-import InstaPage from '../components/InstaPage';
-import Contact from '../components/Contact';
-import Footer from '../components/Footer';
+import Sides from '../components/Main/Sides';
+import Feedback from '../components/Main/Feedback';
+import Map from '../components/Main/Map';
+import InstaPage from '../components/Main/InstaPage';
+import Contact from '../components/Main/Contact';
+import Footer from '../components/Main/Footer';
 import StarsCanvas from '../components/canvas/Stars';
 
 import aboutBg from '../assets/aboutbg.jpg'

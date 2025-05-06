@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import OAuth from '../OAuth';
+import OAuth from '../Modal/OAuth'
 
 export default function AccountInfo({ setIsAccountInfoComplete }) {
   const [formData, setFormData] = useState({

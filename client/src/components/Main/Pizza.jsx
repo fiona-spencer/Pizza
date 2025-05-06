@@ -1,9 +1,9 @@
-import { styles } from "../styles";
-import { SectionWrapper } from "../hoc";
+import { styles } from "../../styles";
+import { SectionWrapper } from "../../hoc";
 import { motion } from "framer-motion";
-import PizzaItem from "./Modal/PizzaItem";
-import { pizzas } from "../constants";
-import { fadeIn } from "../utils/motion";
+import PizzaItem from "../Modal/PizzaItem";
+import { pizzas } from "../../constants";
+import { fadeIn } from "../../utils/motion";
 
 const Pizza = () => {
   return (

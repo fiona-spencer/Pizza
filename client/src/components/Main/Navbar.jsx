@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { styles } from "../styles";
-import { navLinks } from "../constants";
-import letterlogo from "../../src/assets/logo.svg";
+import { navLinks } from "../../constants";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
-import ShoppingCartIcon from "./ShoppingCartIcon";
+import ShoppingCartIcon from "../Modal/ShoppingCartIcon";
+import letterlogo from '../../assets/logo.svg'
 
 // A mock function to simulate getting the cart items from a global state or cookie/session
 const getCartItems = () => {

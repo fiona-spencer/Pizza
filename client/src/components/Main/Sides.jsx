@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { fadeIn } from "../utils/motion";
-import SideItem from "./Modal/SideItem";
-import { styles } from "../styles";
-import { SectionWrapper } from "../hoc";
-import { sides } from "../constants";
+import { fadeIn } from "../../utils/motion";
+import SideItem from "../Modal/SideItem";
+import { styles } from "../../styles";
+import { SectionWrapper } from "../../hoc";
+import { sides } from "../../constants";
 
 const Sides = () => {
   return (
