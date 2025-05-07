@@ -107,7 +107,7 @@ const Wings = () => {
         <h3 className="text-black font-bold text-xl mb-1">CA {renderPrice(wing.price)}</h3>
 
         <p className="text-gray-700 text-center text-[12px] sm:text-lg">
-          Comes with ranch or blue cheese on request.
+          {wing.description}
         </p>
 
         {/* Vertical Carousel for Sauces */}

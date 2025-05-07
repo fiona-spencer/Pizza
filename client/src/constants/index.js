@@ -19,6 +19,8 @@ import wings from "../assets/MenuSection/wings.webp"
 import garlic from "../assets/MenuSection/garlic.jpeg"
 import fries from "../assets/MenuSection/fries.webp"
 import salad from "../assets/MenuSection/salad.webp"
+import poutine from "../assets/MenuSection/poutine.webp"
+import sticks from "../assets/MenuSection/sticks.jpg"
 
 // Instagram Image
 import insta1 from '../assets/InstaSection/insta_1.webp'
@@ -125,7 +127,7 @@ export const navLinks = [
         "Mozzarella shred blend, signature tomato sauce, house roasted chicken, sautéed garlic & parm spinach, bacon grated to order Grana Padano Chef recommends adding chilli flakes",
       tags: [
         {
-          price: "21.00",
+          price: 21,
           color: "text-secondary",
         },
         {
@@ -144,7 +146,7 @@ export const navLinks = [
         "Caramelized onion base, roasty mushrooms, rosemary & herb infused oil, fresh parsley garnish (VEGAN)",
       tags: [
         {
-          price: "21.00",
+          price: 21,
           color: "text-secondary",
         },
         {
@@ -163,7 +165,7 @@ export const navLinks = [
         "Mozzarella shred blend, signature tomato sauce, grated-to-order grana padano, fresh basil garnish.",
       tags: [
         {
-          price: "21.00",
+          price: 21,
           color: "text-secondary",
         },
         {
@@ -182,7 +184,7 @@ export const navLinks = [
         "Mozzarella shred blend, double cup & char pepperoni, signature tomato sauce, grated-to-order grana padano, fresh oregano garnish.",
       tags: [
         {
-          price: "25.00",
+          price: 25,
           color: "text-secondary",
         },
       ],
@@ -195,7 +197,7 @@ export const navLinks = [
         "Mozzarella shred blend, housemade trio of sauces (marinara, vodka, pesto cream), grated-to-order grana padano.",
       tags: [
         {
-          price: "24.00",
+          price: 24,
           color: "text-secondary",
         },
         {
@@ -212,7 +214,7 @@ export const navLinks = [
         "Mozzarella shred blend, mushroom & rosemary infused cream sauce, roasty mushrooms, lemon zest, grated-to-order grana padano, fresh chive garnish.",
       tags: [
         {
-          price: "25.00",
+          price: 25,
           color: "text-secondary",
         },
         {
@@ -229,7 +231,7 @@ export const navLinks = [
         "Mozzarella shred blend, signature tomato sauce, 8-hour roast confit pork shoulder, thinly shaved onion, housemade pineapple honey chili glaze, grated-to-order grana padano, fresh cilantro garnish.",
       tags: [
         {
-          price: "24.00",
+          price: 24,
           color: "text-secondary",
         },
         {
@@ -253,29 +255,82 @@ export const navLinks = [
   ];
 
 
- const sides = [
+  const sides = [
     {
       name: "Garlic Knots",
-      category: 'knots',
+      category: "knots",
       description: "Soft, buttery garlic knots served with marinara.",
-      tags: [{ name: "veg", price: 6, color: "text-green-600" }],
+      tags: [
+        {
+          name: "veg",
+          price: 6,
+          color: "text-green-600",
+        },
+      ],
       image: garlic,
+      source_code_link: "",
     },
     {
       name: "Caesar Salad",
-      category: 'salad',
-      description: "Crisp romaine, house made croutons, bacon, tossed in our signature caesar dressing, grated to order Grana Padano.",
-      tags: [{ name: "", price: 12, color: "text-green-600" }],
+      category: "salad",
+      description:
+        "Crisp romaine, house made croutons, bacon, tossed in our signature caesar dressing, grated to order Grana Padano.",
+      tags: [
+        {
+          name: "",
+          price: 12,
+          color: "text-green-600",
+        },
+      ],
       image: salad,
+      source_code_link: "",
     },
     {
       name: "Fresh Cut Fries",
-      category: 'fries',
+      category: "fries",
       description: "House made fresh cut fries served with ketchup.",
-      tags: [{ name: "veg", price: 8, color: "text-green-600" }],
+      tags: [
+        {
+          name: "vega",
+          price: 8,
+          color: "text-blue-600",
+        },
+      ],
       image: fries,
+      source_code_link: "",
+    },
+    {
+      name: "Poutine",
+      category: "poutine",
+      description:
+        "House-made fresh cut fries, squeaky cheese curds, house-made gravy.",
+      tags: [
+        {
+          name: "",
+          price: 14,
+          color: "text-green-600",
+        },
+      ],
+      image: poutine,
+      source_code_link: "",
+    },
+    {
+      name: "Mozzarella Sticks",
+      category: "sticks",
+      description:
+        "Hand-breaded and fried to perfection. Served with marinara, grated to order Grana Padano, fresh parsley garnish.",
+      tags: [
+        {
+          name: "veg",
+          price: 14,
+          color: "text-green-600",
+        },
+      ],
+      image: sticks,
+      source_code_link: "",
     },
   ];
+  
   
   const wingsImages = [
     {
@@ -288,21 +343,23 @@ export const navLinks = [
       sauces: [
         { name: "Plain", hotLevel: 0 },
         { name: "Salt and Peppa", hotLevel: 0 },
+        { name: "Garlic Parm", hotLevel: 0 },
         { name: "Honey Garlic", hotLevel: 0 },
-        { name: "Classic BBQ", hotLevel: 1 },
-        { name: "Smoked BBQ Heat", hotLevel: 1 },
+        { name: "Filipino Adobo", hotLevel: 0 },
+        { name: "Classic BBQ", hotLevel: 0 },
         { name: "Hot Honey", hotLevel: 1 },
+        { name: "Sticky Pineapple", hotLevel: 1 },
         { name: "Franks Red Hot Sauce", hotLevel: 2 },
-        { name: "Honey Gochujang", hotLevel: 2 },
-        { name: "Tibetal Currey", hotLevel: 2 },
-        { name: "Suicide", hotLevel: 3 },
+        { name: "Smoked BBQ Heat", hotLevel: 2 },
+        { name: "Honey Gochujang", hotLevel: 3 },
+        { name: "Tibetal Fire", hotLevel: 3 },
+        { name: "Suicide", hotLevel: 4 },
       ],
     },
   ];
   
   const addOns = {
-    pizza: {
-      dippingSauces: [
+    pizza:  [
         { name: "House Made Ranch", price: 2.5 },
         { name: "Signature Tomato Sauce", price: 2.5 },
         { name: "House Made Mushroom Sauce", price: 2.5 },
@@ -314,35 +371,58 @@ export const navLinks = [
       ],
       additionalToppings: [
         { name: "Pepperoni", price: 2.5 }
-      ]
-    },
+      ],
     wing: {
       veggieDip: [
-        { name: "House Made Ranch", price: 0 },
-        { name: "House Made Blue Cheese", price: 0 },
-        { name: "Extra Ranch", price: 2.5 },
-        { name: "Extra Blue Cheese", price: 2.5 }
+        { name: "House Made Ranch", price: 0, included: false },
+        { name: "House Made Blue Cheese", price: 0, included: false },
+        { name: "Extra Ranch", price: 2.5, included: false },
+        { name: "Extra Blue Cheese", price: 2.5, included: false }
       ],
       wingSauce: [
+        { name: "Plain", price: 0 },
         { name: "Salt and Peppa", price: 0 },
+        { name: "Garlic Parm", price: 0 },
         { name: "Honey Garlic", price: 0 },
+        { name: "Filipino Adobo", price: 0 },
         { name: "Classic BBQ", price: 0 },
-        { name: "Smoked BBQ Heat", price: 0 },
         { name: "Hot Honey", price: 0 },
+        { name: "Sticky Pineapple", price: 0 },
         { name: "Franks Red Hot Sauce", price: 0 },
+        { name: "Smoked BBQ Heat", price: 0 },
         { name: "Honey Gochujang", price: 0 },
         { name: "Tibetan Curry", price: 0 },
         { name: "Suicide", price: 0 },
-        { name: "Extra Sauce", price: 2.5 }
-      ]
+      ],
+      extraSauce: [
+        { name: "Extra Saucey", price: 2.5 },
+      ],
     },
-    salad: {
-      extras: [
+    salad:  [
         { name: "Extra Salad Dressing", price: 2.5 },
         { name: "Grilled Chicken Breast", price: 5.0 }
-      ]
-    }
+      ],
+    fries: [
+      { name: "Add Fries", price: 1.5 },
+      { name: "Add Chipotle Mayo", price: 1.5 },
+      { name: "Add Guinness Gravy", price: 4.0 }
+    ],
+    knots: [
+      { name: "Upgrade to Pesto Sauce", price: 0.95 },
+      { name: "Upgrade to Vodka Sauce", price: 0.95 },
+      { name: "Sanderson Style Upgrade", price: 2.0 }
+    ],
+    sticks: [
+      { name: "Upgrade to Pesto Sauce", price: 0.95 },
+      { name: "Upgrade to Vodka Sauce", price: 0.95 },
+      { name: "Sanderson Style Upgrade", price: 2.0 }
+    ],
+    poutine: [
+      { name: "Add Bacon", price: 2.0 },
+      { name: "Add Mushroom", price: 1.5 }
+    ]
   };
+  
   
   
   

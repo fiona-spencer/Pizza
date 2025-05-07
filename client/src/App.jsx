@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import CartPage from './pages/CartPage';
 import PaymentInfo from '../src/stripe/PaymentInfo';
 import Completion from '../src/stripe/Completion';
+import RestaurantPage from './pages/RestaurantPage';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/cart" element={<CartPage />} />
         {/* <Route path="/paymentInfo" element={<PaymentInfo />} /> */}
         <Route path="/completion" element={<Completion />} />
+        <Route path="/restaurant" element={<RestaurantPage />} />
       </Routes>
     </>
   );

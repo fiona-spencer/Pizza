@@ -12,18 +12,32 @@ const AddItem = ({ item, addOns, quantity, notes, onSuccess, onError }) => {
       const validQuantity = Number(quantity);
       const itemQuantity = isNaN(validQuantity) || validQuantity <= 0 ? 1 : validQuantity;
 
-      // Log the price here
-      console.log("Price in AddItem:", item.price);
-      console.log("category:", item.category);
+      // Ensure item price is valid
+      const itemPrice = Number(item.price);
+
+      // Sum up the add-ons price
+      const totalAddOnsPrice = addOns.reduce((total, addOn) => {
+        const addOnPrice = Number(addOn.price);
+        return total + (isNaN(addOnPrice) ? 0 : addOnPrice); // Ensure valid price for each add-on
+      }, 0);
+
+      // Total price includes base item price and add-ons
+      const totalPrice = itemPrice * itemQuantity + totalAddOnsPrice;
+
+      // Log the details for debugging
+      console.log("Price in AddItem:", itemPrice);
+      console.log("Category:", item.category);
+      console.log("Total Add-Ons Price:", totalAddOnsPrice);
+      console.log("Total Price including Add-Ons:", totalPrice);
 
       const cartItem = {
         restaurantId: item.restaurantId || "temp-id", // Optional: provide a placeholder or source
         name: item.name,
-        price: Number(item.price),
+        price: totalPrice, // Updated to include add-ons
         quantity: itemQuantity,
         addOns: addOns.map(addOn => ({
           name: addOn.name,
-          price: Number(addOn.price),
+          price: Number(addOn.price), // Ensure valid add-on price
         })),
         notes: notes || "",
         category: item.category || "pizza",

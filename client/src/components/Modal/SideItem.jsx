@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { IoMdAddCircle, IoMdCheckmarkCircle } from "react-icons/io";
-import { FaLeaf } from "react-icons/fa";
 import { fadeIn } from "../../utils/motion";
 import ItemModal from "./ItemModal";  // Import the ItemModal
+import { FaLeaf } from "react-icons/fa";
+import { LuVegan } from "react-icons/lu";
+
 
 const SideItem = ({ index, name, description, tags, image, category = "side" }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,13 +57,18 @@ const SideItem = ({ index, name, description, tags, image, category = "side" }) 
                   {/* Displaying price inside the tag */}
                   <p className="font-semibold text-black text-base">CA {tag.price}</p>
                   <p className={`text-xs ${tag.color}`}>
-                    {tag.name === "veg" ? (
-                      <>
-                        {tag.name} <FaLeaf className="inline-block ml-1 text-green-500" />
-                      </>
-                    ) : (
-                      tag.name
-                    )}
+                  {tag.name === "veg" ? (
+  <>
+    {tag.name} <FaLeaf className={`inline-block ml-1 ${tag.color}`} />
+  </>
+) : tag.name === "vega" ? (
+  <>
+    {tag.name} <LuVegan className={`inline-block ml-1 ${tag.color}`} />
+  </>
+) : (
+  tag.name
+)}
+
                   </p>
                 </div>
               );

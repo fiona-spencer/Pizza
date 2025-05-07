@@ -98,6 +98,12 @@ const cartSlice = createSlice({
         state.timestamp = Date.now();
       }
     },
+    updateCartItemQuantity: (state, action) => {
+      const { index, quantity } = action.payload;
+      if (state.items[index]) {
+        state.items[index].quantity = quantity;
+      }
+    },
 
     // Action to clear the entire cart
     clearCart: (state) => {
@@ -113,6 +119,7 @@ export const {
   updateCartItem,
   deleteCartItem,
   clearCart,
+  updateCartItemQuantity,
 } = cartSlice.actions;
 
 // Default export the reducer to be used in the store
