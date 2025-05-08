@@ -58,16 +58,21 @@ export default function PendingOrders() {
           <div key={order._id} className="mb-4 relative">
             <OrderCard order={order} />
             <div className="absolute md:top-4 right-4 top-24">
-              <StatusButton
-                orderId={order._id}
-                currentStatus={order.status}
-                onStatusChange={moveOrderToNextStage}
-              />
+            <StatusButton
+  orderId={order._id}
+  currentStatus={order.status}
+  onStatusChange={moveOrderToNextStage}
+  userInfo={{
+    name: order.userName,
+    email: order.userEmail,
+    items: order.items,
+  }}
+/>
+
             </div>
           </div>
         ))
       )}
     </div>
   );
-  
 }

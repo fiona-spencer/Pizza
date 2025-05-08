@@ -37,15 +37,24 @@ export const getOrders = async (req, res) => {
 };
 
 // GET A SINGLE ORDER BY ID
-export const getOrderById = async (req, res, next) => {
+export const getOrderById = async (req, res) => {
+  const { orderId } = req.params;
+
   try {
-    const order = await Order.findById(req.params.id);
-    if (!order) return next(errorHandler(404, "Order not found"));
-    res.status(200).json(order);
-  } catch (err) {
-    next(errorHandler(500, "Failed to fetch order"));
+    const order = await Order.findById(orderId);  // Find the order by its ID
+
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    // Return order details (including userEmail, userName)
+    res.json(order);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch order data' });
   }
 };
+
 
 // UPDATE ORDER STATUS
 export const updateOrderStatus = async (req, res, next) => {

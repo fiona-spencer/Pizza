@@ -1,27 +1,55 @@
-// OrderReadyEmailTemplate.js
-export const OrderReadyTemp = ({ orderNumber, name, email }) => {
-    return `
-      <div style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.8; padding: 20px; background-color: #ffffff; border: 2px solid #ddd; border-radius: 10px; max-width: 600px; margin: auto;">
-        <div style="text-align: center; margin: 20px;">
-          <h1 style="color: #2c3e50; font-size: 28px; margin: 0;">Order Ready for Pickup</h1>
-          <p style="color: #777; margin-top: 5px;">Your order is ready for pickup!</p>
+export const OrderReadyTemp = ({ userInfo }) => {
+  const { name, items } = userInfo;
+
+  const readyTime = new Date().toLocaleString(); // Time the order is marked ready
+
+  return `
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; line-height: 1.8; padding: 0; background-color: #fbe4e4; border-radius: 10px; overflow: hidden; border: 1px solid #e74c3c; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+      <!-- Banner Image -->
+      <div style="text-align: center;">
+        <img src="cid:banner" alt="Pizzaday Banner" style="width: 60%; height: auto; padding: 30px;" />
+      </div>
+
+      <div style="padding: 20px; background-color: #ffffff;">
+        <h1 style="color: #e74c3c; font-size: 26px; text-align: center; margin-bottom: 5px;">Your Order is Ready for Pickup!</h1>
+        <p style="color: #555; text-align: center;">Hi ${name}, your order is hot and ready to go.</p>
+
+        <div style="margin-top: 20px; padding: 15px; border-left: 4px solid #e74c3c; background-color: #fbe4e4; color: #333;">
+          <h3 style="color: #c0392b;">Order Summary:</h3>
+          <ul style="list-style-type: none; padding-left: 0;">
+            ${items.map(item => `
+              <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #e74c3c;">
+                <strong style="color: #e74c3c;">${item.itemName}</strong> x ${item.quantity}
+              </li>
+            `).join('')}
+          </ul>
         </div>
-  
-        <p><strong>Order Number:</strong> ${orderNumber}</p>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-  
-        <p style="margin-top: 20px;">Thank you for your order. You can now pick up your pizza!</p>
-  
-        <p style="margin-top: 30px; text-align: center;">
-          Visit us at
+
+        <p style="margin-top: 20px; text-align: center; font-weight: bold; font-size: 18px; color: #2c3e50;">
+          Ready on: <span style="color: #e74c3c;">${readyTime}</span>
         </p>
-        <p style="margin-top: 30px; text-align: center;">
-          <a href="http://localhost:5173" style="display: inline-block; background-color: #3498db; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">
-            Visit Sign Map Website
+
+        <p style="margin-top: 20px; text-align: center; font-size: 16px; color: #555; font-style: italic;">
+          Please come to the counter when you arrive.
+        </p>
+
+        <p style="margin-top: 30px; text-align: center;">Visit us at:</p>
+        <p style="text-align: center; margin-bottom: 10px;">
+          <a href="http://localhost:5173" style="display: inline-block; background-color: #e74c3c; color: #fff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+            Go to Pizzaday
           </a>
         </p>
+
+        <div style="margin-top: 40px; text-align: center; color: #555;">
+          <p style="font-size: 14px; color: #777;">Stay connected with us:</p>
+          <div style="margin-top: 10px;">
+            <a href="https://www.instagram.com/pizzaday" style="color: #e74c3c; text-decoration: none; margin-right: 15px;">Instagram</a>
+            <a href="https://www.doordash.com/store/pizzaday" style="color: #e74c3c; text-decoration: none; margin-right: 15px;">DoorDash</a>
+            <a href="https://www.ubereats.com/store/pizzaday" style="color: #e74c3c; text-decoration: none;">Uber Eats</a>
+          </div>
+          <p style="font-size: 12px; color: #777; margin-top: 20px;">&copy; 2025 Pizzaday. All rights reserved.</p>
+        </div>
       </div>
-    `;
-  };
-  
+    </div>
+  `;
+};

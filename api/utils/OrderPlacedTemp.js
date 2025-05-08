@@ -13,7 +13,7 @@ export const OrderPlacedTemp = ({ orderData }) => {
       </div>
 
       <div style="padding: 20px; background-color: #ffffff;">
-        <h1 style="color: #e74c3c; font-size: 26px; text-align: center; margin-bottom: 5px;">Your Order Has Been Placed!</h1>
+        <h1 style="color: #e74c3c; font-size: 26px; text-align: center; margin-bottom: 5px;">Thanks, Your Order Has Been Placed!</h1>
         <p style="color: #555; text-align: center;">Thank you for placing an order with Pizzaday, ${userName}!</p>
 
         <div style="margin-top: 20px; padding: 15px; border-left: 4px solid #e74c3c; background-color: #fbe4e4; color: #333;">
