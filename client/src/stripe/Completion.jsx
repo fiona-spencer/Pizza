@@ -62,10 +62,6 @@ function Completion() {
         {/* Conditionally render SendOrder after SentOrder is complete */}
         {isSentOrderComplete && <PushOrder />}
 
-        <p className="mt-4 text-gray-600">
-          Your order is being processed. We’ll notify you once it's ready.
-        </p>
-
         {/* Timer to show the countdown */}
       </div>
     </div>

@@ -7,7 +7,7 @@ import { fadeIn } from "../../utils/motion";
 
 const Pizza = () => {
   return (
-    <div>
+    <div id="menu">
       <motion.div>
         <p className={`${styles.sectionSubText} md:pt-12 -mt-9`}>detroit style</p>
         <h2 className={styles.sectionHeadText}>Pizza</h2>

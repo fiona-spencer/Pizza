@@ -1,0 +1,37 @@
+import { sendMail } from "../utils/mail.js";
+
+export const sendContact = async (req, res) => {
+  try {
+    const { from, subject, text, html } = req.body;
+    const response = await sendMail({ from, subject, text, html, type: 'contact' });
+    res.status(200).json({ success: true, message: 'Email sent', response });
+  } catch (error) {
+    console.error('SendMail Error:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const confirmOrder = async (req, res) => {
+  try {
+    const { from, subject, text, html } = req.body;
+
+    // Basic validation
+    // if (!orderData.userName || !orderData.userEmail) {
+    //   return res.status(400).json({ success: false, message: 'Missing required order data' });
+    // }
+
+    const response = await sendMail({
+      from,
+      subject,
+      text,
+      html,
+      type: 'order',
+    });
+
+    res.status(200).json({ success: true, message: 'Order confirmed, confirmation email sent', response });
+  } catch (error) {
+    console.error('SendMail Error:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+

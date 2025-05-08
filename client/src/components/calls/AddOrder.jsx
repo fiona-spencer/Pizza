@@ -29,13 +29,13 @@ export default function AddOrder({ restaurantId, name, price, addOns, category =
 
       if (response.ok) {
         setStatus({ type: 'success', message: 'Item added successfully!' });
-        console.log('Server response:', data);
+        // console.log('Server response:', data);
       } else {
         setStatus({ type: 'error', message: data.message || 'Failed to add item.' });
       }
     } catch (error) {
       setStatus({ type: 'error', message: 'An error occurred. Please try again.' });
-      console.error('Error:', error);
+      // console.error('Error:', error);
     }
   };
 

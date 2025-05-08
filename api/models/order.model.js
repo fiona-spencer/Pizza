@@ -17,10 +17,10 @@ const OrderSchema = new mongoose.Schema({
   restaurantId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Restaurant',
-    required: false, 
+    required: false,
   },
   items: [{
-    itemName: {  // Changed from menuItemId to itemName
+    itemName: {
       type: String,
       required: true
     },
@@ -73,25 +73,5 @@ const OrderSchema = new mongoose.Schema({
     type: Date
   }
 }, { timestamps: true });
-
-OrderSchema.pre('save', function (next) {
-  let subtotal = 0;
-
-  this.items.forEach(item => {
-    const addOnTotal = item.addOns?.reduce((sum, addOn) => sum + addOn.price, 0) || 0;
-    subtotal += (item.price + addOnTotal) * item.quantity;
-  });
-
-  const tax = subtotal * 0.13;
-  const totalWithTip = subtotal + this.tip;
-  const totalWithTax = totalWithTip + tax;
-
-  this.subtotal = subtotal;
-  this.tax = tax;
-  this.totalWithTip = totalWithTip;
-  this.totalWithTax = totalWithTax;
-
-  next();
-});
 
 export default mongoose.model('Order', OrderSchema);
