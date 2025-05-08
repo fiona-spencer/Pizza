@@ -48,6 +48,24 @@ export const OrderPlacedTemp = ({ orderData }) => {
         <p style="margin-top: 20px; text-align: center; font-size: 16px; color: #555; font-style: italic;">You will be notified when it's ready for pickup.</p>
 
 
+<div style="text-align: center; margin-top: 20px;">
+  <a href="https://www.google.com/maps/place/2800+Danforth+Ave,+Toronto,+ON+M4C+1M1" target="_blank" rel="noopener noreferrer">
+    <img src="cid:mapimage" alt="Pizzaday Location Map" style="width: 100%; max-width: 500px; border-radius: 8px; margin: 0 auto;" />
+  </a>
+  <p style="color: #e74c3c; font-size: 15px; margin: 10px 0 4px;">
+    <a href="https://www.google.com/maps/place/2800+Danforth+Ave,+Toronto,+ON+M4C+1M1" target="_blank" rel="noopener noreferrer" style="color: #e74c3c; text-decoration: underline;">
+      2800 Danforth Ave, Toronto, ON M4C 1M1
+    </a>
+  </p>
+  <p style="font-weight: bold; font-size: 14px; margin: 2px 0 0;">Phone:</p>
+  <p style="margin: 2px 0 0;">
+    <a href="tel:+14165516540" style="text-decoration: underline; color: #e74c3c; font-size: 14px;">(416) 551-6540</a>
+  </p>
+</div>
+
+
+
+
         <p style="margin-top: 30px; text-align: center;">Visit us at:</p>
         <p style="text-align: center; margin-bottom: 10px;">
           <a href="http://localhost:5173" style="display: inline-block; background-color: #e74c3c; color: #fff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">

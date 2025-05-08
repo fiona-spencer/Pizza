@@ -80,7 +80,7 @@ export default function PushOrder() {
 
         const emailPayload = {
           from: `"${currentUser.name}" <${currentUser.email}>`,
-          subject: "Your Order Has Been Placed",
+          subject: "Your Order Has Been Placed | PIZZADAY",
           text: `Thank you for your order, ${currentUser.name}!`,
           html: OrderPlacedTemp({ orderData }),
         };

@@ -31,7 +31,7 @@ export default function StatusButton({ orderId, currentStatus, onStatusChange, u
     // Prepare the email payload
     const emailPayload = {
       from: `"${userInfo.name}" <${userInfo.email}>`,
-      subject: `Your Order Is Ready for Pickup | Pizzaday`,
+      subject: `Your Order Is Ready for Pickup | PIZZADAY`,
       text: `Thank you for your order, ${userInfo.name}! Your order is now ready for pickup.`,
       html: OrderReadyTemp({ userInfo}), // Use the OrderReadyTemp to generate the email HTML
     };

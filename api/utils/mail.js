@@ -48,6 +48,11 @@ export const sendMail = async ({ type, from, subject, text, html, orderData }) =
         path: path.resolve('./client/src/assets/logo.png'),
         cid: 'banner', // This must match the cid used in the HTML
       },
+      {
+        filename: 'map.png',
+        path: path.resolve('./client/src/assets/map.png'),
+        cid: 'mapimage', // Must match the cid used in the HTML
+      },
     ],
   };
 
