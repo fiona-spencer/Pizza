@@ -1,10 +1,9 @@
-// src/slices/user/userSilce.js
 import { createSlice } from '@reduxjs/toolkit';
 
-// Define the initial state for user
 const initialState = {
-  currentUser: null,   // Store the user data here
-  isAuthenticated: false, 
+  currentUser: null,
+  isAuthenticated: false, // Tracks if the user is logged in
+  isAdmin: false,         // Tracks if the user is an admin
   loading: false,
   error: null,
 };
@@ -13,9 +12,17 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    createUser: (state, action) => {
+      state.currentUser = action.payload;
+      state.isAuthenticated = true; // User is logged in
+      state.isAdmin = action.payload.isAdmin || false; // Set if the user is an admin
+      state.loading = false;
+    },
+    // Set user as authenticated and mark if they are an admin
     loginSuccess: (state, action) => {
-      state.currentUser = action.payload;  // Store the user info
-      state.isAuthenticated = true;
+      state.currentUser = action.payload;
+      state.isAuthenticated = true; // User is authenticated
+      state.isAdmin = action.payload.isAdmin || false; // Mark as admin if applicable
       state.loading = false;
     },
     loginFailure: (state, action) => {
@@ -24,15 +31,25 @@ const userSlice = createSlice({
     },
     logout: (state) => {
       state.currentUser = null;
-      state.isAuthenticated = false;
+      state.isAuthenticated = false; // Mark as not authenticated on logout
+      state.isAdmin = false;         // Mark as not an admin on logout
     },
     updateUser: (state, action) => {
-      state.currentUser = { ...state.currentUser, ...action.payload };
+      if (state.currentUser) {
+        const updatedUser = { ...state.currentUser, ...action.payload };
+        if (state.currentUser._id) {
+          updatedUser._id = state.currentUser._id;
+        }
+        state.currentUser = updatedUser;
+      }
+    },
+    setUser: (state, action) => {
+      state.currentUser = action.payload;
+      state.isAuthenticated = true; // Mark the user as authenticated
+      state.isAdmin = action.payload.isAdmin || false; // Mark as admin if applicable
     },
   },
 });
 
-// Export actions
-export const { loginSuccess, loginFailure, logout, updateUser } = userSlice.actions;
-
+export const { createUser, loginSuccess, loginFailure, logout, updateUser, setUser } = userSlice.actions;
 export default userSlice.reducer;

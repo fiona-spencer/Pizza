@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // ✅ Step 1: Import useSelector
+import { useDispatch, useSelector } from 'react-redux';
 import OAuth from '../Modal/OAuth';
 import { Alert } from 'flowbite-react';
-import { updateUser } from '../../redux/slices/user/userSilce';
+import { createUser, updateUser } from '../../redux/slices/user/userSilce'; // Import both actions
+import { v4 as uuidv4 } from 'uuid';
+import CombineForm from './CombineForm';
 
 export default function AccountInfo({ setIsAccountInfoComplete }) {
   const [showError, setShowError] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
   });
 
-  const dispatch = useDispatch(); // ✅ Step 3: Initialize dispatch
-
-  // Use the useSelector hook to get the current user from the Redux store
-  const { currentUser } = useSelector((state) => state.user); // ✅ Step 4: Get currentUser
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    // If there is an existing user, pre-fill the form fields with user data
     if (currentUser) {
       setFormData({
         name: currentUser.name || '',
@@ -26,7 +26,7 @@ export default function AccountInfo({ setIsAccountInfoComplete }) {
         phone: currentUser.phone || '',
       });
     }
-  }, [currentUser]); // ✅ Step 5: Add currentUser as dependency to update form data if it changes
+  }, [currentUser]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,12 +39,20 @@ export default function AccountInfo({ setIsAccountInfoComplete }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (formData.name && formData.email) {
-      // Dispatch the action to update user info in the Redux store
-      dispatch(updateUser(formData)); // ✅ Step 6: Dispatch updateUser with formData
+      const userId = currentUser?._id || uuidv4();
+      const userData = { ...formData, _id: userId };
+
+      if (!currentUser || !currentUser._id) {
+        dispatch(createUser(userData));
+      } else {
+        dispatch(updateUser(userData));
+      }
 
       setIsAccountInfoComplete(true);
       setShowError(false);
+      setEditing(false);
     } else {
       setIsAccountInfoComplete(false);
       setShowError(true);
@@ -53,9 +61,8 @@ export default function AccountInfo({ setIsAccountInfoComplete }) {
 
   return (
     <div className="w-full max-w-md mx-auto bg-[#fb9494d3] p-6 rounded-lg shadow-lg mt-8">
-      {!currentUser ? (
+      {!currentUser || editing ? (
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Show error alert if required fields are missing */}
           {showError && (
             <Alert color="" className="text-sm bg-white text-red-700">
               Please enter name and email to continue.
@@ -92,9 +99,7 @@ export default function AccountInfo({ setIsAccountInfoComplete }) {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Phone Number (Optional)
-            </label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number (Optional)</label>
             <input
               type="tel"
               name="phone"
@@ -109,7 +114,7 @@ export default function AccountInfo({ setIsAccountInfoComplete }) {
             type="submit"
             className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700 text-xs transition duration-200 font-semibold"
           >
-            Submit 
+            Submit
           </button>
         </form>
       ) : (
@@ -130,13 +135,11 @@ export default function AccountInfo({ setIsAccountInfoComplete }) {
             </div>
           </div>
           <button
-            onClick={() => {
-              // Optional: You can reset the form or logout here
-              dispatch(updateUser({})); // Example: Resetting user info
-            }}
-            className="mt-6 w-full bg-white text-gray-600 py-2 rounded-md hover:bg-blue-600 transition duration-200 font-xs"
+            onClick={() => setEditing(true)}
+            className="mt-6 w-full bg-white text-gray-600 py-2 rounded-md hover:bg-red-400 transition duration-200 font-xs"
           >
             Edit Information
+            <CombineForm/>
           </button>
         </div>
       )}

@@ -3,7 +3,6 @@ import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { TbCreditCardPay } from "react-icons/tb";
 
-
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
@@ -20,20 +19,31 @@ export default function CheckoutForm() {
 
     setIsProcessing(true);
 
-    const { error, paymentIntent} = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/completion`
-      },
-      redirect: "if_required",
-    })
+    try {
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/completion`
+        },
+        redirect: "if_required",
+      });
 
-    if (error) {
-      setMessage(error.message);
-    } else if (paymentIntent && paymentIntent.status === 'succeeded'){
-      setMessage("Payment status: " + paymentIntent.status)
-    } else {
-      setMessage("Unexpected error")
+      // Log the response from Stripe
+      console.log("PaymentIntent response:", paymentIntent);
+      console.log("Error response:", error);
+
+      if (error) {
+        setMessage(error.message);
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        setMessage("Payment status: " + paymentIntent.status);
+        // Force a manual redirect (if required for debugging)
+        window.location.href = '/completion'; // This should redirect to your completion page
+      } else {
+        setMessage("Unexpected error");
+      }
+    } catch (err) {
+      console.error("Error during payment processing:", err);
+      setMessage("An error occurred during the payment process.");
     }
 
     setIsProcessing(false);
@@ -41,12 +51,12 @@ export default function CheckoutForm() {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement/>
+      <PaymentElement />
       <button disabled={isProcessing} id="submit">
-      <span id="button-text" className="flex items-center justify-center space-x-2">
-    <span>{isProcessing ? "Processing ... " : "Pay Now "}</span>
-    <TbCreditCardPay className="text-white text-xl" />
-  </span>
+        <span id="button-text" className="flex items-center justify-center space-x-2">
+          <span>{isProcessing ? "Processing ... " : "Pay Now "}</span>
+          <TbCreditCardPay className="text-white text-xl" />
+        </span>
       </button>
 
       {/* Show any error or success messages */}

@@ -9,34 +9,35 @@ const getInitialState = () => {
   const now = Date.now();
   const saved = JSON.parse(localStorage.getItem("persist:root"))?.cart;
 
+  const defaultState = {
+    items: [],
+    sessionId: nanoid(),
+    timestamp: now,
+    subtotal: 0,
+    tip: 0,
+    tax: 0,
+    totalWithTax: 0,
+  };
+
   if (saved) {
     try {
       const parsedCart = JSON.parse(saved);
       if (now - parsedCart.timestamp > ONE_HOUR) {
-        // If cart session expired (older than 1 hour), reset to default state
-        return {
-          items: [],
-          sessionId: nanoid(),
-          timestamp: now,
-        };
+        return defaultState;
       }
-      return parsedCart;
-    } catch {
-      // In case of JSON parse error, return default state
       return {
-        items: [],
-        sessionId: nanoid(),
-        timestamp: now,
+        ...parsedCart,
+        subtotal: parsedCart.subtotal || 0,
+        tip: parsedCart.tip || 0,
+        tax: parsedCart.tax || 0,
+        totalWithTax: parsedCart.totalWithTax || 0,
       };
+    } catch {
+      return defaultState;
     }
   }
 
-  // Default state if nothing exists in localStorage
-  return {
-    items: [],
-    sessionId: nanoid(),
-    timestamp: now,
-  };
+  return defaultState;
 };
 
 // Initial state setup
@@ -47,16 +48,13 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // Action to add an item to the cart
     addCartItem: (state, action) => {
       const item = action.payload;
 
-      // Ensure state.items is an array, even if localStorage has an error
       if (!Array.isArray(state.items)) {
         state.items = [];
       }
 
-      // Check if the item already exists in the cart (based on name, addOns, and notes)
       const existingItem = state.items.find(
         i =>
           i.name === item.name &&
@@ -65,39 +63,31 @@ const cartSlice = createSlice({
           i.restaurantId === item.restaurantId
       );
 
-      // If item exists, update its quantity
       if (existingItem) {
         existingItem.quantity += item.quantity;
       } else {
-        // Otherwise, add a new item to the cart
         state.items.push(item);
       }
 
-      // Update the timestamp when cart items change
       state.timestamp = Date.now();
     },
 
-    // Action to update an existing cart item
     updateCartItem: (state, action) => {
       const { index, updates } = action.payload;
       if (state.items[index]) {
-        // Apply updates to the specified item in the cart
         state.items[index] = { ...state.items[index], ...updates };
-        // Update the timestamp after modifying the cart
         state.timestamp = Date.now();
       }
     },
 
-    // Action to delete a cart item
     deleteCartItem: (state, action) => {
       const index = action.payload;
       if (state.items[index]) {
-        // Remove the item from the cart
         state.items.splice(index, 1);
-        // Update the timestamp after modifying the cart
         state.timestamp = Date.now();
       }
     },
+
     updateCartItemQuantity: (state, action) => {
       const { index, quantity } = action.payload;
       if (state.items[index]) {
@@ -105,22 +95,35 @@ const cartSlice = createSlice({
       }
     },
 
-    // Action to clear the entire cart
     clearCart: (state) => {
-      state.items = []; // Reset the items to an empty array
-      state.timestamp = Date.now(); // Update the timestamp after clearing the cart
+      state.items = [];
+      state.subtotal = 0;
+      state.tip = 0;
+      state.tax = 0;
+      state.totalWithTax = 0;
+      state.timestamp = Date.now();
+    },
+
+    // ✅ Updated to handle full cart summary
+    setCartSummary: (state, action) => {
+      const { subtotal, tip, tax, totalWithTax } = action.payload;
+      state.subtotal = subtotal;
+      state.tip = tip;
+      state.tax = tax;
+      state.totalWithTax = totalWithTax;
     },
   },
 });
 
-// Exporting actions to be used in components
+// Export actions
 export const {
   addCartItem,
   updateCartItem,
   deleteCartItem,
   clearCart,
   updateCartItemQuantity,
+  setCartSummary,
 } = cartSlice.actions;
 
-// Default export the reducer to be used in the store
+// Export reducer
 export default cartSlice.reducer;

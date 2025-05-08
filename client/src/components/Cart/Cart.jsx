@@ -1,30 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteCartItem, updateCartItemQuantity } from '../../redux/slices/cart/cartSlice';
+import { deleteCartItem, updateCartItemQuantity, setCartSummary } from '../../redux/slices/cart/cartSlice';
 import { FaRegTrashCan } from "react-icons/fa6";
 
 export default function Cart({ items, activeSection, setActiveSection }) {
   const dispatch = useDispatch(); // Initialize the dispatch hook
 
-  // Calculate total price
-  const totalPrice = items.reduce((total, item) => {
-    let itemTotal = item.price * item.quantity; // Adjust price based on quantity
-    
-    // Ensure item price is valid
-    if (isNaN(itemTotal)) {
-      itemTotal = 0;
-    }
+  // Calculate total price and other summaries
+  const calculateCartSummary = () => {
+    const subtotal = items.reduce((total, item) => {
+      let itemTotal = item.price * item.quantity; // Adjust price based on quantity
+      
+      // Ensure item price is valid
+      if (isNaN(itemTotal)) {
+        itemTotal = 0;
+      }
 
-    // Add price from addOns if available
-    // if (item.addOns?.length > 0) {
-    //   itemTotal += item.addOns.reduce((addOnTotal, addOn) => {
-    //     const addOnPrice = addOn.price;
-    //     return addOnTotal + (isNaN(addOnPrice) ? 0 : addOnPrice);
-    //   }, 0);
-    // }
-    
-    return total + itemTotal;
-  }, 0);
+      return total + itemTotal;
+    }, 0);
+
+    // Set the tip percentage (this can be dynamic based on user input, this is a placeholder)
+    const tip = 0;  // You can replace this with user-selected tip logic
+    const taxRate = 0.13; // Tax rate
+    const tax = subtotal * taxRate;
+    const totalWithTax = subtotal + tax + tip;
+
+    return {
+      subtotal,
+      tip,
+      tax,
+      totalWithTax,
+    };
+  };
+
+  useEffect(() => {
+    // Dispatch the updated cart summary to Redux when items change
+    const { subtotal, tip, tax, totalWithTax } = calculateCartSummary();
+    dispatch(setCartSummary({ subtotal, tip, tax, totalWithTax }));
+  }, [items, dispatch]);
 
   // Handle deleting an item using Redux
   const handleDeleteItem = (index) => {
@@ -72,8 +85,6 @@ export default function Cart({ items, activeSection, setActiveSection }) {
                         </div>
                       </div>
 
-                     
-
                       {item.addOns?.length > 0 && (
                         <ul className="mt-2 text-sm text-red-500 pl-3 list-disc">
                           <p className="font-semibold">Add-Ons:</p>
@@ -86,30 +97,32 @@ export default function Cart({ items, activeSection, setActiveSection }) {
                       )}
 
                       <div className="flex items-center justify-between mt-3 -mb-2">
-                      <div className="flex justify-between items-center space-x-2">
-                        {/* Price section */}
-                        <p className="text-red-600 font-bold">
-                          Price: ${(item.price * item.quantity).toFixed(2)} {/* Adjust price based on quantity */}
-                        </p>
-                      </div>
+                        <div className="flex justify-between items-center space-x-2">
+                          {/* Price section */}
+                          <p className="text-red-600 font-bold">
+                            Price: ${(item.price * item.quantity).toFixed(2)} {/* Adjust price based on quantity */}
+                          </p>
+                        </div>
 
-                      {/* Trash button placed below quantity */}
-                      <div className="flex justify-end">
-                        <button
-                          onClick={() => handleDeleteItem(index)} // Pass the index of the item to delete
-                          className="text-red-600 hover:text-red-700"
-                        >
-                          <FaRegTrashCan className="w-5 h-5" />
-                        </button>
-                      </div>
+                        {/* Trash button placed below quantity */}
+                        <div className="flex justify-end">
+                          <button
+                            onClick={() => handleDeleteItem(index)} // Pass the index of the item to delete
+                            className="text-red-600 hover:text-red-700"
+                          >
+                            <FaRegTrashCan className="w-5 h-5" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </li>
                 ))}
               </ul>
+
+              {/* Display only the subtotal */}
               <div className="mt-6 flex justify-between font-semibold text-red-700">
-                <span>Total:</span>
-                <span>${isNaN(totalPrice) ? '0.00' : totalPrice.toFixed(2)}</span>
+                <span>Subtotal:</span>
+                <span>${calculateCartSummary().subtotal.toFixed(2)}</span>
               </div>
             </div>
           )}

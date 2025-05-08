@@ -11,7 +11,6 @@ import authRoutes from './routes/auth.route.js';
 import userRoutes from './routes/user.route.js';
 import restaurantRoutes from './routes/restaurant.route.js';
 import menuRoutes from './routes/menu.route.js';
-import cartRoutes from './routes/cart.route.js';
 import orderRoutes from './routes/order.route.js';
 
 dotenv.config();
@@ -41,7 +40,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/restaurant', restaurantRoutes);
 app.use('/api/menu', menuRoutes);
-app.use('/api/cart', cartRoutes);
 app.use('/api/order', orderRoutes);
 
 // Stripe Routes
@@ -53,9 +51,17 @@ app.get('/api/config', (req, res) => {
 
 app.post('/api/create-payment-intent', async (req, res) => {
   try {
+    const { amount } = req.body; // Extract the amount from the request body
+
+    // Ensure the amount is valid
+    if (!amount || amount <= 0) {
+      return res.status(400).send({ error: { message: 'Invalid amount' } });
+    }
+
+    // Create payment intent
     const paymentIntent = await stripe.paymentIntents.create({
       currency: 'cad',
-      amount: 1999, // replace with dynamic amount if needed
+      amount: amount,  // Use the dynamic amount (in cents)
       automatic_payment_methods: { enabled: true },
     });
 
@@ -66,6 +72,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
     });
   }
 });
+
 
 // Static File Serving (Frontend)
 app.use(express.static(path.join(__dirname, '/client/dist')));

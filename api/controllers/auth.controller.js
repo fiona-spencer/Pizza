@@ -64,7 +64,7 @@ export const google = async (req, res, next) => {
 
 // REGISTER
 export const register = async (req, res, next) => {
-  console.log('Register Request Body:', req.body); // 🔍 Add this line
+  // console.log('Register Request Body:', req.body); // 🔍 Add this line
 
   const { name, email, password, role } = req.body;
 

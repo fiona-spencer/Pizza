@@ -1,11 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const MenuItemSchema = new mongoose.Schema({
-  restaurantId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Restaurant",
-    required: false,
-  },
   name: {
     type: String,
     required: true,
@@ -14,32 +9,15 @@ const MenuItemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  addOns: [
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-      price: {
-        type: Number,
-        required: true,
-      },
-    },
-  ],
   category: {
     type: String,
-    enum: ["pizza", "wing", "side"],
-    default: "pizza",
+    enum: ['pizza', 'wing', 'side'],
+    default: 'pizza',
   },
-  notes: {
-    type: String,
-    maxlength: 300,
-  },
-  quantity: {
-    type: Number,
-    default: 1,
+  isAvailable: {
+    type: Boolean,
+    default: true,
   },
 }, { timestamps: true });
 
-
-export default mongoose.model("MenuItem", MenuItemSchema);
+export default mongoose.model('MenuItem', MenuItemSchema);

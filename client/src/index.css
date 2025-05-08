@@ -301,3 +301,23 @@ html, body {
   border-radius: var(--radius);
   font-size:0.7em;
 }
+
+/* Add to your global CSS or inline styles */
+/* Add this CSS to your global stylesheet or in a <style> tag in your React component */
+
+input[type="checkbox"]:checked + .toggle-label {
+  background-color: #46ad41; /* Red when checked */
+}
+
+input[type="checkbox"]:checked + .toggle-label .toggle-dot {
+  transform: translateX(100%); /* Moves the dot to the right */
+}
+
+input[type="checkbox"] + .toggle-label {
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+input[type="checkbox"] + .toggle-label .toggle-dot {
+  transition: transform 0.3s ease; /* Smooth dot movement transition */
+}
+

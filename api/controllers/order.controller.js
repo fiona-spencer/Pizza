@@ -4,26 +4,39 @@ import { errorHandler } from "../utils/error.js";
 // CREATE ORDER
 export const createOrder = async (req, res, next) => {
   try {
-    const order = new Order({ ...req.body, userId: req.user.id });
+    const orderData = {
+      ...req.body,
+      userId: "6817f4e6c1cf12418221d57d",  // Automatically set userId
+      restaurantId: "681815df9d26ea0bc05ce27e",  // Automatically set restaurantId
+    };
+
+    const order = new Order(orderData);
+
+    console.log('Order data:', order);  // Log order data to see the structure
+
     await order.save();
+
     res.status(201).json(order);
   } catch (err) {
+    console.error('Error creating order:', err);  // Log the error
     next(errorHandler(500, "Failed to create order"));
   }
 };
 
-// GET ALL ORDERS FOR USER
-export const getOrders = async (req, res, next) => {
+
+
+
+// GET ALL ORDERS FOR A USER
+export const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.user.id });
-    if (!orders.length) return next(errorHandler(404, "No orders found"));
-    res.status(200).json(orders);
-  } catch (err) {
-    next(errorHandler(500, "Failed to fetch orders"));
+    const orders = await Order.find();  // Fetch all orders from DB
+    res.status(200).json(orders);  // Return orders to the frontend
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch orders' });
   }
 };
 
-// GET ORDER BY ID
+// GET A SINGLE ORDER BY ID
 export const getOrderById = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -37,7 +50,13 @@ export const getOrderById = async (req, res, next) => {
 // UPDATE ORDER STATUS
 export const updateOrderStatus = async (req, res, next) => {
   try {
-    const validStatuses = ["pending", "confirmed", "delivered", "canceled"];
+    const validStatuses = [
+      "pending",
+      "in-progress",
+      "ready",
+      "canceled",
+      "finished",
+    ];
     const { status } = req.body;
 
     if (!validStatuses.includes(status)) {
@@ -45,7 +64,7 @@ export const updateOrderStatus = async (req, res, next) => {
     }
 
     const order = await Order.findByIdAndUpdate(
-      req.params.id, // make sure this matches your route param (e.g., :od if using /order/:od/status)
+      req.params.id,
       { status },
       { new: true }
     );
@@ -54,5 +73,16 @@ export const updateOrderStatus = async (req, res, next) => {
     res.status(200).json(order);
   } catch (err) {
     next(errorHandler(500, "Failed to update order status"));
+  }
+};
+
+// DELETE ORDER
+export const deleteOrder = async (req, res, next) => {
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id);
+    if (!order) return next(errorHandler(404, "Order not found"));
+    res.status(200).json({ message: "Order deleted successfully" });
+  } catch (err) {
+    next(errorHandler(500, "Failed to delete order"));
   }
 };

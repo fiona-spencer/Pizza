@@ -25,11 +25,20 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['customer', 'owner', 'admin'],
       required: true,
-      default: 'customer'
+      default: 'customer',
     },
   },
   { timestamps: true }
 );
+
+// Add virtual userId
+userSchema.virtual('userId').get(function () {
+  return this._id.toHexString();
+});
+
+userSchema.set('toJSON', {
+  virtuals: true,
+});
 
 const User = mongoose.model('User', userSchema);
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import CheckoutForm from "./CheckoutForm";
+import CheckoutForm from "./CheckoutForm"; // assuming CheckoutForm is in the same folder
 import { useSelector } from "react-redux";
 
 function PaymentInfo() {
@@ -12,12 +12,14 @@ function PaymentInfo() {
 
   const cartItems = useSelector((state) => state.cart.items);
 
+  // Calculate the total price (subtotal)
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const TAX_RATE = 0.13;
-  const totalPrice = calculateTotalPrice();
+  // Constants
+  const TAX_RATE = 0.13; // Tax rate (13%)
+  const totalPrice = calculateTotalPrice(); // Total price before tax
 
   // Tip is calculated before tax (on subtotal)
   const tipPercent = tipOption === 'custom' ? 0 : tipOption === 'none' ? 0 : Number(tipOption) / 100;
@@ -27,6 +29,7 @@ function PaymentInfo() {
   const taxAmount = totalPrice * TAX_RATE;
   const finalTotal = totalPrice + taxAmount + (isNaN(tipAmount) ? 0 : tipAmount);
 
+  // Fetch the Stripe public key and client secret from backend
   useEffect(() => {
     fetch("/api/config").then(async (r) => {
       const { publishableKey } = await r.json();
@@ -34,15 +37,29 @@ function PaymentInfo() {
     });
   }, []);
 
+  // Fetch client secret for payment intent
   useEffect(() => {
-    fetch("/api/create-payment-intent", {
-      method: 'POST',
-      body: JSON.stringify({}),
-    }).then(async (r) => {
-      const { clientSecret } = await r.json();
-      setClientSecret(clientSecret);
-    });
-  }, []);
+    const createPaymentIntent = async () => {
+      try {
+        const response = await fetch("/api/create-payment-intent", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ amount: finalTotal * 100 }), // Send the total amount (in cents)
+        });
+
+        const { clientSecret } = await response.json();
+        setClientSecret(clientSecret);
+      } catch (error) {
+        console.error("Error creating payment intent:", error);
+      }
+    };
+
+    if (finalTotal) {
+      createPaymentIntent();
+    }
+  }, [finalTotal]);
 
   return (
     <div className="bg-white rounded-2xl mt-4 p-6 max-w-lg mx-auto">
