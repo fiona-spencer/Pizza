@@ -7,14 +7,26 @@ export default function OrderCard({ order, onNextStage }) {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-6 border border-gray-200 text-black transition-all duration-100 hover:border-4 hover:border-red-600">
-      <h3 className="text-xl text-red-600 font-semibold">
-        Order by <span className="font-normal">{order.userName}</span> ({order.userEmail})
+      <h3 className="text-xl text-red-600">
+        Order by: <span className="font-bold">{order.userName}</span> ({order.userEmail})
       </h3>
       <p className="text-gray-600 text-sm mt-2">Status: <span className="font-semibold">{order.status}</span></p>
       <p className="text-gray-600 text-sm">Subtotal: <span className="font-semibold">${order.subtotal.toFixed(2)}</span></p>
       <p className="text-gray-600 text-sm">Tip: <span className="font-semibold">${order.tip.toFixed(2)}</span></p>
       <p className="text-gray-600 text-sm">Total with Tax: <span className="font-semibold">${order.totalWithTax.toFixed(2)}</span></p>
-      <p className="text-gray-600 text-sm">Pick-up Time: <span className="font-semibold">{new Date(order.pickUpTime).toLocaleString()}</span></p>
+      <p className="text-gray-600 text-sm">
+  Order Created:{" "}
+  <span className="font-semibold">
+    {new Date(order.pickUpTime).toLocaleString([], {
+      day: '2-digit',
+      month: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    })}
+  </span>
+</p>
+
 
       <h4 className="mt-4 text-md text-yellow-600 font-semibold">Items:</h4>
       <div className="order-items space-y-3 mt-2">

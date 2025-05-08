@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCart } from '../../redux/slices/cart/cartSlice';
 
 export default function SendOrder() {
-  const dispatch = useDispatch();
 
-  // Get cart data and user data from Redux store
   const cartItems = useSelector((state) => state.cart.items);
   const { currentUser } = useSelector((state) => state.user);
 
-  // Define the loading state
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Calculate the subtotal, tip, tax, and total
   const calculateCartSummary = () => {
     const subtotal = cartItems.reduce((total, item) => {
       let itemTotal = item.price * item.quantity;
@@ -20,7 +15,7 @@ export default function SendOrder() {
       return total + itemTotal;
     }, 0);
 
-    const tip = 0;  // You can replace this with actual user input for tip
+    const tip = 0;
     const tax = subtotal * 0.13;
     const totalWithTip = subtotal + tip;
     const totalWithTax = totalWithTip + tax;
@@ -34,67 +29,60 @@ export default function SendOrder() {
     };
   };
 
-  // Prepare the order data
-  const prepareOrderData = () => {
-    // User and restaurant IDs are set automatically on the backend
-    return {
-      userEmail: currentUser.email,
-      userName: currentUser.name,
-      items: cartItems.map(item => ({
-        itemName: item.name,  // itemName instead of menuItemId
-        quantity: item.quantity,
-        price: item.price,
-        addOns: item.addOns || [],
-        notes: item.notes || '',
-      })),
-      status: 'pending',
-      subtotal: calculateCartSummary().subtotal,
-      tip: calculateCartSummary().tip,
-      totalWithTip: calculateCartSummary().totalWithTip,
-      tax: calculateCartSummary().tax,
-      totalWithTax: calculateCartSummary().totalWithTax,
-      pickUpTime: new Date(),  // You can add logic to take pickUpTime from the user
-    };
-  };
+  const prepareOrderData = () => ({
+    userEmail: currentUser.email,
+    userName: currentUser.name,
+    items: cartItems.map(item => ({
+      itemName: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      addOns: item.addOns || [],
+      notes: item.notes || '',
+    })),
+    status: 'pending',
+    subtotal: calculateCartSummary().subtotal,
+    tip: calculateCartSummary().tip,
+    totalWithTip: calculateCartSummary().totalWithTip,
+    tax: calculateCartSummary().tax,
+    totalWithTax: calculateCartSummary().totalWithTax,
+    pickUpTime: new Date(),
+  });
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form behavior
-    setIsSubmitting(true);
+  useEffect(() => {
+    const submitOrder = async () => {
+      setIsSubmitting(true);
+      const orderData = prepareOrderData();
 
-    const orderData = prepareOrderData();
+      console.log('📦 Order Data:', orderData);
 
-    console.log(orderData)
+      try {
+        const response = await fetch('/api/order/createOrder', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData),
+        });
 
-    try {
-      const response = await fetch('/api/order/createOrder', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
-      });
+        const responseBody = await response.text();
+        console.log('📝 Server Response:', response.status, responseBody);
 
-      if (!response.ok) {
-        throw new Error('Failed to place the order. Please try again.');
+        if (!response.ok) {
+          throw new Error('Failed to place the order.');
+        }
+
+      } catch (err) {
+        console.error('❌ Order submission failed:', err.message);
+      } finally {
+        setIsSubmitting(false);
       }
+    };
 
-      // If the order is successfully placed, clear the cart and redirect
-      dispatch(clearCart()); // Clear the cart after a successful order
-    } catch (err) {
-      console.error('Order submission failed:', err.message);
-      // Handle error (e.g., show error message in UI or log it)
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    submitOrder();
+  }, []); // empty dependency array = run once on mount
 
   return (
-    <div>
-      {/* You can add a button to trigger the order submission */}
-      <button onClick={handleSubmit} disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting...' : 'Place Order'}
-      </button>
+    <div className="text-sm text-white">
     </div>
   );
 }

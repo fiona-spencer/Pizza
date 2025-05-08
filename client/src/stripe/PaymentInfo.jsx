@@ -46,7 +46,7 @@ function PaymentInfo() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ amount: finalTotal * 100 }), // Send the total amount (in cents)
+          body: JSON.stringify({ amount: Math.round(finalTotal * 100) }), // Send the total amount (in cents)
         });
 
         const { clientSecret } = await response.json();
