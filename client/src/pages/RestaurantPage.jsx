@@ -59,8 +59,8 @@ export default function RestaurantPage() {
           <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Pending</Tab>
           <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">In Progress</Tab>
           <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Ready</Tab>
-          <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Canceled</Tab>
           <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Finished</Tab>
+          <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Canceled</Tab>
           <div className="  flex items-center space-x-4">
     <Link to="/menu">
       <MdMenuBook className="w-8 h-8 ml-14 mb-2 text-red-600 hover:bg-red-300 cursor-pointer bg-white p-1 rounded-full" />
@@ -68,25 +68,26 @@ export default function RestaurantPage() {
   </div>
         </TabList>
 
-        <TabPanel className="p-6">
+        <TabPanel className="">
           <PendingOrders /> {/* Render PendingOrders component here */}
         </TabPanel>
 
-        <TabPanel className="p-6">
+        <TabPanel className="">
           <InProgressOrders /> {/* Render InProgressOrders component here */}
         </TabPanel>
 
-        <TabPanel className="p-6">
+        <TabPanel className="">
           <ReadyOrders /> {/* Render ReadyOrders component here */}
         </TabPanel>
+        
+        <TabPanel className="">
+          <FinishedOrders /> {/* Render FinishedOrders component here */}
+        </TabPanel>
 
-        <TabPanel className="p-6">
+        <TabPanel className="">
           <CanceledOrders /> {/* Render CanceledOrders component here */}
         </TabPanel>
 
-        <TabPanel className="p-6">
-          <FinishedOrders /> {/* Render FinishedOrders component here */}
-        </TabPanel>
 
 
       </Tabs>
