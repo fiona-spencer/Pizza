@@ -96,6 +96,13 @@ export default function Cart({ items, activeSection, setActiveSection }) {
                         </ul>
                       )}
 
+                        {/* Display the notes if they exist */}
+                        {item.notes && (
+                        <p className="mt-2 text-xs text-gray-600 italic w-fit">
+                          <span className="font-semibold">Notes:</span> {item.notes}
+                        </p>
+                      )}
+
                       <div className="flex items-center justify-between mt-3 -mb-2">
                         <div className="flex justify-between items-center space-x-2">
                           {/* Price section */}

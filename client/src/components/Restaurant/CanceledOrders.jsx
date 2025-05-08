@@ -60,7 +60,10 @@ export default function CanceledOrders() {
 
   return (
     <div className="p-3 text-black">
-      <h2 className="text-xl font-bold text-red-700 mb-4">Canceled Orders</h2>
+<h2 className="text-xl font-bold text-red-700 mb-4">
+  Canceled Orders
+  <span className="text-gray-700 text-base ml-2">({canceledOrders.length})</span>
+</h2>
       {canceledOrders.length === 0 ? (
         <div className="text-sm text-yellow-500">No canceled orders available.</div>
       ) : (

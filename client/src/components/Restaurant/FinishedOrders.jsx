@@ -60,7 +60,10 @@ export default function FinishedOrders() {
 
   return (
     <div className="p-3 text-black">
-      <h2 className="text-xl font-bold text-green-700 mb-4">Finished Orders</h2>
+<h2 className="text-xl font-bold text-gray-700 mb-4">
+  Finished Orders
+  <span className="text-gray-700 text-base ml-2">({finishedOrders.length})</span>
+</h2>
       {finishedOrders.length === 0 ? (
         <div className="text-sm text-yellow-500">No finished orders available.</div>
       ) : (

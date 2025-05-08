@@ -56,7 +56,10 @@ export default function InProgressOrders() {
 
   return (
 <div className="text-black p-2">
-  <h2 className="text-xl text-red-600 font-semibold mb-3">In Progress Orders</h2>
+<h2 className="text-xl text-blue-600 font-semibold mb-3">
+  In Progress Orders
+  <span className="text-gray-700 text-base ml-2">({orders.length})</span>
+</h2>
   {orders.length === 0 ? (
     <div className="text-center text-yellow-500 text-sm">No orders in progress.</div>
   ) : (

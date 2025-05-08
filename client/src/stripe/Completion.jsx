@@ -1,17 +1,53 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearCart } from '../redux/slices/cart/cartSlice'; // Import clearCart
-import SentOrder from "../components/Cart/SentOrder";
-import SendOrder from '../components/Cart/SendOrder';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '../redux/slices/cart/cartSlice';
+import PushOrder from '../components/Cart/PushOrder';
+import SentOrder from '../components/Cart/SentOrder';
 
 function Completion() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  
+  // State to track if SentOrder is complete
+  const [isSentOrderComplete, setIsSentOrderComplete] = useState(false);
 
-  // Clear cart on mount
+  // State for the timer countdown
+  const [timer, setTimer] = useState(5 * 60);  // 5 minutes in seconds
+
+  // Function to handle when SentOrder is complete
+  const handleSentOrderComplete = () => {
+    setIsSentOrderComplete(true);  // Mark the order as completed
+  };
+
+  // Timer countdown logic
   useEffect(() => {
-    dispatch(clearCart());
-  }, [dispatch]);
+    // Countdown timer that runs every second
+    const interval = setInterval(() => {
+      setTimer((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);  // Cleanup the interval on component unmount
+  }, []);
+
+  // Clear cart after the timer expires
+  useEffect(() => {
+    if (timer === 0) {
+      // Clear the cart when the timer reaches 0
+      dispatch(clearCart());
+    }
+  }, [timer, dispatch]);
+
+  // Convert the time remaining in seconds to minutes:seconds format
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -20,12 +56,17 @@ function Completion() {
           Thank you! 🎉
         </h1>
 
-        <SentOrder />
-        <SendOrder />
+        {/* SentOrder component */}
+        <SentOrder onComplete={handleSentOrderComplete} />
+
+        {/* Conditionally render SendOrder after SentOrder is complete */}
+        {isSentOrderComplete && <PushOrder />}
 
         <p className="mt-4 text-gray-600">
           Your order is being processed. We’ll notify you once it's ready.
         </p>
+
+        {/* Timer to show the countdown */}
       </div>
     </div>
   );

@@ -54,13 +54,13 @@ export default function RestaurantPage() {
       <Tabs className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg">
 
         
-        <TabList className="flex justify-center space-x-4 bg-red-500 text-white pt-2 rounded-t-lg">
+        <TabList className="flex md:justify-center md:space-x-4 bg-red-500 text-white pt-2 rounded-t-lg overflow-x-auto whitespace-nowrap space-x-2 bg-red-500 text-white pt-2 px-2 rounded-t-lg scrollbar-thin scrollbar-thumb-red-300">
           
-          <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Pending</Tab>
-          <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">In Progress</Tab>
-          <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Ready</Tab>
-          <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Finished</Tab>
-          <Tab className="px-6 py-2 cursor-pointer rounded-t-lg transition-all">Canceled</Tab>
+        <Tab className="px-4 py-2 min-w-[100px] text-xs md:text-base text-center cursor-pointer rounded-t-lg transition-all md:px-6 md:py-2">Pending</Tab>
+  <Tab className="px-4 py-2 min-w-[100px] text-xs md:text-base text-center cursor-pointer rounded-t-lg transition-all md:px-6 md:py-2">In Progress</Tab>
+  <Tab className="px-4 py-2 min-w-[100px]  text-xs md:text-base text-center cursor-pointer rounded-t-lg transition-all md:px-6 md:py-2">Ready</Tab>
+  <Tab className="px-4 py-2 min-w-[100px] text-xs md:text-base text-center cursor-pointer rounded-t-lg transition-all md:px-6 md:py-2">Finished</Tab>
+  <Tab className="px-4 py-2 min-w-[100px]  text-xs md:text-base text-center cursor-pointer rounded-t-lg transition-all md:px-6 md:py-2">Canceled</Tab>
           <div className="  flex items-center space-x-4">
     <Link to="/menu">
       <MdMenuBook className="w-8 h-8 ml-14 mb-2 text-red-600 hover:bg-red-300 cursor-pointer bg-white p-1 rounded-full" />

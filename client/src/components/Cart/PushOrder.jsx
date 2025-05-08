@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function SendOrder() {
+export default function PushOrder() {
 
   const cartItems = useSelector((state) => state.cart.items);
   const { currentUser } = useSelector((state) => state.user);

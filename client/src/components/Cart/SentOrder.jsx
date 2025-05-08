@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 import {Button} from 'flowbite-react'
+import PushOrder from './PushOrder';
 
 export default function SendOrder() {
   const dispatch = useDispatch();
@@ -76,6 +77,8 @@ export default function SendOrder() {
       >
         Go Back to Resaurant Page
       </Button>
+      <PushOrder/>
     </div>
   );
 }
+
