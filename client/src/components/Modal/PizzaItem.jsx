@@ -38,7 +38,7 @@ const PizzaItem = ({ index, name, description, tags, image, category = 'pizza' }
            ease: "easeInOut"
          }}
        >
-         New
+         New!
        </motion.div>
         )}
 

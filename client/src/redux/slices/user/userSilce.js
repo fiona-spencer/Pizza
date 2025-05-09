@@ -7,7 +7,9 @@ const initialState = {
   loading: false,
   error: null,
   acceptedCookies: false,
-  declinedCookies: false,};
+  declinedCookies: false,
+  prevPendingCount: 0, // <-- Add this
+};
 
 const userSlice = createSlice({
   name: 'user',
@@ -57,6 +59,9 @@ const userSlice = createSlice({
       state.acceptedCookies = false;
       localStorage.removeItem("acceptedCookies"); // Removed from localStorage if declined
     },
+    setPrevPendingCount: (state, action) => {
+      state.prevPendingCount = action.payload;
+    },
   },
 });
 
@@ -68,7 +73,8 @@ export const {
   updateUser, 
   setUser, 
   acceptCookies, 
-  declineCookies 
+  declineCookies, 
+  setPrevPendingCount
 } = userSlice.actions;
 
 export default userSlice.reducer;

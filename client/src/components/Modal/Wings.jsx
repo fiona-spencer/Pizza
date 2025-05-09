@@ -209,7 +209,7 @@ const Wings = () => {
           item={selectedItem} // Pass the entire item
           onClose={handleCloseModal}
           onAddToCart={(item) => {
-            console.log("Added item to cart:", item);
+            // console.log("Added item to cart:", item);
             handleCloseModal();
           }}
         />

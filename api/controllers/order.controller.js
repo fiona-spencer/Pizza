@@ -12,7 +12,7 @@ export const createOrder = async (req, res, next) => {
 
     const order = new Order(orderData);
 
-    console.log('Order data:', order);  // Log order data to see the structure
+    // console.log('Order data:', order);  // Log order data to see the structure
 
     await order.save();
 

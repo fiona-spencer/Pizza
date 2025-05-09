@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import OrderCard from './OrderCard';
 import StatusButton from './StatusButton';
 import newOrderSound from '../../assets/notification.mp3';
@@ -8,8 +9,9 @@ export default function PendingOrders() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const { currentUser } = useSelector((state) => state.user);
   const audio = useRef(null);
-  const prevPendingCount = useRef(0); // Track previous pending count
+  const prevPendingCount = useRef(null); // null to detect first load
 
   useEffect(() => {
     audio.current = new Audio(newOrderSound);
@@ -24,12 +26,15 @@ export default function PendingOrders() {
       const filtered = data.filter(order => order.status === 'pending');
       const currentPendingCount = filtered.length;
 
-      // Only play sound if pending count increased
-      if (currentPendingCount > prevPendingCount.current && audio.current) {
+      // Play sound only if this is not the first fetch and count increased
+      if (
+        prevPendingCount.current !== null &&
+        currentPendingCount > prevPendingCount.current &&
+        audio.current
+      ) {
         audio.current.play();
       }
 
-      // Update previous count after comparison
       prevPendingCount.current = currentPendingCount;
       setOrders(filtered);
     } catch (err) {
@@ -44,10 +49,14 @@ export default function PendingOrders() {
 
     const interval = setInterval(() => {
       fetchPendingOrders();
-    }, 5 * 60 * 1000); // 5 minutes
+    }, 5000); // 3 seconds
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    console.log('Current user state:', currentUser);
+  }, [currentUser]);
 
   const moveOrderToNextStage = async (orderId, newStatus) => {
     try {
@@ -60,7 +69,7 @@ export default function PendingOrders() {
 
       setOrders(prev => {
         const updated = prev.filter(order => order._id !== orderId);
-        prevPendingCount.current = updated.length; // update the count accordingly
+        prevPendingCount.current = updated.length; // update count
         return updated;
       });
     } catch (err) {
