@@ -42,7 +42,7 @@ export default function CartPage() {
     <div className="min-h-screen bg-white relative">
       <div className="absolute top-4 right-4 z-10">
         <Link to="/" className="text-red-600 hover:text-red-800">
-          <RiArrowGoBackLine size={30} className='hover:text-white' />
+          <RiArrowGoBackLine size={30} className='hover:text-white hover:bg-red-200 hover:p-1 rounded-md' />
         </Link>
       </div>
 

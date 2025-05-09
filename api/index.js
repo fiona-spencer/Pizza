@@ -13,6 +13,7 @@ import restaurantRoutes from './routes/restaurant.route.js';
 import menuRoutes from './routes/menu.route.js';
 import orderRoutes from './routes/order.route.js';
 import emailRoutes from './routes/mail.route.js';
+import storeRoutes from './routes/store.route.js';
 
 dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -44,6 +45,7 @@ app.use('/api/restaurant', restaurantRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/email', emailRoutes);
+app.use('/api/store', storeRoutes);
 
 // Stripe Routes
 app.get('/api/config', (req, res) => {

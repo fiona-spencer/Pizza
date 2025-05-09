@@ -77,9 +77,9 @@ export const OrderPlacedTemp = ({ orderData }) => {
         <div style="margin-top: 40px; text-align: center; color: #555;">
           <p style="font-size: 14px; color: #777;">Stay connected with us:</p>
           <div style="margin-top: 10px;">
-            <a href="https://www.instagram.com/pizzaday" style="color: #e74c3c; text-decoration: none; margin-right: 15px;">Instagram</a>
-            <a href="https://www.doordash.com/store/pizzaday" style="color: #e74c3c; text-decoration: none; margin-right: 15px;">DoorDash</a>
-            <a href="https://www.ubereats.com/store/pizzaday" style="color: #e74c3c; text-decoration: none;">Uber Eats</a>
+            <a href="https://www.instagram.com/hooray_forpizzaday/" style="color: #e74c3c; text-decoration: none; margin-right: 15px;">Instagram</a>
+            <a href="https://www.doordash.com/store/hooray-for-pizza-day-toronto-27973800/37986546/?utm_campaign=gpa" style="color: #e74c3c; text-decoration: none; margin-right: 15px;">DoorDash</a>
+            <a href="https://www.ubereats.com/ca/store/hooray-for-pizza-day/Gw28btzTVMy_OMN-PcZBPg?srsltid=AfmBOooH-wW8FDjEEQXtX3_wFhCelIsDpb6lJ8BTM9SMtkPzaEgd-U4P" style="color: #e74c3c; text-decoration: none;">Uber Eats</a>
           </div>
           <p style="font-size: 12px; color: #777; margin-top: 20px;">&copy; 2025 Pizzaday. All rights reserved.</p>
         </div>

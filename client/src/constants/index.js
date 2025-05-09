@@ -374,8 +374,8 @@ export const navLinks = [
       ],
     wing: {
       veggieDip: [
-        { name: "House Made Ranch", price: 0, included: false },
-        { name: "House Made Blue Cheese", price: 0, included: false },
+        { name: "House Made Ranch (choose one)", price: 0, included: false },
+        { name: "House Made Blue Cheese (choose one)", price: 0, included: false },
         { name: "Extra Ranch", price: 2.5, included: false },
         { name: "Extra Blue Cheese", price: 2.5, included: false }
       ],
@@ -403,7 +403,6 @@ export const navLinks = [
         { name: "Grilled Chicken Breast", price: 5.0 }
       ],
     fries: [
-      { name: "Add Fries", price: 1.5 },
       { name: "Add Chipotle Mayo", price: 1.5 },
       { name: "Add Guinness Gravy", price: 4.0 }
     ],

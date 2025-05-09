@@ -78,13 +78,6 @@ export default function CombineForm() {
     };
 
     setOrderData(orderFormData);
-
-    // Final logs for debugging
-    // console.log('👤 User ID:', userId);
-    // console.log('🧾 MenuItem FormData:', menuItemFormData);
-    // console.log('🛒 Cart FormData:', cartFormData);
-    // console.log('📦 Order FormData:', orderFormData);
-
   }, [currentUser, cartItems]);
 
   return null; // No UI rendered in this component

@@ -20,7 +20,6 @@ export default function ConfirmOrder({ sessionUserId, orderUserId }) {
     }
 
     // Simulate authentication success
-    console.log("Authenticated:", { firstName, phone });
     setShowModal(false);
   };
 

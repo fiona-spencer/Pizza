@@ -51,7 +51,6 @@ const Contact = () => {
       });
 
       const data = await res.json();
-      console.log("Response from server:", data);
 
       if (!res.ok) throw new Error(data.message || "Failed to send message");
 

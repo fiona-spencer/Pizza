@@ -22,7 +22,6 @@ export default function OAuth({ handleOAuthSuccess }) {
 
       setError(null); // Clear any previous errors
     } catch (error) {
-      console.log("OAuth error:", error);
       setError("Something went wrong with Google sign-in.");
     } finally {
       setLoading(false);

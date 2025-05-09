@@ -4,6 +4,7 @@ import { addOns } from "../../constants";
 import AddItem from "./AddItem";
 import { useDispatch } from "react-redux";
 import { updateCartItem } from "../../redux/slices/cart/cartSlice";
+import { Alert } from 'flowbite-react';  // Import Flowbite Alert
 
 const ItemModal = ({ isOpen, category, item, onClose }) => {
   const dispatch = useDispatch();
@@ -14,22 +15,89 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
   const [notes, setNotes] = useState("");
   const [isTwoPounds, setIsTwoPounds] = useState(false);
   const [price, setPrice] = useState(() => item?.price || item?.tags?.[0]?.price || 0);
+  const [storeStatus, setStoreStatus] = useState({ isOpen: true });
 
   useEffect(() => {
-    if (isTwoPounds) {
-      setPrice(27); // Update price for 2 pounds
-    } else {
-      setPrice(item?.price || item?.tags?.[0]?.price || 0); // Default price
+    // Fetch store status
+    const fetchStoreStatus = async () => {
+      try {
+        const response = await fetch('/openClose');
+        const data = await response.json();
+        setStoreStatus(data); // Update the store status
+      } catch (error) {
+        console.error('Error fetching store status:', error);
+      }
+    };
+    
+    fetchStoreStatus(); // Call the API on mount
+  }, []);
+
+  useEffect(() => {
+    if (!isTwoPounds && category === "wing") {
+      const wingSauceNames = addOns?.wing?.wingSauce?.map((s) => s.name) || [];
+      const updatedAddOns = [...selectedAddOns];
+      const selectedSauces = selectedAddOns.filter((a) => wingSauceNames.includes(a.name));
+  
+      if (selectedSauces.length > 1) {
+        // Keep only the first selected sauce
+        const preserved = selectedSauces[0];
+        const others = selectedAddOns.filter((a) => !wingSauceNames.includes(a.name));
+        setSelectedAddOns(preserved ? [...others, preserved] : others);
+      }
     }
-  }, [isTwoPounds, item?.price]);
+  }, [isTwoPounds, category, selectedAddOns]);
+  
 
   if (!isOpen) return null;
 
   const handleAddOnChange = (addOn) => {
     const exists = selectedAddOns.find((a) => a.name === addOn.name);
-    const isFreeSelectionCategory = ["pizza", "fries", "salad", "knots", "sticks", "poutine"].includes(category);
-
-    if (isFreeSelectionCategory) {
+    const wingSauceNames = addOns?.wing?.wingSauce?.map((s) => s.name) || [];
+    const veggieDipNames = addOns?.wing?.veggieDip?.map((s) => s.name) || [];
+    const isWingSauce = wingSauceNames.includes(addOn.name);
+    const isVeggieDip = veggieDipNames.includes(addOn.name);
+    const isExtraSauce = addOn.name === "Extra Saucey";
+  
+    if (category === "wing") {
+      if (isExtraSauce) {
+        if (exists) {
+          setSelectedAddOns(selectedAddOns.filter((a) => a.name !== addOn.name));
+        } else {
+          setSelectedAddOns([...selectedAddOns, addOn]);
+        }
+        return;
+      }
+  
+      if (isWingSauce) {
+        const currentSauces = selectedAddOns.filter((a) => wingSauceNames.includes(a.name));
+  
+        if (!isTwoPounds) {
+          // 1-pound: only one sauce
+          if (exists) {
+            setSelectedAddOns(selectedAddOns.filter((a) => a.name !== addOn.name));
+          } else {
+            const others = selectedAddOns.filter((a) => !wingSauceNames.includes(a.name));
+            setSelectedAddOns([...others, addOn]);
+          }
+        } else {
+          // 2-pound: up to 2 sauces
+          if (exists) {
+            setSelectedAddOns(selectedAddOns.filter((a) => a.name !== addOn.name));
+          } else if (currentSauces.length < 2) {
+            setSelectedAddOns([...selectedAddOns, addOn]);
+          }
+        }
+        return;
+      }
+  
+      if (isVeggieDip) {
+        // only allow one veggie dip
+        const others = selectedAddOns.filter((a) => !veggieDipNames.includes(a.name));
+        setSelectedAddOns(exists ? others : [...others, addOn]);
+        return;
+      }
+  
+      // all other add-ons
       if (exists) {
         setSelectedAddOns(selectedAddOns.filter((a) => a.name !== addOn.name));
       } else {
@@ -37,36 +105,19 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
       }
       return;
     }
-
-    if (category === "wing") {
-      if (addOn.name === "Extra Saucey") {
-        // Handle Extra Saucey as a special add-on
-        if (!exists) {
-          setSelectedAddOns([...selectedAddOns, addOn]);
-        } else {
-          setSelectedAddOns(selectedAddOns.filter((a) => a.name !== addOn.name));
-        }
+  
+    // Free selection categories
+    const isFreeSelectionCategory = ["pizza", "fries", "salad", "knots", "sticks", "poutine"].includes(category);
+    if (isFreeSelectionCategory) {
+      if (exists) {
+        setSelectedAddOns(selectedAddOns.filter((a) => a.name !== addOn.name));
       } else {
-        const wingSauces = selectedAddOns.filter((a) => a.name !== "Extra Saucey");
-
-        if (!isTwoPounds) {
-          // 1-pound wings: Only one sauce can be selected
-          if (exists) {
-            setSelectedAddOns([]);
-          } else {
-            setSelectedAddOns([addOn]);
-          }
-        } else {
-          // 2-pound wings: Allow up to two sauces
-          if (exists) {
-            setSelectedAddOns(selectedAddOns.filter((a) => a.name !== addOn.name));
-          } else if (wingSauces.length < 2) {
-            setSelectedAddOns([...selectedAddOns, addOn]);
-          }
-        }
+        setSelectedAddOns([...selectedAddOns, addOn]);
       }
     }
   };
+  
+  
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value, 10);
@@ -255,9 +306,16 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
           ></textarea>
         </div>
 
+        {storeStatus.isOpen === false && (
+          <Alert color="failure">
+            Store is currently closed.
+          </Alert>
+        )}
+
         <div className="sm:mt-6 mt-1 flex justify-center">
           <button
             onClick={handleAddToCart}
+            disabled={!storeStatus.isOpen} // Disable button if store is closed
             className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md"
           >
             Add to Cart

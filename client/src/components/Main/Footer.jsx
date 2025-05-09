@@ -37,7 +37,7 @@ export default function FooterCom() {
               <h4 className="text-white bg-red-600 px-2 rounded-md text-sm sm:text-base font-bold uppercase">Follow Us</h4>
               <div className="space-y-1 mt-2 flex flex-col items-start pl-1">
                 <a
-                  href="https://github.com/fiona-spencer"
+                  href="https://www.instagram.com/hooray_forpizzaday/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 text-red-500 hover:text-red-700 text-sm sm:text-base font-medium"
@@ -50,20 +50,24 @@ export default function FooterCom() {
             <div>
               <h4 className="text-white bg-red-600 pl-8 sm:pl-10 rounded-md text-sm sm:text-base font-bold uppercase">About</h4>
               <div className="space-y-1 mt-2 flex flex-col">
-                <Link to="https://www.google.com" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium text-center">Contact Us</Link>
-                <Link to="https://www.google.com" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium text-center">Careers</Link>
+              <a href="#contact" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium text-center">
+  Contact Us
+</a>
+<a href="#menu" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium text-center">
+  Menu
+</a>
               </div>
             </div>
 
             {/* Online Order */}
             <div className="text-right">
               <h4 className="text-white bg-red-600 px-2 rounded-md text-sm sm:text-base font-bold uppercase">Online Order</h4>
-              <div className="space-y-1 flex flex-col items-end">
-                <Link to="#" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium flex items-center">
+              <div className=" flex flex-col items-end">
+                <Link to="https://www.ubereats.com/ca/store/hooray-for-pizza-day/Gw28btzTVMy_OMN-PcZBPg?srsltid=AfmBOooH-wW8FDjEEQXtX3_wFhCelIsDpb6lJ8BTM9SMtkPzaEgd-U4P" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium flex items-center">
                   <SiUber className="mr-1 h-8 w-8" /> Eats
                 </Link>
-                <Link to="#" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium flex items-center">
-                  Doordash <SiDoordash className="ml-1 h-5 w-5" />
+                <Link to="https://www.doordash.com/store/hooray-for-pizza-day-toronto-27973800/37986546/?utm_campaign=gpa" className="text-red-500 hover:text-red-700 text-sm sm:text-base font-medium flex items-center">
+                  Doordash <SiDoordash className="ml-1 h-5 w-5 " />
                 </Link>
               </div>
             </div>
@@ -73,9 +77,9 @@ export default function FooterCom() {
         <div className="border-t border-red-500 sm:mt-4 mt-1"></div>
 
         <div className="w-full sm:flex sm:items-center sm:justify-between text-center sm:text-left sm:mt-4 mt-1">
-          <p className="text-red-500 text-xs sm:text-sm font-bold">
+          <a href="#about" className="text-red-500 text-xs sm:text-sm font-bold">
             &copy; {new Date().getFullYear()} Hooray for Pizza Day v.1
-          </p>
+          </a>
         </div>
       </div>
     </footer>

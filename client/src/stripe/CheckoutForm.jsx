@@ -29,8 +29,8 @@ export default function CheckoutForm() {
       });
 
       // Log the response from Stripe
-      console.log("PaymentIntent response:", paymentIntent);
-      console.log("Error response:", error);
+      // console.log("PaymentIntent response:", paymentIntent);
+      // console.log("Error response:", error);
 
       if (error) {
         setMessage(error.message);

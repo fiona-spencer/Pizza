@@ -60,14 +60,12 @@ export const sendMail = async ({ type, from, subject, text, html, orderData }) =
   if (type === 'order') {
     mailOptions.from = 'no-reply@pizzaday.com'; // Default no-reply email
     mailOptions.to = from; // Send the email to the customer's email address
-    console.log("📧 MailOptions for Order Confirmation:", mailOptions);  // Debug log
   }
 
   // Handle contact form submissions:
   else if (type === 'contact') {
     mailOptions.from = from; // The email address from the contact form
     mailOptions.to = EMAIL_USER; // Admin's email address
-    console.log("📧 MailOptions for Contact Form:", mailOptions);  // Debug log
   }
 
   // Check if 'to' is defined and not empty

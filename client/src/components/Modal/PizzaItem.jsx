@@ -14,7 +14,6 @@ const PizzaItem = ({ index, name, description, tags, image, category = 'pizza' }
   const handleCloseModal = () => setIsModalOpen(false);
 
   const handleAddToCart = (itemDetails) => {
-    console.log("Added to cart:", itemDetails);
     setIsAdded(true);
   };
 
