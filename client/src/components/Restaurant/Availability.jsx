@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { RiArrowGoBackLine } from "react-icons/ri";
+import { useSelector } from 'react-redux';
 
 export default function Availability() {
+  const navigate = useNavigate();
+
+  const { isAuthenticated, isAdmin } = useSelector((state) => state.user); // ✅ Redux auth state
+
+  useEffect(() => {
+    if (!isAuthenticated || !isAdmin) {
+      navigate('/signin'); // Redirect if not authenticated or not admin
+    }
+  }, [isAuthenticated, isAdmin, navigate]);
+
+
+
   const [menuItems, setMenuItems] = useState([]);
   const [error, setError] = useState(null);
   const [loadingStoreStatus, setLoadingStoreStatus] = useState(true);
   const [storeStatus, setStoreStatus] = useState(null); // Combines openHour, closeHour, isOpen
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -121,12 +135,12 @@ export default function Availability() {
           <h1 className="text-2xl md:text-3xl font-semibold text-red-500 text-center mb-4 md:mb-0">
             Menu Availability
           </h1>
-          <button
-            onClick={() => navigate('/restaurant')}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-          >
-            ← Back
-          </button>
+              {/* ✅ Back Button */}
+              <div className="absolute top-4 right-4 z-10">
+        <Link to="/restaurant" className="text-red-600 hover:text-red-800">
+          <RiArrowGoBackLine size={30} className="hover:text-white hover:bg-red-200 hover:p-1 rounded-md" />
+        </Link>
+      </div>
         </div>
 
         {/* Store Hours */}
