@@ -7,6 +7,8 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import React, { useState, useEffect, useRef } from "react"; // Make sure useEffect is imported
 import ItemModal from "./ItemModal"; // Import ItemModal
+import { RxValueNone } from "react-icons/rx";
+
 
 const spicyLevels = ["No spice", "Mild", "Medium", "Hot", "Extra Hot"];
 
@@ -116,26 +118,32 @@ const Wings = () => {
 
   {/* Spicy Level Legend */}
   <AnimatePresence mode="wait">
-      <motion.div
-        key={animationKey}
-        className="flex flex-col items-center text-sm lg:text-base mb-3 border border-red-500 rounded-md p-4 bg-white/5 backdrop-blur"
-        variants={spicyFade}
-        initial="hidden"
-        animate="show"
-      >
-        <p className="font-semibold mb-1 text-white">Spicy Level</p>
-        <div className="flex gap-4">
-          {spicyLevels.map((label, level) => (
-            <motion.div key={label} className="flex flex-col items-center" variants={spicyItem}>
-              <span className="text-lg">
-                {level === 0 ? "None" : "🌶️".repeat(level)}
-              </span>
-              <span className="text-xs mt-1 text-white">{label}</span>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </AnimatePresence>
+  <motion.div
+    key={animationKey}
+    className="flex flex-col items-center text-xs sm:text-sm md:text-base mb-3 border border-red-500 rounded-md p-4 bg-white/5 backdrop-blur w-full overflow-x-auto"
+    variants={spicyFade}
+    initial="hidden"
+    animate="show"
+  >
+    <p className="font-semibold mb-2 text-white text-center whitespace-nowrap text-lg">Spicy Level</p>
+    <div className="flex gap-5 justify-center whitespace-nowrap w-full">
+      {spicyLevels.map((label, level) => (
+        <motion.div
+          key={label}
+          className="flex flex-col items-center min-w-fit"
+          variants={spicyItem}
+        >
+          <span className="text-sm sm:text-base text-red-300 leading-normal text-center">
+            {level === 0 ? <RxValueNone className="text-[20px] sm:mt-1" /> : "🌶️".repeat(level)}
+          </span>
+          <span className="text-[13px] sm:text-xs md:text-lg text-white mt-1">{label}</span>
+        </motion.div>
+      ))}
+    </div>
+  </motion.div>
+</AnimatePresence>
+
+
 
 </div>
 
@@ -154,7 +162,7 @@ const Wings = () => {
           />
           <div
             onClick={handleOpenModal} // Open the modal when clicked
-            className="absolute top-2 right-2 bg-white rounded-full md:p-1 cursor-pointer"
+            className="absolute top-2 right-2 bg-white rounded-full lg:p-1 cursor-pointer"
           >
               <div className="relative w-8 h-8 group cursor-pointer">
   <IoMdAddCircle className="absolute inset-0 text-red-500 w-8 h-8 group-hover:opacity-0 transition-opacity duration-200" />
