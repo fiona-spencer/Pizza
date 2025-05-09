@@ -53,7 +53,7 @@ const HomePage = () => {
       </div>
 
       {/* Feedback, Contact, and Canvas Section */}
-      <div className="  bg-[#272524ed]">
+      <div className="z-0  bg-[#272524ed]">
         <Feedback />
         <InstaPage />
         <div className="bg-[#da5a5a]">

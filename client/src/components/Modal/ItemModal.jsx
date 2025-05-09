@@ -5,6 +5,7 @@ import AddItem from "./AddItem";
 import { useDispatch } from "react-redux";
 import { updateCartItem } from "../../redux/slices/cart/cartSlice";
 import { Alert } from "flowbite-react";
+import ModalPortal from '../ModalPortal';
 
 const ItemModal = ({ isOpen, category, item, onClose }) => {
   const dispatch = useDispatch();
@@ -18,27 +19,6 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
   const [notes, setNotes] = useState("");
   const [isTwoPounds, setIsTwoPounds] = useState(false);
   const [price, setPrice] = useState(() => item?.price || item?.tags?.[0]?.price || 0);
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     // Save the current scroll position when the modal opens
-  //     setScrollPosition(window.scrollY);
-
-  //     // Lock the page scroll by setting the body position to fixed
-  //     document.body.style.position = "fixed";
-  //     document.body.style.top = `-${scrollPosition}px`; // Offset by the scroll position to avoid jumping
-
-  //   } else {
-  //     // Restore the scroll position when the modal closes
-  //     document.body.style.position = "";
-  //     document.body.style.top = ""; // Reset the top offset
-
-  //     // Restore the scroll position
-  //     window.scrollTo(0, scrollPosition);
-  //   }
-
-  // }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -228,6 +208,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
   };
 
   return (
+<ModalPortal>
 <div className="fixed inset-0 flex justify-center items-center top-7 bg-black bg-opacity-50 mt-10 z-[9999]">
   <div
     ref={modalRef}
@@ -320,6 +301,9 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
         )}
       </div>
     </div>
+</ModalPortal>
+
+
   );
 };
 
