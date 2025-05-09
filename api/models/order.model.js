@@ -71,6 +71,10 @@ const OrderSchema = new mongoose.Schema({
   },
   pickUpTime: {
     type: Date
+  },
+  history: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true });
 

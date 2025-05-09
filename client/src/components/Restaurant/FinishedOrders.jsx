@@ -21,7 +21,7 @@ export default function FinishedOrders() {
         if (!response.ok) throw new Error('Failed to fetch orders');
 
         const data = await response.json();
-        const finished = data.filter(order => order.status === 'finished');
+        const finished = data.filter(order => order.status === 'finished' && !order.history);
         setFinishedOrders(finished);
       } catch (err) {
         setError(err.message);

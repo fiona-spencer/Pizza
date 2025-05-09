@@ -16,7 +16,7 @@ export default function ReadyOrders() {
         if (!response.ok) throw new Error('Failed to fetch orders');
 
         const data = await response.json();
-        const readyOrders = data.filter(order => order.status === 'ready');
+        const readyOrders = data.filter(order => order.status === 'ready' && !order.history);
         setOrders(readyOrders);
       } catch (err) {
         setError(err.message);

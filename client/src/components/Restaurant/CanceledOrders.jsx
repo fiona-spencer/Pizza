@@ -21,7 +21,7 @@ export default function CanceledOrders() {
         if (!response.ok) throw new Error('Failed to fetch orders');
 
         const data = await response.json();
-        const canceled = data.filter(order => order.status === 'canceled');
+        const canceled = data.filter(order => order.status === 'canceled' && !order.history);
         setCanceledOrders(canceled);
       } catch (err) {
         setError(err.message);

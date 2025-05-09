@@ -21,12 +21,11 @@ export default function PendingOrders() {
     try {
       const response = await fetch('/api/order/getOrders');
       if (!response.ok) throw new Error('Failed to fetch orders');
-
+  
       const data = await response.json();
-      const filtered = data.filter(order => order.status === 'pending');
+      const filtered = data.filter(order => order.status === 'pending' && !order.history);
       const currentPendingCount = filtered.length;
-
-      // Play sound only if this is not the first fetch and count increased
+  
       if (
         prevPendingCount.current !== null &&
         currentPendingCount > prevPendingCount.current &&
@@ -34,7 +33,7 @@ export default function PendingOrders() {
       ) {
         audio.current.play();
       }
-
+  
       prevPendingCount.current = currentPendingCount;
       setOrders(filtered);
     } catch (err) {
@@ -43,7 +42,7 @@ export default function PendingOrders() {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchPendingOrders(); // initial fetch
 

@@ -17,7 +17,7 @@ export default function InProgressOrders() {
           throw new Error('Failed to fetch orders');
         }
         const data = await response.json();
-        const inProgress = data.filter(order => order.status === 'in-progress');
+        const inProgress = data.filter(order => order.status === 'in-progress' && !order.history);
         setOrders(inProgress);
       } catch (err) {
         setError(err.message);

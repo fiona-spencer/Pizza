@@ -95,3 +95,23 @@ export const deleteOrder = async (req, res, next) => {
     next(errorHandler(500, "Failed to delete order"));
   }
 };
+
+export const archiveAllOrders = async (req, res) => {
+  try {
+    const result = await Order.updateMany(
+      { history: { $ne: true } },    // only orders where history !== true
+      { $set: { history: true } }
+    );
+
+    res.status(200).json({
+      message: 'All orders archived',
+      updatedCount: result.modifiedCount
+    });
+  } catch (err) {
+    console.error('Error archiving orders:', err);
+    res.status(500).json({
+      message: 'Server error while archiving orders',
+      error: err.message
+    });
+  }
+};
