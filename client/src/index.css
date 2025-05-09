@@ -321,3 +321,6 @@ input[type="checkbox"] + .toggle-label .toggle-dot {
   transition: transform 0.3s ease; /* Smooth dot movement transition */
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
