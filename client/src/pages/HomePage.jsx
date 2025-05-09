@@ -37,17 +37,20 @@ const HomePage = () => {
             filter: 'blur(1px)', // Adjust the blur effect (8px is an example)
           }}
         />
-        <div className="relative">
+        <div className="z-10">
           <About />
         </div>
       </div>
 
       {/* Menu Section */}
-      <div className="bg-red-500 z-0">
+      <div className="bg-red-500 z-30">
         <Pizza />
       </div>
+      <div className='z-30'>
+
       <Wings />
       <Sides/>
+      </div>
 
       {/* Feedback, Contact, and Canvas Section */}
       <div className="  bg-[#272524ed]">

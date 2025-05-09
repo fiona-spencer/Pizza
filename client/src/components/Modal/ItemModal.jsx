@@ -20,25 +20,25 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
   const [price, setPrice] = useState(() => item?.price || item?.tags?.[0]?.price || 0);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  useEffect(() => {
-    if (isOpen) {
-      // Save the current scroll position when the modal opens
-      setScrollPosition(window.scrollY);
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     // Save the current scroll position when the modal opens
+  //     setScrollPosition(window.scrollY);
 
-      // Lock the page scroll by setting the body position to fixed
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollPosition}px`; // Offset by the scroll position to avoid jumping
+  //     // Lock the page scroll by setting the body position to fixed
+  //     document.body.style.position = "fixed";
+  //     document.body.style.top = `-${scrollPosition}px`; // Offset by the scroll position to avoid jumping
 
-    } else {
-      // Restore the scroll position when the modal closes
-      document.body.style.position = "";
-      document.body.style.top = ""; // Reset the top offset
+  //   } else {
+  //     // Restore the scroll position when the modal closes
+  //     document.body.style.position = "";
+  //     document.body.style.top = ""; // Reset the top offset
 
-      // Restore the scroll position
-      window.scrollTo(0, scrollPosition);
-    }
+  //     // Restore the scroll position
+  //     window.scrollTo(0, scrollPosition);
+  //   }
 
-  }, [isOpen]);
+  // }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -166,7 +166,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
 
     if (Array.isArray(categoryAddOns)) {
       return (
-        <div className="mt-4">
+        <div className="mt-4 z-50">
           <h4 className="font-semibold text-red-700 capitalize">Add-Ons</h4>
           <div className="space-y-1 mt-2 text-gray-800">
             {categoryAddOns.map((addOn, index) => {
@@ -228,10 +228,10 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
   };
 
   return (
-<div className="fixed inset-0 flex justify-center items-center top-7 bg-black bg-opacity-50 mt-10 z-50">
+<div className="fixed inset-0 flex justify-center items-center top-7 bg-black bg-opacity-50 mt-10 z-[9999]">
   <div
     ref={modalRef}
-    className="bg-white sm:p-6 p-2 px-4 rounded-lg w-11/12 sm:max-w-xl  relative max-h-[85vh] overflow-y-auto z-50"
+    className="bg-white sm:p-6 p-2 px-4 rounded-lg w-11/12 sm:max-w-xl  relative max-h-[85vh] overflow-y-auto z-[9999]"
   >
 
         <div className="flex justify-between items-center">
@@ -266,7 +266,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
 
         {renderAddOnOptions()}
 
-        <div className="sm:mt-4 flex items-center justify-left gap-3 mt-2">
+        <div className="sm:mt-4 flex items-center justify-left gap-3 mt-2 z-50">
           <label htmlFor="quantity" className="text-sm text-gray-700">Quantity:</label>
           <select
             id="quantity"
@@ -294,7 +294,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
 
         {status.isOpen === false && <Alert color="failure">Store is currently closed.</Alert>}
 
-        <div className="sm:mt-6 mt-1 flex justify-center">
+        <div className="sm:mt-6 mt-1 flex justify-center z-50">
           <button
             onClick={handleAddToCart}
             disabled={!status.isOpen}

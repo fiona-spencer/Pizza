@@ -52,7 +52,7 @@ export default function RestaurantPage() {
       
 
       <Tabs className="w-full max-w-5xl  bg-white rounded-lg shadow ">
-      <TabList className="flex justify-start sm:justify-center gap-2 sm:gap-3 bg-red-500 text-white rounded-t-lg px-2 py-2 overflow-x-auto max-w-full">
+      <TabList className="flex justify-start sm:justify-center gap-2 sm:gap-3 bg-red-500 text-white rounded-t-lg px-2 pt-2 overflow-x-auto max-w-full">
   <Tab className="min-w-[90px] sm:min-w-[110px] px-3 py-2 text-xs sm:text-sm font-semibold text-center cursor-pointer transition-all focus:outline-none">
     Pending
   </Tab>

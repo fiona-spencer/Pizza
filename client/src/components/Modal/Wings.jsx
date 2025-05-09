@@ -117,7 +117,7 @@ const Wings = () => {
   </motion.p>
 
   {/* Spicy Level Legend */}
-  <AnimatePresence mode="wait">
+  <AnimatePresence mode="wait z-10">
   <motion.div
     key={animationKey}
     className="flex flex-col items-center text-xs sm:text-sm md:text-base mb-3 border border-red-500 rounded-md p-4 bg-white/5 backdrop-blur w-full overflow-x-auto"

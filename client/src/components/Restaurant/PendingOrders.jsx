@@ -1,29 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import OrderCard from './OrderCard';
-import StatusButton from './StatusButton'; // Import the StatusButton component
+import StatusButton from './StatusButton';
+import newOrderSound from '../../assets/notification.mp3';
 
 export default function PendingOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const audio = useRef(null);
+  const prevPendingCount = useRef(0); // Track previous pending count
+
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch('/api/order/getOrders');
-        if (!response.ok) throw new Error('Failed to fetch orders');
+    audio.current = new Audio(newOrderSound);
+  }, []);
 
-        const data = await response.json();
-        const filtered = data.filter(order => order.status === 'pending');
-        setOrders(filtered);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchPendingOrders = async () => {
+    try {
+      const response = await fetch('/api/order/getOrders');
+      if (!response.ok) throw new Error('Failed to fetch orders');
+
+      const data = await response.json();
+      const filtered = data.filter(order => order.status === 'pending');
+      const currentPendingCount = filtered.length;
+
+      // Only play sound if pending count increased
+      if (currentPendingCount > prevPendingCount.current && audio.current) {
+        audio.current.play();
       }
-    };
 
-    fetchOrders();
+      // Update previous count after comparison
+      prevPendingCount.current = currentPendingCount;
+      setOrders(filtered);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPendingOrders(); // initial fetch
+
+    const interval = setInterval(() => {
+      fetchPendingOrders();
+    }, 5 * 60 * 1000); // 5 minutes
+
+    return () => clearInterval(interval);
   }, []);
 
   const moveOrderToNextStage = async (orderId, newStatus) => {
@@ -34,9 +57,12 @@ export default function PendingOrders() {
         body: JSON.stringify({ status: newStatus }),
       });
       if (!response.ok) throw new Error('Failed to update order status');
-      
-      // Update the orders list by removing the updated order
-      setOrders(prev => prev.filter(order => order._id !== orderId));
+
+      setOrders(prev => {
+        const updated = prev.filter(order => order._id !== orderId);
+        prevPendingCount.current = updated.length; // update the count accordingly
+        return updated;
+      });
     } catch (err) {
       setError(err.message);
     }
@@ -58,17 +84,16 @@ export default function PendingOrders() {
           <div key={order._id} className="mb-4 relative">
             <OrderCard order={order} />
             <div className="absolute md:top-4 right-4 top-24">
-            <StatusButton
-  orderId={order._id}
-  currentStatus={order.status}
-  onStatusChange={moveOrderToNextStage}
-  userInfo={{
-    name: order.userName,
-    email: order.userEmail,
-    items: order.items,
-  }}
-/>
-
+              <StatusButton
+                orderId={order._id}
+                currentStatus={order.status}
+                onStatusChange={moveOrderToNextStage}
+                userInfo={{
+                  name: order.userName,
+                  email: order.userEmail,
+                  items: order.items,
+                }}
+              />
             </div>
           </div>
         ))

@@ -13,7 +13,7 @@ const Hero = () => {
 
   return (
     <section
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
+      className=" w-full min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: `url(${heroBg})` }}
     >
       {/* Overlay */}

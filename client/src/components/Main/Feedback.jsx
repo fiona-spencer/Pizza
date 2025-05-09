@@ -52,7 +52,7 @@ const Feedback = () => {
   };
 
   return (
-    <div className="bg-white-100 -mt-20">
+    <div className="bg-white-100 -mt-20 z-10">
       {/* Header */}
       <div className={`${styles.padding} flex flex-col justify-center`}>
         <motion.div variants={textVariant()}>
@@ -62,7 +62,7 @@ const Feedback = () => {
       </div>
 
       {/* Scrollable Feedback Cards */}
-      <div className="relative px-6 sm:px-10 -mt-6 overflow-hidden">
+      <div className="z-10 px-6 sm:px-10 -mt-6 overflow-hidden">
         {/* Left Blur */}
         <div className="absolute top-0 left-0 h-48 w-12 sm:w-24 bg-gradient-to-r from-[#272524ca] via-red/80 to-transparent z-10 pointer-events-none" />
 

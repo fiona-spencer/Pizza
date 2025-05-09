@@ -7,7 +7,7 @@ import { sides } from "../../constants";
 
 const Sides = () => {
   return (
-    <div className="-mt-10">
+    <div className="-mt-10 z-10">
       <motion.div>
         <p className={`${styles.sectionSubText}  text-xs`}>more to love</p> {/* Smaller font size */}
         <h2 className={`${styles.sectionHeadText} mt-2`}>Sides</h2> {/* Smaller font size */}
