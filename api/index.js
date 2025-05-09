@@ -15,6 +15,7 @@ import orderRoutes from './routes/order.route.js';
 import emailRoutes from './routes/mail.route.js';
 import storeRoutes from './routes/store.route.js';
 
+
 dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-08-01',

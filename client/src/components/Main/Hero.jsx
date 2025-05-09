@@ -70,7 +70,7 @@ const Hero = () => {
                 </p>
                 <div className="flex flex-col gap-3 mb-4">
                   <a
-                    href="/order" // Replace with your actual route
+                    href="#menu" // Replace with your actual route
                     className="flex items-center justify-center bg-red-100 border-2 border-red-500 shadow-lg hover:bg-red-300 hover:shadow-2xl text-white px-5 py-2 rounded transition"
                   >
                     <img src={pizzaIcon} alt="Pizza" className="w-44 h-auto mr-2 pt-2" />
@@ -103,7 +103,7 @@ const Hero = () => {
                 </p>
                 <div className="flex justify-center gap-4 mb-4">
                   <a
-                    href="https://www.ubereats.com"
+                    href="https://www.ubereats.com/ca/store/hooray-for-pizza-day/Gw28btzTVMy_OMN-PcZBPg?srsltid=AfmBOopi1Rpct0Ckd4Cs2Ch9aFy1iMDgEj3XLh-ngPOwNQC_v1tfIBAB"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
@@ -111,7 +111,7 @@ const Hero = () => {
                     Uber Eats
                   </a>
                   <a
-                    href="https://www.doordash.com"
+                    href="https://www.doordash.com/store/hooray-for-pizza-day-toronto-27973800/37986546/?utm_campaign=gpa"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
