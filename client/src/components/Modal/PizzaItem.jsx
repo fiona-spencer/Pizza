@@ -28,7 +28,7 @@ const PizzaItem = ({ index, name, description, tags, image, category = 'pizza' }
       >
         {index < 2 && (
          <motion.div
-         className="absolute -top-2 right-2 z-10 bg-yellow-400 text-white text-xs sm:text-sm px-3 py-1 rounded-full shadow-xl font-semibold"
+         className="absolute -top-2 right-2 lg:left-6 lg:w-fit z-10 bg-yellow-400 text-white text-xs lg:text-lg sm:text-sm px-3 lg:px-5 py-1 rounded-full shadow-xl font-semibold"
          initial={{ y: 0 }}
          animate={{ y: [0, -5, 0] }}
          transition={{
@@ -59,11 +59,11 @@ const PizzaItem = ({ index, name, description, tags, image, category = 'pizza' }
                   onClick={handleOpenModal}
                   className="black-gradient w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center cursor-pointer"
                 >
-                  {isAdded ? (
-                    <IoMdCheckmarkCircle className="text-green-500 w-8 h-8" />
-                  ) : (
-                    <IoMdAddCircle className="text-red-500 w-8 h-8" />
-                  )}
+              <div className="relative w-8 h-8 group cursor-pointer">
+  <IoMdAddCircle className="absolute inset-0 text-red-500 w-8 h-8 group-hover:opacity-0 transition-opacity duration-200" />
+  <IoMdCheckmarkCircle className="absolute inset-0 text-green-500 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+</div>
+
                 </div>
               </div>
             </div>

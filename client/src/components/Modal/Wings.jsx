@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { IoMdAddCircle } from "react-icons/io";
+import { motion, AnimatePresence } from "framer-motion";
+import { IoMdAddCircle,IoMdCheckmarkCircle } from "react-icons/io";
 import { styles } from "../../styles";
 import { fadeIn } from "../../utils/motion";
 import { wingsImages } from "../../constants"; // Import the wings data
@@ -8,9 +8,41 @@ import "keen-slider/keen-slider.min.css";
 import React, { useState, useEffect, useRef } from "react"; // Make sure useEffect is imported
 import ItemModal from "./ItemModal"; // Import ItemModal
 
+const spicyLevels = ["No spice", "Mild", "Medium", "Hot", "Extra Hot"];
+
+
+const spicyFade = {
+  hidden: { opacity: 0, scale: 0.95 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+      duration: 0.3,
+      ease: "easeOut",
+    },
+  },
+};
+
+const spicyItem = {
+hidden: { opacity: 0, y: 10 },
+show: { opacity: 1, y: 0 },
+};
+
 const Wings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [animationKey, setAnimationKey] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimationKey((prev) => prev + 1); // re-triggers animation
+    }, 10000); // 5 minutes
+
+    return () => clearInterval(interval);
+  }, []);
+ 
   
   const wing = wingsImages[0]; // Assuming there's only one wing item
 
@@ -63,6 +95,7 @@ const Wings = () => {
   <h3 className="text-black font-bold text-xl mb-1">
     CA ${renderPrice(wing.price)}
   </h3>
+
 )}
 
 
@@ -73,14 +106,39 @@ const Wings = () => {
         <h2 className={styles.sectionHeadText}><div className="text-red-600">Wings</div></h2>
       </motion.div>
 
-      <div className="w-full flex items-center justify-center">
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className="text-[17px] lg:text-xl max-w-5xl pb-8 pt-4 text-white"
-        >
-          Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.
-        </motion.p>
-      </div>
+      <div className="w-full flex flex-col items-center justify-center text-white">
+  <motion.p
+    variants={fadeIn("", "", 0.1, 1)}
+    className="text-[17px] lg:text-xl max-w-5xl pb-4 pt-4 text-white text-center"
+  >
+    Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.
+  </motion.p>
+
+  {/* Spicy Level Legend */}
+  <AnimatePresence mode="wait">
+      <motion.div
+        key={animationKey}
+        className="flex flex-col items-center text-sm lg:text-base mb-3 border border-red-500 rounded-md p-4 bg-white/5 backdrop-blur"
+        variants={spicyFade}
+        initial="hidden"
+        animate="show"
+      >
+        <p className="font-semibold mb-1 text-white">Spicy Level</p>
+        <div className="flex gap-4">
+          {spicyLevels.map((label, level) => (
+            <motion.div key={label} className="flex flex-col items-center" variants={spicyItem}>
+              <span className="text-lg">
+                {level === 0 ? "None" : "🌶️".repeat(level)}
+              </span>
+              <span className="text-xs mt-1 text-white">{label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+
+</div>
+
 
       <motion.div
         variants={fadeIn("up", "spring", 0.5, 0.75)}
@@ -96,10 +154,12 @@ const Wings = () => {
           />
           <div
             onClick={handleOpenModal} // Open the modal when clicked
-            className="absolute top-2 right-2 bg-white rounded-full p-1 cursor-pointer"
+            className="absolute top-2 right-2 bg-white rounded-full md:p-1 cursor-pointer"
           >
-            <IoMdAddCircle className="text-red-500 w-7 h-7" />
-          </div>
+              <div className="relative w-8 h-8 group cursor-pointer">
+  <IoMdAddCircle className="absolute inset-0 text-red-500 w-8 h-8 group-hover:opacity-0 transition-opacity duration-200" />
+  <IoMdCheckmarkCircle className="absolute inset-0 text-green-500 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+</div>          </div>
         </div>
         <h3 className="text-red-600 font-bold text-2xl mb-1">{wing.name}</h3>
         

@@ -38,13 +38,12 @@ const SideItem = ({ index, name, description, tags, image, category = "side" }) 
           />
           <div
             onClick={handleOpenModal} // Trigger handleOpenModal when clicked
-            className="absolute top-2 right-2 bg-white rounded-full p-1 cursor-pointer"
+            className="absolute top-2 right-2 bg-white rounded-full md:p-1 cursor-pointer"
           >
-            {isAdded ? (
-              <IoMdCheckmarkCircle className="text-green-500 w-6 h-6" />
-            ) : (
-              <IoMdAddCircle className="text-red-500 w-6 h-6" />
-            )}
+                       <div className="relative w-8 h-8 group cursor-pointer">
+  <IoMdAddCircle className="absolute inset-0 text-red-500 w-8 h-8 group-hover:opacity-0 transition-opacity duration-200" />
+  <IoMdCheckmarkCircle className="absolute inset-0 text-green-500 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+</div>   
           </div>
         </div>
         <div className="px-2 pb-1">
