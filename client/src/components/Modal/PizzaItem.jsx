@@ -59,7 +59,7 @@ const PizzaItem = ({ index, name, description, tags, image, category = 'pizza' }
             <h3 className="hidden lg:block text-red-600 font-bold text-[20px] md:text-[24px] mb-2">
               {name}
             </h3>
-            <p className="text-gray-900 pt-1 -mr-3 text-[11px] sm:text-[14px]">
+            <p className="text-gray-900 pt-1 -mr-3 lg:mr-2 text-[12px] sm:text-[17px] md:text-lg">
               {description}
             </p>
 

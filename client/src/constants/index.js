@@ -337,8 +337,7 @@ export const navLinks = [
     {
       name: "1 Pound Wings",
       category: "wing",
-      description:
-        "Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.",
+      description: "Choose a wing sauce with 1 pound, or upgrade to 2 pounds for $27 and pick 2 sauces.",
       image: wings, // replace with actual image path
       price: 15,
       sauces: [

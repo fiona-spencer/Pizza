@@ -28,7 +28,7 @@ const SideItem = ({ index, name, description, tags, image, category = "side" }) 
         variants={fadeIn("up", "spring", index * 0.5, 0.75)}
         initial="hidden"
         animate="show"
-        className="p-1 bg-white rounded-md flex flex-col shadow-xl"
+        className=" bg-white rounded-md flex flex-col shadow-xl"
       >
         <div className="relative w-full h-40 mb-3">
           <img
@@ -48,8 +48,8 @@ const SideItem = ({ index, name, description, tags, image, category = "side" }) 
           </div>
         </div>
         <div className="px-2 pb-1">
-          <h3 className="text-red-600 font-bold text-sm">{name}</h3>
-          <p className="text-gray-700 text-xs mt-1 text-[12px] md:text-[15px] lg:text-lg">{description}</p>
+          <h3 className="text-red-600 font-bold text-md sm:text-lg md:text-xl">{name}</h3>
+          <p className="text-gray-700 text-xs mt-1 text-[12px] sm:text-[15px] lg:text-lg">{description}</p>
           <div className="mt-2 flex flex-col items-center">
             {tags.map((tag, idx) => {
               return (
