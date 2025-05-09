@@ -8,6 +8,7 @@ import { Alert } from 'flowbite-react';  // Import Flowbite Alert
 
 const ItemModal = ({ isOpen, category, item, onClose }) => {
   const dispatch = useDispatch();
+  const [status, setStatus] = useState("idle");
   const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [showAlert, setShowAlert] = useState(false);
@@ -15,29 +16,35 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
   const [notes, setNotes] = useState("");
   const [isTwoPounds, setIsTwoPounds] = useState(false);
   const [price, setPrice] = useState(() => item?.price || item?.tags?.[0]?.price || 0);
-  const [storeStatus, setStoreStatus] = useState({ isOpen: true });
 
   useEffect(() => {
-    // Fetch store status
+    let intervalId;
+  
     const fetchStoreStatus = async () => {
       try {
-        const response = await fetch('/openClose');
+        const response = await fetch('/api/store/openClose');
         const data = await response.json();
-        setStoreStatus(data); // Update the store status
+        setStatus(data); // Update the store status
       } catch (error) {
         console.error('Error fetching store status:', error);
       }
     };
-    
-    fetchStoreStatus(); // Call the API on mount
+  
+    fetchStoreStatus(); // Initial fetch
+  
+    intervalId = setInterval(fetchStoreStatus, 10000); // Repeat every 10 seconds
+  
+    return () => clearInterval(intervalId); // Clean up on unmount
   }, []);
+  
 
+  // Update selectedAddOns based on certain conditions (e.g., isTwoPounds, category)
   useEffect(() => {
     if (!isTwoPounds && category === "wing") {
       const wingSauceNames = addOns?.wing?.wingSauce?.map((s) => s.name) || [];
       const updatedAddOns = [...selectedAddOns];
       const selectedSauces = selectedAddOns.filter((a) => wingSauceNames.includes(a.name));
-  
+
       if (selectedSauces.length > 1) {
         // Keep only the first selected sauce
         const preserved = selectedSauces[0];
@@ -45,8 +52,8 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
         setSelectedAddOns(preserved ? [...others, preserved] : others);
       }
     }
-  }, [isTwoPounds, category, selectedAddOns]);
-  
+  }, [isTwoPounds, category, selectedAddOns]);  // This effect runs when isTwoPounds, category, or selectedAddOns changes
+
 
   if (!isOpen) return null;
 
@@ -131,6 +138,14 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
   };
 
   const handleAddToCart = () => {
+    // Check if the store is open
+    if (!status.isOpen) {
+      setStatus("error");
+      onError?.();
+      setTimeout(() => setStatus("idle"), 5000);
+      return; // Stop further execution
+    }
+  
     // Dispatch an action to update the cart with the new name if 2 pounds selected
     const updatedItem = {
       ...item,
@@ -140,7 +155,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
     };
     
     dispatch(updateCartItem(updatedItem)); // Dispatch updateCartItem action with updated name and price
-
+  
     setAlertProps({
       item: updatedItem,
       addOns: selectedAddOns,
@@ -149,6 +164,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
     });
     setShowAlert(true);
   };
+  
 
   const renderAddOnOptions = () => {
     const categoryAddOns = addOns[category];
@@ -306,7 +322,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
           ></textarea>
         </div>
 
-        {storeStatus.isOpen === false && (
+        {status.isOpen === false && (
           <Alert color="failure">
             Store is currently closed.
           </Alert>
@@ -315,7 +331,7 @@ const ItemModal = ({ isOpen, category, item, onClose }) => {
         <div className="sm:mt-6 mt-1 flex justify-center">
           <button
             onClick={handleAddToCart}
-            disabled={!storeStatus.isOpen} // Disable button if store is closed
+            disabled={!status.isOpen} // Disable button if store is closed
             className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md"
           >
             Add to Cart
