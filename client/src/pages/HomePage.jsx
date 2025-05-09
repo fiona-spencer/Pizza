@@ -13,6 +13,7 @@ import InstaPage from '../components/Main/InstaPage';
 import Contact from '../components/Main/Contact';
 import Footer from '../components/Main/Footer';
 import StarsCanvas from '../components/canvas/Stars';
+import CookieConsent from '../components/CookieConsent';
 
 import aboutBg from '../assets/aboutbg.jpg'
 
@@ -24,6 +25,7 @@ const HomePage = () => {
         <Navbar />
         <Hero />
       </div>
+      <CookieConsent />
 
       {/* About Section with Background Image */}
       <div className="relative z-10">

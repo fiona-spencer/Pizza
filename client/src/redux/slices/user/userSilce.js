@@ -6,7 +6,8 @@ const initialState = {
   isAdmin: false,         // Tracks if the user is an admin
   loading: false,
   error: null,
-};
+  acceptedCookies: false,
+  declinedCookies: false,};
 
 const userSlice = createSlice({
   name: 'user',
@@ -48,8 +49,26 @@ const userSlice = createSlice({
       state.isAuthenticated = true; // Mark the user as authenticated
       state.isAdmin = action.payload.isAdmin || false; // Mark as admin if applicable
     },
+    acceptCookies: (state) => {
+      state.acceptedCookies = true;
+      localStorage.setItem("acceptedCookies", "true"); // Changed to localStorage
+    },
+    declineCookies: (state) => {
+      state.acceptedCookies = false;
+      localStorage.removeItem("acceptedCookies"); // Removed from localStorage if declined
+    },
   },
 });
 
-export const { createUser, loginSuccess, loginFailure, logout, updateUser, setUser } = userSlice.actions;
+export const { 
+  createUser, 
+  loginSuccess, 
+  loginFailure, 
+  logout, 
+  updateUser, 
+  setUser, 
+  acceptCookies, 
+  declineCookies 
+} = userSlice.actions;
+
 export default userSlice.reducer;
