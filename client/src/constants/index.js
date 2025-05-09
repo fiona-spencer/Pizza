@@ -2,6 +2,7 @@
 import BlogImage from '../assets/AboutSection/BlogTo.svg';
 import GlobalImage from '../assets/AboutSection/global.jpg'
 import TorontoImage from '../assets/AboutSection/TorontoGaurd.svg';
+//test
 
 // Menu Images
 import { heropizza } from '../assets';
