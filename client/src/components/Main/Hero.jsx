@@ -53,7 +53,7 @@ const Hero = () => {
           <img
             src={arrowImage}
             alt="Scroll down arrow"
-            className="w-[50px] sm:w-[60px] md:w-[70px] object-contain"
+            className="w-[50px] sm:w-[60px] md:w-[70px] object-contain z-0"
           />
         </motion.div>
       </a>

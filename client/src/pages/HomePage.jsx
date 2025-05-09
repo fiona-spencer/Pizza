@@ -26,7 +26,7 @@ const HomePage = () => {
       </div>
 
       {/* About Section with Background Image */}
-      <div className="relative">
+      <div className="relative z-10">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -45,7 +45,7 @@ const HomePage = () => {
         <Pizza />
       </div>
       <Wings />
-      <Sides />
+      <Sides/>
 
       {/* Feedback, Contact, and Canvas Section */}
       <div className="  bg-[#272524ed]">

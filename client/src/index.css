@@ -325,3 +325,8 @@ input[type="checkbox"] + .toggle-label .toggle-dot {
   display: none;
 }
 
+.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}

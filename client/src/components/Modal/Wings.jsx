@@ -78,7 +78,7 @@ const Wings = () => {
           variants={fadeIn("", "", 0.1, 1)}
           className="text-[17px] lg:text-xl max-w-5xl pb-8 pt-4 text-white"
         >
-          {wing.description}
+          Crispy, juicy wings served with your choice of artisanal sauce. Served with carrots & celery with our homemade ranch or blue cheese dip.
         </motion.p>
       </div>
 
